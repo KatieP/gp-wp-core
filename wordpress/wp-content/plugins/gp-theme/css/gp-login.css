@@ -1,0 +1,83 @@
+@charset "UTF-8";
+
+body {
+	background-color: #fff;
+	font-family: Helvetica;
+	line-height: 1.5em;
+	font-size: 13px;
+	color: #666;
+	padding: 15px 0 15px 0;
+}
+
+a {
+	color: #01aed8;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #01aed8;
+	text-decoration: none;
+}
+
+.clear {
+	display: block;
+	float: none;
+	clear: both;
+}
+
+.block {
+	display: none;
+}
+
+:focus {
+	outline-color: -moz-use-text-color;
+	outline-style: none;
+	outline-width: 0pt;
+}
+
+.pos {
+	width: 972px;
+	margin: 0 auto;
+	position: relative;
+	clear: both;
+}
+
+#login {width:364px;}
+h1 a{background:url(../graphics/login-mast.gif) no-repeat top center;height:41px;width:364px;}
+
+
+#loginform {
+	background-color: #f2f2f2;
+	border-width: 8px;
+	border-color: #d5e8c2;
+	border-radius: 2px;
+}
+
+input #wp-submit
+
+{
+
+
+font-weight: 600;
+
+line-height: 32px;
+
+font-size: 11px;
+
+
+height: 33px;
+
+padding: 0 10px;
+
+
+background-color: #bbbbbb;
+
+
+
+border-radius: 2px;
+
+
+
+background-color: #61c201;
+
+}
