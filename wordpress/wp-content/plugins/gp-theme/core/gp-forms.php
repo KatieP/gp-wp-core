@@ -14,6 +14,7 @@
  * 6. How do we store array infomation in db? Serialize? Json? Implode? Give an option to choose? 
  * 7. Need to expand on form validation techniques, a lot!
  * 8. Save should skip to next incomplete form page.
+ * 9. No need for multiple pages.
  */ 
   
 function gp_publish_form() {

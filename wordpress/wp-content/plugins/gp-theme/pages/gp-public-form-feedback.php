@@ -27,7 +27,7 @@ $forms = array(
 		'db' => array(
 			'name' => $wpdb->prefix . 'gp_feedback',
 			'cols' => array (
-				'contact_email' => 		array('type' => 's', 'default' => null, 'auth' => true, 'validate' => array('empty' => array('error' => 'Email field is empty. Please fill in the required items.'), 'email' => array('error' => 'Invalid email address. Please fill in the required items.'))),
+				'contact_email' => 		array('type' => 's', 'default' => null, 'auth' => true, 'validate' => array('empty' => array('error' => 'Email field is empty. Please fill in the required items.'), 'emailaddress' => array('error' => 'Invalid email address. Please fill in the required items.'))),
 				'feedback_content' => 	array('type' => 's', 'default' => null, 'auth' => false, 'validate' => array('empty' => array('error' => 'Feedback field is empty. Please fill in the required items.'), 'short' => array('lenght' => 3, 'error' => 'Feedback field is too short. Please fill in the required items.')))
 			)
 		),
@@ -36,7 +36,7 @@ $forms = array(
 			'multi' => 'Please check the following fields and make sure they\'re <u>not empty</u> or <u>too short</u>.',
 			'empty' => 'You have 1 or more empty fields. Please fill in the required items.',
 			'short' => 'You have 1 or more fields that are too short. Please fill in the required items.',
-			'email' => 'Not a valid email address. Please fill in the required items.',
+			'emailaddress' => 'Not a valid email address. Please fill in the required items.',
 			'filesize' => 'File size too large.',
 			'filetype' => 'File type not accepted. Please upload either .jpeg, .png or .gif file.',
 			'multivalue' => 'Too many or too few values selected.'

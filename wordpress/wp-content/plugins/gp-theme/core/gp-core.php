@@ -186,7 +186,7 @@ function validate_short($value, $length) {
 	}
 }
 
-function validate_email($value) {
+function validate_emailaddress($value) {
 	if (is_email($value)) {
 		return false;
 	} else {

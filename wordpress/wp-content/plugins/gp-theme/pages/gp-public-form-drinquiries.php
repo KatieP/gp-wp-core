@@ -45,7 +45,7 @@ $forms = array(
 			'cols' => array (
 				'contact_firstname' => 	array('type' => 's', 'default' => null, 'auth' => true, 'validate' => array('empty' => array('error' => 'First Name field is empty. Please fill in the required items.'), 'short' => array('lenght' => 2, 'error' => 'First Name field is too short. Please fill in the required items.'))),
 				'contact_lastname' => 	array('type' => 's', 'default' => null, 'auth' => true, 'validate' => array('empty' => array('error' => 'Last Name field is empty. Please fill in the required items.'), 'short' => array('lenght' => 2, 'error' => 'Last Name field is too short. Please fill in the required items.'))),
-				'contact_email' => 		array('type' => 's', 'default' => null, 'auth' => true, 'validate' => array('empty' => array('error' => 'Email field is empty. Please fill in the required items.'), 'email' => array('error' => 'Invalid email address. Please fill in the required items.'))),
+				'contact_email' => 		array('type' => 's', 'default' => null, 'auth' => true, 'validate' => array('empty' => array('error' => 'Email field is empty. Please fill in the required items.'), 'emailaddress' => array('error' => 'Invalid email address. Please fill in the required items.'))),
 				'contact_phone' => 		array('type' => 's', 'default' => null, 'auth' => false, 'validate' => array('empty' => array('error' => 'Phone field is empty. Please fill in the required items.'), 'short' => array('lenght' => 6, 'error' => 'Phone field is too short. Please fill in the required items.'))),
 				'org_name' => 			array('type' => 's', 'default' => null, 'auth' => false, 'validate' => array('empty' => array('error' => 'Organization Name field is empty. Please fill in the required items.'), 'short' => array('lenght' => 3, 'error' => 'Organization Name field is too short. Please fill in the required items.'))),
 				'org_url' => 			array('type' => 's', 'default' => null, 'auth' => false),
@@ -64,12 +64,13 @@ $forms = array(
 			'multi' => 'Please check the following fields and make sure they\'re <u>not empty</u> or <u>too short</u>.',
 			'empty' => 'You have 1 or more empty fields. Please fill in the required items.',
 			'short' => 'You have 1 or more fields that are too short. Please fill in the required items.',
-			'email' => 'Not a valid email address. Please fill in the required items.',
+			'emailaddress' => 'Not a valid email address. Please fill in the required items.',
 			'filesize' => 'File size too large.',
 			'filetype' => 'File type not accepted. Please upload either .jpeg, .png or .gif file.',
 			'multivalue' => 'Too many or too few values selected.'
 		)
 	),
+	/*
 	'list-your-business-2' => array(
 		'allow_skipto' => true, 
 		'breadcrumb_displayname' => 'Achievements',
@@ -95,13 +96,12 @@ $forms = array(
 			'multi' => 'Please check the following fields and make sure they\'re <u>not empty</u> or <u>too short</u>.',
 			'empty' => 'You have 1 or more empty fields. Please fill in the required items.',
 			'short' => 'You have 1 or more fields that are too short. Please fill in the required items.',
-			'email' => 'Not a valid email address. Please fill in the required items.',
+			'emailaddress' => 'Not a valid email address. Please fill in the required items.',
 			'filesize' => 'File size too large.',
 			'filetype' => 'File type not accepted. Please upload either .jpeg, .png or .gif file.',
 			'multivalue' => 'Too many or too few values selected.'
 		)
 	),
-	/*
 	'list-your-business-3' => array(
 		'allow_skipto' => true, 
 		'breadcrumb_displayname' => 'Certifications',
@@ -115,13 +115,12 @@ $forms = array(
 			'multi' => 'Please check the following fields and make sure they\'re <u>not empty</u> or <u>too short</u>.',
 			'empty' => 'You have 1 or more empty fields. Please fill in the required items.',
 			'short' => 'You have 1 or more fields that are too short. Please fill in the required items.',
-			'email' => 'Not a valid email address. Please fill in the required items.',
+			'emailaddress' => 'Not a valid email address. Please fill in the required items.',
 			'filesize' => 'File size too large.',
 			'filetype' => 'File type not accepted. Please upload either .jpeg, .png or .gif file.',
 			'multivalue' => 'Too many or too few values selected.'
 		)
 	),
-	*/
 	'list-your-business-4' => array(
 		'allow_skipto' => true,  
 		'breadcrumb_displayname' => 'Upload media',
@@ -136,12 +135,13 @@ $forms = array(
 			'multi' => 'Please check the following fields and make sure they\'re <u>not empty</u> or <u>too short</u>.',
 			'empty' => 'You have 1 or more empty fields. Please fill in the required items.',
 			'short' => 'You have 1 or more fields that are too short. Please fill in the required items.',
-			'email' => 'Not a valid email address. Please fill in the required items.',
+			'emailaddress' => 'Not a valid email address. Please fill in the required items.',
 			'filesize' => 'File size too large.',
 			'filetype' => 'File type not accepted. Please upload either .jpeg, .png or .gif file.',
 			'multivalue' => 'Too many or too few values selected.'
 		)
 	),
+	*/
 	'list-your-business-5' => array( 
 		'redirect' => 'https://green-pages.chargify.com/h/27023/subscriptions/new?first_name={{contact_firstname}}&last_name={{contact_lastname}}&email={{contact_email}}&reference=' . $current_user->display_name, 
 		'breadcrumb_displayname' => 'Payment details',

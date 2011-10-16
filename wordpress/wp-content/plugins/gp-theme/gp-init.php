@@ -31,6 +31,12 @@ add_action('wp_login', 'gp_session_onlogin');
 add_action('wp_logout', 'gp_session_onlogout');
 add_action( 'init', 'gp_session_handler' );
 
+add_filter('admin_title', 'gp_admin_title');
+function gp_admin_title($admin_title) {
+	global $title;
+	return get_bloginfo('name') . " &rsaquo; " . wp_specialchars( strip_tags( $title ) );
+}
+
 function gp_set_core_globals() {
 	global $gp;
 	global $current_user;
@@ -65,15 +71,39 @@ function gp_plugin_scripts() {
 	wp_deregister_script('jquery');
 	wp_register_script('jquery', GP_PLUGIN_URL . '/js/jquery-1.6.4.min.js');
     wp_enqueue_script('jquery');
+    
+    if ( parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH) == "/wp-admin/profile.php" || parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH) == "/wp-admin/user-edit.php" ) {
+    	wp_register_script('gp_textareacounter', GP_PLUGIN_URL . '/js/textareacounter.js');
+    	wp_enqueue_script('gp_textareacounter');
+     }
+    
+    if ($_REQUEST['post_type'] == 'gp_events' || $_REQUEST['post_type'] == 'gp_competitions') {
+    	wp_register_style('jquery-ui', GP_PLUGIN_URL . '/css/jquery-ui-1.8.9.custom.css');
+    	wp_enqueue_style('jquery-ui');
+    	
+    	wp_register_script('jquery-ui', GP_PLUGIN_URL . '/js/jquery-ui-1.8.9.custom.min.js');
+    	wp_enqueue_script('jquery-ui');
+    	
+    	wp_register_script('jquery-ui-datepicker', GP_PLUGIN_URL . '/js/jquery.ui.datepicker.min.js');
+    	wp_enqueue_script('jquery-ui-datepicker');
+
+    	wp_register_script('pubforce-admin', GP_PLUGIN_URL . '/js/pubforce-admin.js');
+    	wp_enqueue_script('pubforce-admin');
+    }
 }
 
 function gp_login_scripts() {
 	echo '<link rel="stylesheet" href="' . GP_PLUGIN_URL . '/css/gp-login.css" type="text/css" media="all" />';
 }
 
-
 function gp_site_scripts() {
 	if(!is_admin()){
+		wp_register_style('reset', GP_PLUGIN_URL . '/css/reset.css');
+    	wp_enqueue_style('reset');
+		
+		wp_register_style('generic', get_bloginfo('template_url') . '/template/generic.css');
+    	wp_enqueue_style('generic');
+		
 		wp_deregister_script('jquery');
 		wp_register_script('jquery', GP_PLUGIN_URL . '/js/jquery-1.6.4.min.js');
     	wp_enqueue_script('jquery');
@@ -81,6 +111,29 @@ function gp_site_scripts() {
     	// Required for both Pirobox and File Upload. Must be at Footer for File Upload.
 		wp_register_script('jquery-ui', GP_PLUGIN_URL . '/js/jquery-ui-1.8.16.min.js', false, false, true);
 	    wp_enqueue_script('jquery-ui');
+	    
+	    wp_register_script('pirobox-extended', GP_PLUGIN_URL . '/js/pirobox_extended/js/pirobox_extended.js');
+	    wp_enqueue_script('pirobox-extended');
+		
+		if ($current_user->subscription["subscription-greenrazor"] != "true" || !is_user_logged_in()) {
+			wp_register_script('boxy', GP_PLUGIN_URL . '/js/jquery.boxy.js');
+	   		wp_enqueue_script('boxy');	
+		}
+		
+	    wp_register_script('account-menu', GP_PLUGIN_URL . '/js/account-menu.js');
+	    wp_enqueue_script('account-menu');
+	    
+	    wp_register_script('directory-menu', GP_PLUGIN_URL . '/js/directory-menu.js');
+	    wp_enqueue_script('directory-menu');
+	    
+	    wp_register_script('followus-nav', GP_PLUGIN_URL . '/js/followus-nav.js');
+	    wp_enqueue_script('followus-nav');
+	    
+	    wp_register_script('like', GP_PLUGIN_URL . '/js/like.js');
+	    wp_enqueue_script('like');
+	    
+	    wp_register_script('footer', GP_PLUGIN_URL . '/js/footer.js');
+	    wp_enqueue_script('footer');
 
 	    #if (basename(get_permalink()) == 'list-your-business-4') {
 		    wp_register_script('jquery-templates', 'http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js', false, false, true);
@@ -104,6 +157,23 @@ function gp_site_scripts() {
 		    wp_register_style('fileupload-ui', GP_PLUGIN_URL . '/css/jquery.fileupload-ui.css');
 		    wp_enqueue_style('fileupload-ui');
 	    #}
+    	
+		if ($current_user->subscription["subscription-greenrazor"] != "true" || !is_user_logged_in()) {
+			wp_register_style('boxy', GP_PLUGIN_URL . '/js/boxy.css');
+    		wp_enqueue_style('boxy');
+		}
+		
+		wp_register_style('pirobox-style', GP_PLUGIN_URL . '/js/pirobox_extended/css_pirobox/style_2/style.css');
+    	wp_enqueue_style('pirobox-style');
+    	
+    	wp_register_style('pirobox-css', GP_PLUGIN_URL . '/js/pirobox_extended/css/css.css');
+    	wp_enqueue_style('pirobox-css');
+    	
+    	wp_register_style('pirobox-default', GP_PLUGIN_URL . '/js/pirobox_extended/content/css/default.css');
+    	wp_enqueue_style('pirobox-default');
+		
+		wp_register_style('pirobox-stylesheet', GP_PLUGIN_URL . '/js/pirobox_extended/css/sansation/stylesheet.css');
+    	wp_enqueue_style('pirobox-stylesheet');
 	}
 }
 

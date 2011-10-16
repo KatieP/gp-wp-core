@@ -1,0 +1,77 @@
+.boxy-wrapper { position: absolute; }
+.boxy-wrapper.fixed { position: fixed; }
+
+  /* Modal */
+  
+  .boxy-modal-blackout { position: absolute; background-color:#ccc; left: 0; top: 0; }
+  
+  /* Border */
+
+  .boxy-wrapper {background-color: #f2f2f2;border: 8px solid #d5e8c2; text-align:left; border-radius:0 0 6px 6px; -moz-border-radius-bottomleft:6px; -webkit-border-bottom-left-radius:6px; -moz-border-radius-bottomright:6px; -webkit-border-bottom-right-radius:6px; box-shadow:0 0 32px #000; -moz-box-shadow:0 0 32px #666; -webkit-box-shadow:0 0 32px #000;}
+	
+	/* Title bar */
+	
+	.boxy-wrapper .title-bar { color:#000; background-color:#ddd; border-bottom:1px solid #ccc; padding:6px 16px; }
+	  .boxy-wrapper .title-bar.dragging { cursor: move; }
+	    .boxy-wrapper .title-bar h2 { color:#000; font-size:16px;font-weight:bold; }
+	    .boxy-wrapper .title-bar .close { color:#666; font-size:12px; text-align:left; position: absolute; top: 6px; right: 6px; }
+		
+	/* Content Region */
+	
+	.boxy-inner { background-color: white; }
+	.boxy-content { padding: 10px 15px 4px 15px;}
+	
+	/* Question Boxes */
+
+    .boxy-wrapper .question { width: 350px; min-height: 80px; }
+    .boxy-wrapper .answers { text-align: right; }
+
+
+.boxy-wrapper input[type="text"], .boxy-wrapper input[type="password"], textarea {
+	display: block;
+	height: 25px;
+	font-size:16px;
+	font-family: Helvetica;
+	color: grey;
+	padding: 10px;
+	margin: 8px 8px 16px 0;
+	background-color: #fff;
+	border: 1px solid #ccc;
+		-moz-border-radius: 2px;
+		-webkit-border-radius: 2px;
+	border-radius: 2px;
+	width: 250px;	
+}
+
+.boxy-wrapper input[type="button"], .boxy-wrapper input[type="reset"], .boxy-wrapper input[type="submit"] {
+	color: #fff;
+	font-weight: 600;
+	line-height: 32px;
+	font-size: 11px;
+	display: block;
+	height: 33px;
+	padding: 0 10px 0 10px;
+	background-color: #bbb;
+	float: left;
+	margin: 6px 10px 10px 0;
+	border: 0;
+		-moz-border-radius: 2px;
+		-webkit-border-radius: 2px;
+	border-radius: 2px;
+	cursor: pointer;
+}
+
+.boxy-wrapper input[type="button"] {
+	float: right;
+}
+
+.boxy-wrapper input[type="submit"] {
+	background-color: #61c201; 
+	float: right;
+}
+
+.boxy-wrapper label {
+	font-weight: 600;
+	color: #01aed8;
+	font-size: 12px;
+}
