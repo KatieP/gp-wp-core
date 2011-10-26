@@ -1,5 +1,8 @@
 syntax: regexp
 
+# greenpages theme directory is handled by other repos
+^wordpress/wp-content/themes/greenpages/.*
+
 # mac OS adds these
 .*\.DS_Store
 
@@ -19,15 +22,16 @@ syntax: regexp
 ^wordpress/wp-commentsrss2.php
 ^wordpress/wp-config-sample.php
 ^wordpress/wp-content/index.php
-^wordpress/wp-content/plugins/akismet*
+^wordpress/wp-content/plugins/akismet.*
+^wordpress/wp-content/plugins/email-alerts.*
 ^wordpress/wp-content/plugins/hello.php
 ^wordpress/wp-content/plugins/index.php
 ^wordpress/wp-content/themes/index.php
-^wordpress/wp-content/themes/twentyeleven*
-^wordpress/wp-content/themes/twentyten*
+^wordpress/wp-content/themes/twentyeleven.*
+^wordpress/wp-content/themes/twentyten.*
 ^wordpress/wp-cron.php
 ^wordpress/wp-feed.php
-^wordpress/wp-includes*
+^wordpress/wp-includes.*
 ^wordpress/wp-links-opml.php
 ^wordpress/wp-load.php
 ^wordpress/wp-login.php
