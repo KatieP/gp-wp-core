@@ -15,6 +15,7 @@ define( 'GP_PLUGIN_DIR', WP_PLUGIN_DIR . '/gp-theme' );
 define( 'GP_PLUGIN_URL', plugins_url( '/gp-theme' ) );
 
 require_once( GP_PLUGIN_DIR . '/core/gp-core.php' );
+require_once( GP_PLUGIN_DIR . '/core/gp-email-notification.php' );
 require_once( GP_PLUGIN_DIR . '/pages/gp-shortcodes.php' );
 
 add_action( 'init', 'gp_set_core_globals' );
