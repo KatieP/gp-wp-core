@@ -99,4 +99,9 @@ function gp_shortcode_drinquiries( $atts ) {
 	require_once( GP_PLUGIN_DIR . '/pages/gp-public-form-drinquiries.php' );
 }
 add_shortcode( 'gp-directory-form', 'gp_shortcode_drinquiries' );
+
+function gp_shortcode_mu_registration( $atts ) {
+	require_once( GP_PLUGIN_DIR . '/pages/gp-public-form-registration.php' );
+}
+add_shortcode( 'gp-registration-form', 'gp_shortcode_mu_registration' );
 ?>
