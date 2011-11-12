@@ -173,6 +173,7 @@ RewriteRule ^index\.php$ - [L]
 
 # multisite registration
 RewriteRule ^wp-signup\.php$ /register [R,NC,L]
+RewriteRule ^wp-activate\.php$ /activate [R,NC,L]
 
 # uploaded files
 RewriteRule ^files/(.+) wp-includes/ms-files.php?file=$1 [L]

@@ -93,7 +93,6 @@ function gp_shortcode_contentpartnerslist( $atts ) {
 }
 add_shortcode( 'gp-contentpartners', 'gp_shortcode_contentpartnerslist' );
 
-
 function gp_shortcode_drinquiries( $atts ) {
 	if (!check_slug_optionlist('gp_drinquiries_pages')) { return false; }
 	require_once( GP_PLUGIN_DIR . '/pages/gp-public-form-drinquiries.php' );
@@ -104,4 +103,9 @@ function gp_shortcode_mu_registration( $atts ) {
 	require_once( GP_PLUGIN_DIR . '/pages/gp-public-form-registration.php' );
 }
 add_shortcode( 'gp-registration-form', 'gp_shortcode_mu_registration' );
+
+function gp_shortcode_mu_activation( $atts ) {
+	require_once( GP_PLUGIN_DIR . '/pages/gp-public-form-activation.php' );
+}
+add_shortcode( 'gp-activation-form', 'gp_shortcode_mu_activation' );
 ?>
