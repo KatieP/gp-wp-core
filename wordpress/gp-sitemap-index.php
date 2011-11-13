@@ -8,7 +8,7 @@ global $wpdb;
 global $newposttypes;
 global $sitemaptypes;
 
-$querystr = "SELECT s.post_type, s.post_date FROM (SELECT post_type, max(post_date) AS mpd FROM wp_posts WHERE post_status = 'publish' GROUP BY post_type) AS f INNER JOIN wp_posts AS s ON s.post_type = f.post_type AND s.post_date = f.mpd ORDER BY f.mpd DESC LIMIT 10;";
+$querystr = "SELECT s.post_type, s.post_date FROM (SELECT post_type, max(post_date) AS mpd FROM " . $wpdb->prefix . "posts WHERE post_status = 'publish' GROUP BY post_type) AS f INNER JOIN " . $wpdb->prefix . "posts AS s ON s.post_type = f.post_type AND s.post_date = f.mpd ORDER BY f.mpd DESC LIMIT 10;";
 $postdates = $wpdb->get_results($querystr, OBJECT);
 $numPosts = $wpdb->num_rows-1;
 
