@@ -15,7 +15,7 @@ $forms = array(
 	'advertise-with-us' => array(
 		'breadcrumb_displayname' => 'Submit Your Inquiry',
 		'email_notification' => array(
-			'subject' => '[GreenPages] New Advertising Inquiry',
+			'subject' => '[' . get_option('gp_fullcompanyname') . '] New Advertising Inquiry',
 			'message' => "<b>Received:</b> {$received}<br />
 				<br />
 				<b>Company/Org Name:</b> {{org_name}}<br />

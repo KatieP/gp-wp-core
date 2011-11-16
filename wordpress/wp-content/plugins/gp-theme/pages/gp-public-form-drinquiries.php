@@ -1,5 +1,5 @@
 <?php
-global $wpdb, $current_user, $wpdb;
+global $wpdb, $current_user, $wpdb, $current_site;
 
 global $form_id, $forms;
 require_once( GP_PLUGIN_DIR . '/core/gp-forms.php' );
@@ -16,7 +16,7 @@ $forms = array(
 		'allow_skipto' => true, 
 		'breadcrumb_displayname' => 'Contact & business details',
 		'email_notification' => array(
-			'subject' => '[Green Pages] New Directory Inquiry',
+			'subject' => '[' . get_option('gp_fullcompanyname') . '] New Directory Inquiry',
 			'message' => "<b>Received:</b> {$received}<br />
 				<br />
 				<b>Company/Org Name:</b> {{org_name}}<br />
@@ -157,6 +157,12 @@ $forms = array(
 $form_data = gp_publish_form();
 
 $states_au = array('NSW', 'QLD', 'VIC', 'WA', 'SA', 'NT', 'ACT', 'TAS');
+$states_us = array('AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 
+'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 
+'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 
+'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 
+'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY', 'AS', 'PR', 
+'VI');
 
 ?>
 
@@ -260,14 +266,24 @@ $states_au = array('NSW', 'QLD', 'VIC', 'WA', 'SA', 'NT', 'ACT', 'TAS');
 		<tr><td>
 			<input type="text" name="org_city" id="org_city" autocomplete="off" maxlength="255" value="<?php echo $form_data['data']['org_city']; ?>" <?php if ($form_data['error']['org_city']) {echo 'style="border-color:red;"';} ?> />
 		</td><td>
+			<?php if (isset($current_site->id)) { ?>
 			<select name="org_state" id="org_state">
 				<?php
-				foreach ($states_au as $state) {
+				if ($current_site->id == 1) {
+					$states = $states_au;
+				}
+				
+				if ($current_site->id == 2) {
+					$states = $states_us;
+				}
+				
+				foreach ($states as $state) {
 					if ($state == $form_data['data']['org_state']) {$state_selected = ' selected';} else {$state_selected = '';}
-  					echo '<option value="' . $state . '"' . $state_selected . '>' . $state . '</option>';
+	  				echo '<option value="' . $state . '"' . $state_selected . '>' . $state . '</option>';
 				}
   				?> 									
 			</select>
+			<?php } ?>
 		</td></tr>
 		<tr><td>
 			<label>Facebook Page</label>
