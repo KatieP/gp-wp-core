@@ -74,7 +74,7 @@ jQuery(function ($) {
 						var p = s.url.split('=');
 						form.append($('<input type="hidden" name="redirect_to">').val(unescape(p[1])));
 					}
-
+					console.log(form[0].action);
 					$.ajax({
 						url: form[0].action,
 						data: form.serialize(),
@@ -83,7 +83,7 @@ jQuery(function ($) {
 						success: function (resp) {
 							var data = $(document.createElement('div')).html(resp),
 								redirect = $('#simplemodal-login-redirect', data[0]);
-
+							
 							if (redirect.length) {
 								var href = location.href;
 								if (redirect.html().length) {
@@ -95,7 +95,7 @@ jQuery(function ($) {
 								var error = $('#login_error', data[0]),
 								message = $('.message', data[0]),
 								loginform = $(s.form, data[0]);
-
+								
 								if (error.length) {
 									error.find('a').addClass('simplemodal-forgotpw');
 									$('p:first', form[0]).before(error);

@@ -52,7 +52,8 @@ function gp_core_create_tables() {
 		USER_AGENT VARCHAR(255) NOT NULL,
 		REMOTE_ADDR VARCHAR(255) NOT NULL,
 		HTTP_REFERER VARCHAR(255) NOT NULL,
-		session_id VARCHAR(255) NOT NULL
+		session_id VARCHAR(255) NOT NULL,
+		SITE_ID BIGINT(20) NOT NULL 
 	)" . $charset_collate. ";";
 	
 	$sql[] = "CREATE TABLE " . $wpdb->prefix . "gp_adinquiries (
@@ -72,7 +73,8 @@ function gp_core_create_tables() {
 		USER_AGENT VARCHAR(255) NOT NULL,
 		REMOTE_ADDR VARCHAR(255) NOT NULL,
 		HTTP_REFERER VARCHAR(255) NOT NULL,
-		session_id VARCHAR(255) NOT NULL
+		session_id VARCHAR(255) NOT NULL,
+		SITE_ID BIGINT(20) NOT NULL
 		
 	)" . $charset_collate. ";";
 	
@@ -91,7 +93,8 @@ function gp_core_create_tables() {
 		USER_AGENT VARCHAR(255) NOT NULL,
 		REMOTE_ADDR VARCHAR(255) NOT NULL,
 		HTTP_REFERER VARCHAR(255) NOT NULL,
-		session_id VARCHAR(255) NOT NULL
+		session_id VARCHAR(255) NOT NULL,
+		SITE_ID BIGINT(20) NOT NULL
 	)" . $charset_collate. ";";
 
 	$sql[] = "CREATE TABLE " . $wpdb->prefix . "gp_ecocerts (
@@ -102,7 +105,8 @@ function gp_core_create_tables() {
   		org_logo_thumb VARCHAR(255) NOT NULL,
   		org_contact_email VARCHAR(255) NOT NULL,
   		org_siteurl VARCHAR(255) NOT NULL,
-  		org_reach VARCHAR(255) NOT NULL
+  		org_reach VARCHAR(255) NOT NULL,
+  		SITE_ID BIGINT(20) NOT NULL
 	)" . $charset_collate . ";";
 	
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );

@@ -15,7 +15,7 @@ $forms = array(
 	'feedback' => array( 
 		'breadcrumb_displayname' => 'Submit Your Feedback',
 		'email_notification' => array(
-			'subject' => '[GreenPages] New Feedback',
+			'subject' => '[' . get_option('gp_fullcompanyname') . '] New Feedback',
 			'message' => "<b>Received:</b> {$received}<br />
 				<br />
 				<b>From:</b> {{contact_email}}<br />

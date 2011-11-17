@@ -18,12 +18,18 @@
  */ 
   
 function gp_publish_form() {
-	global $current_user, $forms, $systemformvars, $return_data, $return_results, $errors, $UID, $post_data, $form_id, $default_error_msgs;
+	global $current_user, $forms, $systemformvars, $return_data, $return_results, $errors, $UID, $post_data, $form_id, $default_error_msgs, $current_site;
 
 	if (is_user_logged_in()) {
 		$UID = $current_user->ID;
 	} else {
 		$UID = 0;
+	}
+	
+	if (isset($current_site->id)) {
+		$SITE_ID = $current_site->id;
+	} else {
+		$SITE_ID = 0;
 	}
 	
 	$systemformvars = array(
@@ -35,7 +41,8 @@ function gp_publish_form() {
 		'USER_AGENT' => 	array('type' => 's', 'default' => cleanstring($_SERVER['HTTP_USER_AGENT']), 'auth' => false),
 		'REMOTE_ADDR' => 	array('type' => 's', 'default' => cleanstring($_SERVER['REMOTE_ADDR']), 'auth' => false),
 		'HTTP_REFERER' => 	array('type' => 's', 'default' => cleanstring($_SERVER['HTTP_REFERER']), 'auth' => false),	
-		'session_id' => 	array('type' => 's', 'where' => true, 'default' => session_id(), 'auth' => false)
+		'session_id' => 	array('type' => 's', 'where' => true, 'default' => session_id(), 'auth' => false),
+		'SITE_ID' => 		array('type' => 'd', 'default' => $SITE_ID, 'auth' => false)
 	);
 	
 	$default_error_msgs = array(
