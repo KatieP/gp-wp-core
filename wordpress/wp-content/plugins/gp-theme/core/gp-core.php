@@ -14,7 +14,7 @@ function gp_core_create_tables() {
 		$charset_collate = " DEFAULT CHARACTER SET " . $wpdb->charset;
 	}
 		
-	$sql[] = "CREATE TABLE " . $wpdb->prefix . "gp_drinquiries (
+	$sql[] = "CREATE TABLE " . $wpdb->base_prefix . "gp_drinquiries (
 		ID BIGINT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY, 
 		org_name VARCHAR(255) NOT NULL,  
 		org_url VARCHAR(255) NOT NULL, 
@@ -56,7 +56,7 @@ function gp_core_create_tables() {
 		SITE_ID BIGINT(20) NOT NULL 
 	)" . $charset_collate. ";";
 	
-	$sql[] = "CREATE TABLE " . $wpdb->prefix . "gp_adinquiries (
+	$sql[] = "CREATE TABLE " . $wpdb->base_prefix . "gp_adinquiries (
 		ID BIGINT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY, 
 		org_name VARCHAR(255) NOT NULL, 
 		notes LONGTEXT NOT NULL, 
@@ -78,9 +78,9 @@ function gp_core_create_tables() {
 		
 	)" . $charset_collate. ";";
 	
-	#$sql[] = "CREATE TABLE " . $wpdb->prefix . "gp_cpinquiries (ID BIGINT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY, UID BIGINT(20) NOT NULL)" . $charset_collate. ";";
+	#$sql[] = "CREATE TABLE " . $wpdb->base_prefix . "gp_cpinquiries (ID BIGINT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY, UID BIGINT(20) NOT NULL)" . $charset_collate. ";";
 	
-	$sql[] = "CREATE TABLE " . $wpdb->prefix . "gp_feedback (
+	$sql[] = "CREATE TABLE " . $wpdb->base_prefix . "gp_feedback (
 		ID BIGINT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY, 
 		UID BIGINT(20) NOT NULL, 
 		contact_email VARCHAR(255) NOT NULL, 
@@ -97,7 +97,7 @@ function gp_core_create_tables() {
 		SITE_ID BIGINT(20) NOT NULL
 	)" . $charset_collate. ";";
 
-	$sql[] = "CREATE TABLE " . $wpdb->prefix . "gp_ecocerts (
+	$sql[] = "CREATE TABLE " . $wpdb->base_prefix . "gp_ecocerts (
 		ID BIGINT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   		org_name VARCHAR(255) NOT NULL,
   		org_abbr VARCHAR(255) NOT NULL,

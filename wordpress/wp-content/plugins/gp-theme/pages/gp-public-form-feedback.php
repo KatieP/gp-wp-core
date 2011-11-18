@@ -25,7 +25,7 @@ $forms = array(
 				<br />"
 		),
 		'db' => array(
-			'name' => $wpdb->prefix . 'gp_feedback',
+			'name' => $wpdb->base_prefix . 'gp_feedback',
 			'cols' => array (
 				'contact_email' => 		array('type' => 's', 'default' => null, 'auth' => true, 'validate' => array('empty' => array('error' => 'Email field is empty. Please fill in the required items.'), 'emailaddress' => array('error' => 'Invalid email address. Please fill in the required items.'))),
 				'feedback_content' => 	array('type' => 's', 'default' => null, 'auth' => false, 'validate' => array('empty' => array('error' => 'Feedback field is empty. Please fill in the required items.'), 'short' => array('lenght' => 3, 'error' => 'Feedback field is too short. Please fill in the required items.')))

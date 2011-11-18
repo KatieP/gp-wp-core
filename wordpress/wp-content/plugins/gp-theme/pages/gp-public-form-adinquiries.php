@@ -32,7 +32,7 @@ $forms = array(
 				<br />"
 		),
 		'db' => array(
-			'name' => $wpdb->prefix . 'gp_adinquiries',
+			'name' => $wpdb->base_prefix . 'gp_adinquiries',
 			'cols' => array (
 				'contact_firstname' => 	array('type' => 's', 'default' => null, 'auth' => true, 'validate' => array('empty' => array('error' => 'First Name field is empty. Please fill in the required items.'), 'short' => array('lenght' => 2, 'error' => 'First Name field is too short. Please fill in the required items.'))),
 				'contact_lastname' => 	array('type' => 's', 'default' => null, 'auth' => true, 'validate' => array('empty' => array('error' => 'Last Name field is empty. Please fill in the required items.'), 'short' => array('lenght' => 2, 'error' => 'Last Name field is too short. Please fill in the required items.'))),
