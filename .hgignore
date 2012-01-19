@@ -26,6 +26,7 @@ syntax: regexp
 ^wordpress/wp-content/plugins/email-alerts.*
 ^wordpress/wp-content/plugins/hello.php
 ^wordpress/wp-content/plugins/index.php
+wordpress/wp-content/plugins/feedwordpress.*
 ^wordpress/wp-content/themes/index.php
 ^wordpress/wp-content/themes/twentyeleven.*
 ^wordpress/wp-content/themes/twentyten.*
