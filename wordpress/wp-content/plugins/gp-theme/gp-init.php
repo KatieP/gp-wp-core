@@ -10,7 +10,7 @@ License:
 */
 
 define( 'GP_VERSION', '0.1' );
-define( 'GP_DB_VERSION', '0.3' );
+define( 'GP_DB_VERSION', '0.4' );
 define( 'GP_PLUGIN_DIR', WP_PLUGIN_DIR . '/gp-theme' );
 define( 'GP_PLUGIN_URL', plugins_url( '/gp-theme' ) );
 
@@ -31,6 +31,35 @@ add_action('login_head', 'gp_login_scripts');
 add_action('wp_login', 'gp_session_onlogin');
 add_action('wp_logout', 'gp_session_onlogout');
 add_action( 'init', 'gp_session_handler' );
+
+
+function default_login_redirect( $redirect, $request_redirect )
+{
+    if ( $request_redirect === '' )
+        $redirect = home_url();
+    return $redirect; 
+}
+add_filter( 'login_redirect', 'default_login_redirect', 10, 2 );
+
+function sanitize_username( $username, $raw_username, $strict ) {
+	$username = $raw_username;
+	$username = wp_strip_all_tags( $username );
+	$username = remove_accents( $username );
+	// Kill octets
+	$username = preg_replace( '|%([a-fA-F0-9][a-fA-F0-9])|', '', $username );
+	$username = preg_replace( '/&.+?;/', '', $username ); // Kill entities
+
+	// If strict, reduce to ASCII for max portability.
+	if ( $strict )
+		$username = preg_replace( '|[^a-zA-Z0-9 _.\-]|i', '', $username );
+
+	$username = trim( $username );
+	// Consolidate contiguous whitespace
+	$username = preg_replace( '|\s+|', ' ', $username );
+
+	return $username;
+}
+add_filter( 'sanitize_user', 'sanitize_username', 10, 3 );
 
 add_filter('admin_title', 'gp_admin_title');
 function gp_admin_title($admin_title) {
@@ -85,7 +114,7 @@ function gp_plugin_scripts() {
     	wp_register_script('jquery-ui', GP_PLUGIN_URL . '/js/jquery-ui-1.8.9.custom.min.js');
     	wp_enqueue_script('jquery-ui');
     	
-    	wp_register_script('jquery-ui-datepicker', GP_PLUGIN_URL . '/js/jquery.ui.datepicker.min.js');
+    	wp_register_script('jquery-ui-datepicker', GP_PLUGIN_URL . '/js/jquery.ui.datepicker.js');
     	wp_enqueue_script('jquery-ui-datepicker');
 
     	wp_register_script('pubforce-admin', GP_PLUGIN_URL . '/js/pubforce-admin.js');
@@ -99,16 +128,13 @@ function gp_login_scripts() {
 
 function gp_site_scripts() {
 	global $current_user;
-	
+
 	if(!is_admin()){
 		wp_register_style('reset', GP_PLUGIN_URL . '/css/reset.css');
     	wp_enqueue_style('reset');
 		
 		wp_register_style('generic', get_bloginfo('template_url') . '/template/generic.css');
     	wp_enqueue_style('generic');
-    	
-    	wp_register_style('jquery-ui-custom', get_bloginfo('template_url') . '/template/jquery-ui-1.8.16.custom.css');
-    	wp_enqueue_style('jquery-ui-custom');
 		
 		wp_deregister_script('jquery');
 		wp_register_script('jquery', GP_PLUGIN_URL . '/js/jquery-1.6.4.min.js');
@@ -140,6 +166,11 @@ function gp_site_scripts() {
 	    
 	    wp_register_script('footer', GP_PLUGIN_URL . '/js/footer.js');
 	    wp_enqueue_script('footer');
+
+	    if (get_post_type() != "page") {
+		wp_register_script('gp_socialbar', GP_PLUGIN_URL . '/js/gp_socialbar.js');
+		wp_enqueue_script('gp_socialbar');
+	    }
 
 	    #if (basename(get_permalink()) == 'list-your-business-4') {
 		    wp_register_script('jquery-templates', 'http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js', false, false, true);

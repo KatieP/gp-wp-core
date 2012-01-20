@@ -53,7 +53,7 @@ function gp_core_create_tables() {
 		REMOTE_ADDR VARCHAR(255) NOT NULL,
 		HTTP_REFERER VARCHAR(255) NOT NULL,
 		session_id VARCHAR(255) NOT NULL,
-		SITE_ID BIGINT(20) NOT NULL 
+		SITE_ID BIGINT(20) NOT NULL
 	)" . $charset_collate. ";";
 	
 	$sql[] = "CREATE TABLE " . $wpdb->base_prefix . "gp_adinquiries (
@@ -75,7 +75,6 @@ function gp_core_create_tables() {
 		HTTP_REFERER VARCHAR(255) NOT NULL,
 		session_id VARCHAR(255) NOT NULL,
 		SITE_ID BIGINT(20) NOT NULL
-		
 	)" . $charset_collate. ";";
 	
 	#$sql[] = "CREATE TABLE " . $wpdb->base_prefix . "gp_cpinquiries (ID BIGINT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY, UID BIGINT(20) NOT NULL)" . $charset_collate. ";";
@@ -106,7 +105,7 @@ function gp_core_create_tables() {
   		org_contact_email VARCHAR(255) NOT NULL,
   		org_siteurl VARCHAR(255) NOT NULL,
   		org_reach VARCHAR(255) NOT NULL,
-  		SITE_ID BIGINT(20) NOT NULL
+		SITE_ID BIGINT(20) NOT NULL
 	)" . $charset_collate . ";";
 	
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );

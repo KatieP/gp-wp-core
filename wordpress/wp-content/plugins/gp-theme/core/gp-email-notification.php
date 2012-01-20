@@ -1,6 +1,6 @@
 <?php
-
-function wp_new_user_notification($user_id, $plaintext_pass = '') {
+add_filter( 'wpmu_welcome_user_notification', 'gp_wpmu_welcome_user_notification', 10, 2 );
+function gp_wpmu_welcome_user_notification($user_id, $plaintext_pass = '') {
   $user = new WP_User($user_id);
 
   $user_login = stripslashes($user->user_login);
@@ -20,7 +20,7 @@ function wp_new_user_notification($user_id, $plaintext_pass = '') {
   if ( empty($plaintext_pass) )
     return;
 
-  $bcc = "scmelton@gmail.com, katiepatrickgp@gmail.com";
+  $bcc = "eddy.repsondek@gmail.com, scmelton@gmail.com, katiepatrickgp@gmail.com";
 
   $headers  = 'Content-type: text/html' . "\r\n";
   $headers .= 'Bcc: ' . $bcc . "\r\n";
@@ -146,5 +146,4 @@ function wp_new_user_notification($user_id, $plaintext_pass = '') {
 
   wp_mail($user_email, sprintf(__('[%s] Site Registration'), $blogname), $message, $headers);
 }
-
 ?>
