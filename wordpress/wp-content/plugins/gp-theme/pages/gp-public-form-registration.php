@@ -39,7 +39,6 @@ function signup_user($user_name = '', $user_email = '', $errors = '') {
 	$user_name = $filtered_results['user_name'];
 	$user_email = $filtered_results['user_email'];
 	$errors = $filtered_results['errors'];
-
 	?>
 	
 	<h3><?php printf( __( 'Get your own %s account in seconds' ), $current_site->site_name ) ?></h3>
@@ -47,6 +46,7 @@ function signup_user($user_name = '', $user_email = '', $errors = '') {
 		<input type="hidden" name="stage" value="validate-user-signup" />
 		<?php do_action( 'signup_hidden_fields' ); ?>
 		<?php show_user_form($user_name, $user_email, $errors); ?>
+		<input id="signupblog" type="hidden" name="signup_for" value="user" />
 		<p class="submit"><input type="submit" name="submit" class="submit" value="<?php esc_attr_e('Create your account now!') ?>" /></p>
 	</form>
 	<?php
@@ -56,15 +56,18 @@ function validate_user_signup() {
 	$result = validate_user_form();
 	extract($result);
 
+	#$username = $user_name;
+	$username = sanitize_user($user_name, true);
+	
 	if ( isset( $errors->errors['user_name'] ) ) {
 		if ( in_array('Only lowercase letters (a-z) and numbers are allowed.', $errors->errors['user_name']) ) {
+
 			unset($errors->errors['user_name']);
-			
-			$username = $result['user_name'];
+			/*
 			$raw_username = $username;
 			$username = wp_strip_all_tags( $username );
 			$username = remove_accents( $username );
-			
+
 			// Kill octets
 			$username = preg_replace( '|%([a-fA-F0-9][a-fA-F0-9])|', '', $username );
 			$username = preg_replace( '/&.+?;/', '', $username ); // Kill entities
@@ -74,24 +77,34 @@ function validate_user_signup() {
 			
 			// Consolidate contiguous whitespace
 			$username = preg_replace( '|\s+|', ' ', $username );
-			
-			if ($username != $raw_username) {
-				$errors->add( 'user_name', __( 'This username is invalid because it uses illegal characters. Please enter a valid username.' ) );
+			*/
+			if ($username != $user_name) {
+				$errors->add( 'user_name', __( 'Only alphanumerics, underscores, hyphens, periods and single spaces are allowed.' ) );
 			}
+			
 		}
 	}
-
 	if ( $errors->get_error_code() ) {
 		return $errors;
 	}
 	
-	global $wpdb;
+	global $wpdb, $current_site;
 	
 	// Format data
-	$user_email = sanitize_email( $user_email );
 	$key = substr( md5( time() . rand() . $user_email ), 0, 16 );
-	$meta = serialize(apply_filters( 'add_signup_meta', array() ));
+	// $meta = serialize(apply_filters( 'add_signup_meta', array() ));
 	
+	if($current_site->id) {
+		$meta = array(
+			'add_to_blog' => $current_site->id,
+			'new_role' => 'subscriber'
+		);
+	} else {
+		$meta = array();
+	}
+
+	$meta = serialize($meta);
+
 	$wpdb->insert( $wpdb->signups, array(
 		'domain' => '',
 		'path' => '',
@@ -103,7 +116,35 @@ function validate_user_signup() {
 		'meta' => $meta
 	) );
 
-	wpmu_signup_user_notification($username, $user_email, $key, $meta);
+#wpmu_signup_user_notification($username, $user_email, $key, $meta);
+
+	$nicename = sanitize_title( $username );
+
+	// Send email with activation link.
+	$subject = 'Your activation key for Green Pages';
+	$message_headers = "From: \"Green Pages\" <no-reply@thegreenpages.com.au}>\n" . "Content-Type: text/plain; charset=\"" . get_option('blog_charset') . "\"\n";
+	$message = sprintf(
+		"Hi there, %s!
+
+		Please click the link below to confirm that you have signed up for an Green Pages account:
+
+		%s
+
+		If you do not activate your account it will automatically be closed after 2 days.
+
+		Your user name is: %s
+		Your profile can be accessed at: %s
+
+		Have a great day!
+
+		Cheers,
+		\tThe Green Pages Team",
+		$username,
+		site_url( "activate/?key=$key" ),
+		$user_email,
+		site_url( "profile/$nicename")
+	);
+	wp_mail($user_email, $subject, $message, $message_headers);
 
 	confirm_user_signup($username, $user_email);
 	return true;

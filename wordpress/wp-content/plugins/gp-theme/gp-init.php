@@ -167,10 +167,11 @@ function gp_site_scripts() {
 	    wp_register_script('footer', GP_PLUGIN_URL . '/js/footer.js');
 	    wp_enqueue_script('footer');
 
-	    if (get_post_type() != "page") {
-		wp_register_script('gp_socialbar', GP_PLUGIN_URL . '/js/gp_socialbar.js');
-		wp_enqueue_script('gp_socialbar');
-	    }
+		global $post;
+		if (get_post_type($post->ID) != "page") {
+			wp_register_script('gp_socialbar', GP_PLUGIN_URL . '/js/gp_socialbar.js');
+			wp_enqueue_script('gp_socialbar');
+		}
 
 	    #if (basename(get_permalink()) == 'list-your-business-4') {
 		    wp_register_script('jquery-templates', 'http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js', false, false, true);

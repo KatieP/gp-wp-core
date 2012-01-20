@@ -42,7 +42,7 @@ add_action( 'wp_head', 'do_activate_header' );
 
 if ( empty($_GET['key']) && empty($_POST['key']) ) { ?>
 
-	<h3><?php _e('Activation Key Required') ?></h3>
+	<h2><?php _e('Activation Key Required') ?></h2>
 	<form name="activateform" id="activateform" method="post" action="/activate">
 		<p>
 		    <label for="key"><?php _e('Activation Key:') ?></label>
@@ -61,7 +61,7 @@ if ( empty($_GET['key']) && empty($_POST['key']) ) { ?>
 		if ( 'already_active' == $result->get_error_code() || 'blog_taken' == $result->get_error_code() ) {
 		    $signup = $result->get_error_data();
 			?>
-			<h3><?php _e('Your account is now active!'); ?></h3>
+			<h2><?php _e('Your account is now active!'); ?></h2>
 			<?php
 			echo '<p class="lead-in">';
 			if ( $signup->domain . $signup->path == '' ) {
@@ -72,7 +72,7 @@ if ( empty($_GET['key']) && empty($_POST['key']) ) { ?>
 			echo '</p>';
 		} else {
 			?>
-			<h3><?php _e('An error occurred during the activation'); ?></h3>
+			<h2><?php _e('An error occurred during the activation'); ?></h2>
 			<?php
 		    echo '<p>'.$result->get_error_message().'</p>';
 		}
@@ -81,7 +81,7 @@ if ( empty($_GET['key']) && empty($_POST['key']) ) { ?>
 		$url = get_blogaddress_by_id( (int) $blog_id);
 		$user = new WP_User( (int) $user_id);
 		?>
-		<h3><?php _e('Your account is now active!'); ?></h3>
+		<h2><?php _e('Your account is now active!'); ?></h2>
 
 		<div id="signup-welcome">
 			<p><span class="h3"><?php _e('Username:'); ?></span> <?php echo $user->user_login ?></p>
