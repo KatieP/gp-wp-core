@@ -52,7 +52,9 @@ jQuery(function ($) {
 			s.dialog = obj || s.dialog;
 			s.modal = s.modal || this;
 			var form = $(s.form, s.dialog.data[0]),
-				fields = $('.simplemodal-login-fields', form[0]),
+				fieldsA = $('.simplemodal-login-fields', form[0]),
+				fieldsB = $('.submit', form[0]),
+				fieldsC = $('.nav', form[0]),
 				activity = $('.simplemodal-login-activity', form[0]);
 
 			// update and focus dialog
@@ -68,7 +70,7 @@ jQuery(function ($) {
 				s.clear(s.dialog.container[0]);
 
 				if (s.isValid(form)) {
-					fields.hide(); activity.show();
+					fieldsA.hide(); fieldsB.hide(); fieldsC.hide(); activity.show();
 
 					if (s.url && s.url.indexOf('redirect_to') !== -1) {
 						var p = s.url.split('=');
@@ -98,8 +100,8 @@ jQuery(function ($) {
 								
 								if (error.length) {
 									error.find('a').addClass('simplemodal-forgotpw');
-									$('p:first', form[0]).before(error);
-									activity.hide(); fields.show();
+									$('.user_login', form[0]).before(error);
+									activity.hide(); fieldsA.show(); fieldsB.show(); fieldsC.show();
 								}
 								else if (message.length) {
 									if (s.form === '#lostpasswordform' || s.form === '#registerform') {
@@ -107,22 +109,22 @@ jQuery(function ($) {
 										s.lostpw.hide(); s.register.hide();
 										s.login.show();
 									}
-									$('p:first', form[0]).before(message);
-									activity.hide(); fields.show();
+									$('.user_login', form[0]).before(message);
+									activity.hide(); fieldsA.show(); fieldsB.show(); fieldsC.show();
 								}
 								else if (loginform.length) {
 									s.showError(form, ['empty_both']);
-									activity.hide(); fields.show();
+									activity.hide(); fieldsA.show(); fieldsB.show(); fieldsC.show();
 								}
 							}
 						},
 						error: function (xhr) {
-							$('p:first', form[0]).before(
+							$('.user_login', form[0]).before(
 								$(document.createElement('div'))
 									.html('<strong>ERROR</strong>: ' + xhr.statusText)
 									.attr('id', 'login_error')
 							);
-							activity.hide(); fields.show();
+							activity.hide(); fieldsA.show(); fieldsB.show(); fieldsC.show();
 						}
 					});
 				}
@@ -184,7 +186,7 @@ jQuery(function ($) {
 			keys = $.map(keys, function (key) {
 				return SimpleModalLogin.message(key);
 			});
-			$('p:first', form[0])
+			$('.user_login', form[0])
 				.before($('<div id="login_error"></div>').html(
 					keys.join('<br/>')
 				));
@@ -193,3 +195,4 @@ jQuery(function ($) {
 
 	SimpleModalLogin.init();
 });
+

@@ -342,15 +342,13 @@ if (!class_exists('SimpleModalLogin')) {
 			$output = sprintf('
 	<form name="loginform" id="loginform" action="%s" method="post">
 		<div class="title">%s</div>
+		<div class="simplemodal-login-activity" style="display:none;"><span class="wait">Please wait...</span></div>
 		<div class="simplemodal-login-fields">
-		<p>
-			<label>%s<br />
-			<input type="text" name="log" class="user_login input" value="" size="20" tabindex="10" /></label>
-		</p>
-		<p>
-			<label>%s<br />
-			<input type="password" name="pwd" class="user_pass input" value="" size="20" tabindex="20" /></label>
-		</p>',
+		<label>%s</label>
+		<input type="text" name="log" class="user_login input" value="" size="20" tabindex="10" />
+		<label>%s</label>
+		<input type="password" name="pwd" class="user_pass input" value="" size="20" tabindex="20" />
+		',
 				site_url('wp-login.php', 'login_post'),
 				__('Login', 'simplemodal-login'),
 				__('Username or Email Address', 'simplemodal-login'),
@@ -362,16 +360,17 @@ if (!class_exists('SimpleModalLogin')) {
 			$output .= ob_get_clean();
 
 			$output .= sprintf('
-		<p class="forgetmenot"><label><input name="rememberme" type="checkbox" id="rememberme" class="rememberme" value="forever" tabindex="90" /> %s</label></p>
-		<p class="submit">
+		</div>
+		<div class="submit">
+			<div class="forgetmenot"><label><input name="rememberme" type="checkbox" id="rememberme" class="rememberme" value="forever" tabindex="90" /> %s</label></div>
+			<input type="button" class="simplemodal-close" value="%s" tabindex="101"  />
 			<input type="submit" name="wp-submit" value="%s" tabindex="100" />
-			<input type="button" class="simplemodal-close" value="%s" tabindex="101" />
 			<input type="hidden" name="testcookie" value="1" />
-		</p>
-		<p class="nav">',
+		</div>
+		<div class="nav">',
 				__('Remember Me', 'simplemodal-login'),
-				__('Log In', 'simplemodal-login'),
-				__('Cancel', 'simplemodal-login')
+				__('Cancel', 'simplemodal-login'),
+				__('Log In', 'simplemodal-login')
 			);
 
 			if ($this->users_can_register && $this->options['registration']) {
@@ -382,7 +381,7 @@ if (!class_exists('SimpleModalLogin')) {
 			}
 
 			if (($this->users_can_register && $this->options['registration']) && $this->options['reset']) {
-				$output .= ' | ';
+				$output .= ' - ';
 			}
 
 			if ($this->options['reset']) {
@@ -394,9 +393,28 @@ if (!class_exists('SimpleModalLogin')) {
 			}
 
 			$output .= ' 
-			</p>
 			</div>
-			<div class="simplemodal-login-activity" style="display:none;"></div>
+			<div class="reg-twitter">
+			';
+
+			global $current_site;
+			
+			if ( $current_site->id == 1 ) {
+				$output .= '
+						<a href="https://twitter.com/GreenPagesAU" class="twitter-follow-button" data-show-count="true" data-size="large">Follow @GreenPagesAU</a>
+						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+				';
+			}
+
+			if ( $current_site->id == 2 ) {
+				$output .= '
+						<a href="https://twitter.com/GreenPagesUSA" class="twitter-follow-button" data-show-count="true" data-size="large">Follow @GreenPagesUSA</a>
+						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+				';
+			}
+				
+			$output .= '
+			</div>
 		</form>';
 
 			return $output;
@@ -475,56 +493,79 @@ if (!class_exists('SimpleModalLogin')) {
 		 */
 		function registration_form() {
 			$output = sprintf('
-<form name="registerform" id="registerform" action="/register" method="post">
-	<div class="title">%s</div>
-	<div class="simplemodal-login-fields">
-	<p>
-		<label>%s<br />
-		<input type="text" name="user_name" class="user_login input" value="" size="20" tabindex="10" /></label>
-	</p>
-	<p>
-		<label>%s<br />
-		<input type="text" name="user_email" class="user_email input" value="" size="25" tabindex="20" /></label>
-	</p>',
+				<form name="registerform" id="registerform" action="/register" method="post">
+					<div class="title">%s</div>
+					<div class="simplemodal-login-activity" style="display:none;"><span class="wait">Please wait...</span></div>
+					<div class="simplemodal-login-fields">
+						<label>%s</label>
+						<input type="text" name="user_name" class="user_login input" value="" size="20" tabindex="10" />
+						<label>%s</label>
+						<input type="text" name="user_email" class="user_email input" value="" size="25" tabindex="20" />
+				',
 				__('Register', 'simplemodal-login'),
 				__('Username', 'simplemodal-login'),
 				__('E-mail', 'simplemodal-login')
 			);
-
+					
 			ob_start();
 			do_action('register_form');
 			$output .= ob_get_clean();
-
+				
 			$output .= sprintf('
-	<p class="reg_passmail">%s</p>
-	<p class="submit">
-	<input type="hidden" name="signup_for" value="user" /> 
-	<input type="hidden" name="stage" value="validate-user-signup" />
-		<input type="submit" name="wp-submit" value="%s" tabindex="100" />
-		<input type="button" class="simplemodal-close" value="%s" tabindex="101" />
-	</p>
-	<p class="nav">
-		<a class="simplemodal-login" href="%s">%s</a>',
+						
+						<input type="hidden" name="signup_for" value="user" /> 
+						<input type="hidden" name="stage" value="validate-user-signup" />
+						<div class="simplemodal-spacer"></div>
+						<input type="checkbox" name="subscribe-greenrazor" value="subscribe-greenrazor" checked /> Subscribe to our newsletter?
+						<input type="textbox" style="display:none;" name="gp_love" value="I <3 Green Pages!" />
+					</div>
+					<div class="submit">
+						<span class="reg_passmail">%s</span>
+						<input type="button" class="simplemodal-close" value="%s" tabindex="101" />
+						<input type="submit" name="wp-submit" value="%s" tabindex="100" />
+					</div>
+					<div class="nav">
+						<a class="simplemodal-login" href="%s">%s</a>',
 				__('A password will be e-mailed to you.', 'simplemodal-login'),
-				__('Register', 'simplemodal-login'),
 				__('Cancel', 'simplemodal-login'),
+				__('Register', 'simplemodal-login'),
 				site_url('wp-login.php', 'login'),
 				__('Log in', 'simplemodal-login')
 			);
-
+					
 			if ($this->options['reset']) {
-				$output .= sprintf(' | <a class="simplemodal-forgotpw" href="%s" title="%s">%s</a>',
+				$output .= sprintf(' - <a class="simplemodal-forgotpw" href="%s" title="%s">%s</a>',
 					site_url('wp-login.php?action=lostpassword', 'login'),
 					__('Password Lost and Found', 'simplemodal-login'),
 					__('Lost your password?', 'simplemodal-login')
 				);
 			}
-
+					
 			$output .= '
-	</p>
-	</div>
-	<div class="simplemodal-login-activity" style="display:none;"></div>
-</form>';
+					</div>
+					<div class="reg-twitter">
+			';
+
+			global $current_site;
+			
+			if ( $current_site->id == 1 ) {
+				$output .= '
+						<a href="https://twitter.com/GreenPagesAU" class="twitter-follow-button" data-show-count="true" data-size="large">Follow @GreenPagesAU</a>
+						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+				';
+			}
+
+			if ( $current_site->id == 2 ) {
+				$output .= '
+						<a href="https://twitter.com/GreenPagesUSA" class="twitter-follow-button" data-show-count="true" data-size="large">Follow @GreenPagesUSA</a>
+						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+				';
+			}
+				
+			$output .= '
+					</div>
+				</form>
+			';
 
 			return $output;
 		}
@@ -539,11 +580,11 @@ if (!class_exists('SimpleModalLogin')) {
 			$output = sprintf('
 	<form name="lostpasswordform" id="lostpasswordform" action="%s" method="post">
 		<div class="title">%s</div>
+		<div class="simplemodal-login-activity" style="display:none;"><span class="wait">Please wait...</span></div>
 		<div class="simplemodal-login-fields">
-		<p>
-			<label>%s<br />
-			<input type="text" name="user_login" class="user_login input" value="" size="20" tabindex="10" /></label>
-		</p>',
+			<label>%s</label>
+			<input type="text" name="user_login" class="user_login input" value="" size="20" tabindex="10" />
+		',
 				site_url('wp-login.php?action=lostpassword', 'login_post'),
 				__('Reset Password', 'simplemodal-login'),
 				__('Username or E-mail:', 'simplemodal-login')
@@ -554,26 +595,25 @@ if (!class_exists('SimpleModalLogin')) {
 			$output .= ob_get_clean();
 
 			$output .= sprintf('
-		<p class="submit">
-			<input type="submit" name="wp-submit" value="%s" tabindex="100" />
+		</div>
+		<div class="submit">
 			<input type="button" class="simplemodal-close" value="%s" tabindex="101" />
-		</p>
-		<p class="nav">
+			<input type="submit" name="wp-submit" value="%s" tabindex="100" />
+		</div>
+		<div class="nav">
 			<a class="simplemodal-login" href="%s">%s</a>',
-				__('Get New Password', 'simplemodal-login'),
 				__('Cancel', 'simplemodal-login'),
+				__('Get New Password', 'simplemodal-login'),
 				site_url('wp-login.php', 'login'),
 				__('Log in', 'simplemodal-login')
 			);
 
 			if ($this->users_can_register && $this->options['registration']) {
-				$output .= sprintf(' | <a class="simplemodal-register" href="%s">%s</a>', site_url('wp-login.php?action=register', 'login'), __('Register', 'simplemodal-login'));
+				$output .= sprintf(' - <a class="simplemodal-register" href="%s">%s</a>', site_url('wp-login.php?action=register', 'login'), __('Register', 'simplemodal-login'));
 			}
 
 			$output .= '
-		</p>
 		</div>
-		<div class="simplemodal-login-activity" style="display:none;"></div>
 	</form>';
 
 			return $output;
