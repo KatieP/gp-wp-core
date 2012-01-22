@@ -100,7 +100,7 @@ jQuery(function ($) {
 								
 								if (error.length) {
 									error.find('a').addClass('simplemodal-forgotpw');
-									$('.user_login', form[0]).before(error);
+									$('label:first', form[0]).before(error);
 									activity.hide(); fieldsA.show(); fieldsB.show(); fieldsC.show();
 								}
 								else if (message.length) {
@@ -109,7 +109,7 @@ jQuery(function ($) {
 										s.lostpw.hide(); s.register.hide();
 										s.login.show();
 									}
-									$('.user_login', form[0]).before(message);
+									$('label:first', form[0]).before(message);
 									activity.hide(); fieldsA.show(); fieldsB.show(); fieldsC.show();
 								}
 								else if (loginform.length) {
@@ -119,7 +119,7 @@ jQuery(function ($) {
 							}
 						},
 						error: function (xhr) {
-							$('.user_login', form[0]).before(
+							$('label:first', form[0]).before(
 								$(document.createElement('div'))
 									.html('<strong>ERROR</strong>: ' + xhr.statusText)
 									.attr('id', 'login_error')
@@ -186,7 +186,7 @@ jQuery(function ($) {
 			keys = $.map(keys, function (key) {
 				return SimpleModalLogin.message(key);
 			});
-			$('.user_login', form[0])
+			$('label:first', form[0])
 				.before($('<div id="login_error"></div>').html(
 					keys.join('<br/>')
 				));

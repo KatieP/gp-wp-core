@@ -78,3 +78,6 @@
 #simplemodal-login-container .simplemodal-login-activity {padding: 20px;}
 #simplemodal-login-container .wait {color:#000;display:block;position:absolute;left:50%;margin-left:-40px;margin-top:-20px;}
 #simplemodal-login-container #login_error {margin: 4px 40px 10px 0;}
+#simplemodal-login-container .user_checkbox {display:block;margin-bottom:20px;margin-top:-10px;}
+#simplemodal-login-container .simplemodal-close-button {position:absolute;top:-18px;right:-18px;width:30px;height:30px;}
+#simplemodal-login-container .simplemodal-close-button a.simplemodal-close {width:30px;height:30px;display:block;background:url(/wp-content/plugins/gp-theme/graphics/close.png) no-repeat center center;background-color:transparent;border:0px;}

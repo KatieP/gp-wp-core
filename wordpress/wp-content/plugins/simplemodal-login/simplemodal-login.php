@@ -341,6 +341,7 @@ if (!class_exists('SimpleModalLogin')) {
 		function login_form() {
 			$output = sprintf('
 	<form name="loginform" id="loginform" action="%s" method="post">
+		<div class="simplemodal-close-button"><a href="#" class="simplemodal-close"></a></div>
 		<div class="title">%s</div>
 		<div class="simplemodal-login-activity" style="display:none;"><span class="wait">Please wait...</span></div>
 		<div class="simplemodal-login-fields">
@@ -491,9 +492,10 @@ if (!class_exists('SimpleModalLogin')) {
 		 * into your function.
 		 * @return string
 		 */
-		function registration_form() {
+function registration_form() {
 			$output = sprintf('
 				<form name="registerform" id="registerform" action="/register" method="post">
+					<div class="simplemodal-close-button"><a href="#" class="simplemodal-close"></a></div>
 					<div class="title">%s</div>
 					<div class="simplemodal-login-activity" style="display:none;"><span class="wait">Please wait...</span></div>
 					<div class="simplemodal-login-fields">
@@ -516,7 +518,8 @@ if (!class_exists('SimpleModalLogin')) {
 						<input type="hidden" name="signup_for" value="user" /> 
 						<input type="hidden" name="stage" value="validate-user-signup" />
 						<div class="simplemodal-spacer"></div>
-						<input type="checkbox" name="subscribe-greenrazor" value="subscribe-greenrazor" checked /> Subscribe to our newsletter?
+						<span class="user_checkbox"><input type="checkbox" name="subscribe-greenrazor" value="subscribe-greenrazor" checked /> Subscribe to our newsletter?</span>
+						<span class="user_checkbox"><input type="checkbox" name="subscribe-advertiser" value="subscribe-advertiser" /> Register for an advertisers account?</span>
 						<input type="textbox" style="display:none;" name="gp_love" value="I <3 Green Pages!" />
 					</div>
 					<div class="submit">
@@ -579,6 +582,7 @@ if (!class_exists('SimpleModalLogin')) {
 		function reset_form() {
 			$output = sprintf('
 	<form name="lostpasswordform" id="lostpasswordform" action="%s" method="post">
+		<div class="simplemodal-close-button"><a href="#" class="simplemodal-close"></a></div>
 		<div class="title">%s</div>
 		<div class="simplemodal-login-activity" style="display:none;"><span class="wait">Please wait...</span></div>
 		<div class="simplemodal-login-fields">
