@@ -53,31 +53,13 @@ h1 a{background:url(../graphics/login-mast.gif) no-repeat top center;height:41px
 	border-radius: 2px;
 }
 
-input #wp-submit
-
-{
-
-
-font-weight: 600;
-
-line-height: 32px;
-
-font-size: 11px;
-
-
-height: 33px;
-
-padding: 0 10px;
-
-
-background-color: #bbbbbb;
-
-
-
-border-radius: 2px;
-
-
-
-background-color: #61c201;
-
+input #wp-submit {
+	font-weight: 600;
+	line-height: 32px;
+	font-size: 11px;
+	height: 33px;
+	padding: 0 10px;
+	background-color: #bbbbbb;
+	border-radius: 2px;
+	background-color: #61c201;
 }

@@ -31,7 +31,7 @@ function gp_publish_form() {
 	} else {
 		$SITE_ID = 0;
 	}
-	
+
 	$systemformvars = array(
 		'FORM_STATE' => 	array('type' => 'a', 'default' => array(), 'auth' => false),
 		'UID' => 			array('type' => 'd', 'default' => $UID, 'auth' => false),
@@ -59,7 +59,7 @@ function gp_publish_form() {
 	if (isset($forms[current_page()]['errors'])) {
 		$default_error_msgs = array_replace($default_error_msgs, $forms[current_page()]['errors']);
 	}
-	
+
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		// Only create a new db session on first post. We don't need to flood the db with empty results.
 		session_handler();
@@ -68,7 +68,7 @@ function gp_publish_form() {
 		$return_results = get_form_state();
 		
 		$submit = check_submit_type();
-		
+
 		if ($submit == 'reset') {
 			post_redirect();
 		}
@@ -407,8 +407,14 @@ function check_submit_type($submit=null) {
 	}
 	
 	foreach ($forms as $key => $value) {
-		if ($_POST[$key]) {
+		if ($_POST['save-to_' . $key]) {
+			return 'save-to'; 
+		}
+		if ($_POST['skip-to_' . $key]) {
 			return 'skip-to'; 
+		}
+		if ($_POST['clear-to_' . $key]) {
+			return 'clear-to'; 
 		}
 	}
 	
@@ -470,7 +476,7 @@ function get_send_address($submit) {
 	
 	if (in_array($submit, $to)) {
 		foreach ($forms as $key => $value) {
-			if ($_POST[$key]) {
+if ($_POST['save-to_' . $key] || $_POST['skip-to_' . $key] || $_POST['clear-to_' . $key]) {
 				return '../' . $key . '/';
 			}	
 		}

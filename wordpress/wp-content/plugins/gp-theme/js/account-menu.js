@@ -1,28 +1,25 @@
+$("#auth-tools").ready(function() {
+        $("#auth-tools > li").removeClass('no-js');
 
-				//$(".auth-youraccount-start").removeClass("menu-open");
+        $("#auth-tools > li > a").click(function(e) {
+                e.preventDefault();
 
-		    // $(".auth-youraccount-start").toggleClass("menu-open");
+                $("#auth-tools li ul").not($(this).next("ul")).hide();
+                $("#auth-tools li a").not($(this)).removeClass("selected");
+                $(this).next("ul").toggle();
 
-(function($) {
-    $.fn.renderDash = function(openDash, fn) {
-        var container = $(this);
-        container.removeClass('no-js');
-        $(openDash).hide();
-
-        container.bind('click', function(event) {
-            event.preventDefault();
-            clickStart();
+                if($(this).next("ul").css("display") == "none"){
+                        $(this).removeClass("selected");
+                }else{
+                        $(this).addClass("selected");
+                }
         });
 
-        $(document.body).bind('mouseup', function(event) {
-            $(openDash).hide();
+        $(document).bind('click', function(e) {
+                if ($(e.target).parents("#auth-tools").length == 0){
+                        $("#auth-tools li ul").hide();
+                        $("#auth-tools li a").removeClass("selected");
+                }
 
         });
-
-        function clickStart() {
-            $(openDash).toggle().bind('mouseup', function(event) {
-                event.stopPropagation();
-            });
-        }
-    };
-})(jQuery);
+});

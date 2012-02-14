@@ -108,4 +108,9 @@ function gp_shortcode_mu_activation( $atts ) {
 	require_once( GP_PLUGIN_DIR . '/pages/gp-public-form-activation.php' );
 }
 add_shortcode( 'gp-activation-form', 'gp_shortcode_mu_activation' );
+
+function gp_shortcode_profileeditor( $atts ) {
+	require_once( GP_PLUGIN_DIR . '/pages/gp-public-form-profileeditor.php' );
+}
+add_shortcode( 'gp-profileeditor-form', 'gp_shortcode_profileeditor' );
 ?>

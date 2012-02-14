@@ -302,7 +302,9 @@ $states_us = array('AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC',
 	This is the body of the text that describes your business and it's products. It is limited to 550 characters or about 80 words so be succinct!
 	<textarea name="org_description" id="org_description" rows="10" <?php if ($form_data['error']['org_description']) {echo 'style="border-color:red;"';} ?>><?php echo $form_data['data']['org_description'] ?></textarea>
 	
-	<input type="submit" name="save-fwd" value="Save & Continue" />
+	<!--<input type="submit" name="save-fwd" value="Save & Continue" />//-->
+	<input type="submit" name="save-fwd" value="Sign Up For Directory Page 30 Day Trial!" />
+	<input type="submit" name="save-to list-your-business-6" class="secondary" value="I Only Want a Free Basic Listing Thanks" />
 	<input type="submit" name="clear-slf" class="secondary" value="Clear" />
 	<input type="submit" name="reset" class="secondary" value="Start Over" />
 	
@@ -720,7 +722,7 @@ $states_us = array('AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC',
 
 	<p>Thank you! You're directory listing has been successfully submitted. You will contacted shortly. Please allow a few days for orders to be processed.</p>
 
-	<input type="submit" name="reset" value="New order" />
+	<input type="submit" name="reset" value="Add another directory listing!" />
 </form>
 
 <?php } ?>

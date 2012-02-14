@@ -94,10 +94,15 @@ function validate_user_signup() {
 	$key = substr( md5( time() . rand() . $user_email ), 0, 16 );
 	// $meta = serialize(apply_filters( 'add_signup_meta', array() ));
 	
+	$subscribe_greenrazor = isset( $_POST[ 'subscribe-greenrazor' ] ) ? true : false;
+	$subscribe_advertiser = isset( $_POST[ 'subscribe-advertiser' ] ) ? true : false;
+	
 	if($current_site->id) {
 		$meta = array(
 			'add_to_blog' => $current_site->id,
-			'new_role' => 'subscriber'
+			'new_role' => 'subscriber',
+			'subscribe_greenrazor' => $subscribe_greenrazor,
+			'subscribe_advertiser' => $subscribe_advertiser
 		);
 	} else {
 		$meta = array();

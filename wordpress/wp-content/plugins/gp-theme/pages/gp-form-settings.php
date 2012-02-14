@@ -124,7 +124,7 @@ if ($_POST['gp_self'] == 1 ) {
 			<tr><th>YouTube</th><td><input type="text" name="gp_youtube" value="<?php echo $gp_youtube; ?>" size="255" class="regular-text" /></td></tr>
 		</table>
 		
-		<p><input type="submit" name="Submit" value="Save Changes" id="#submit" class="button-primary" /></p>
+		<p><input type="submit" name="Submit" value="Save Changes" id="submit" class="button-primary" /></p>
 		
 		<input type="hidden" name="gp_self" value="1">
 	</form>

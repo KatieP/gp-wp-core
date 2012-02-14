@@ -32,6 +32,7 @@ add_action('wp_login', 'gp_session_onlogin');
 add_action('wp_logout', 'gp_session_onlogout');
 add_action( 'init', 'gp_session_handler' );
 
+remove_action('wp_head', 'wp_generator');
 
 function default_login_redirect( $redirect, $request_redirect )
 {
@@ -166,12 +167,12 @@ function gp_site_scripts() {
 	    
 	    wp_register_script('footer', GP_PLUGIN_URL . '/js/footer.js');
 	    wp_enqueue_script('footer');
-
+	    
 		global $post;
-		if (get_post_type($post->ID) != "page") {
+	    if (get_post_type($post->ID) != "page") {
 			wp_register_script('gp_socialbar', GP_PLUGIN_URL . '/js/gp_socialbar.js');
 			wp_enqueue_script('gp_socialbar');
-		}
+	    }
 
 	    #if (basename(get_permalink()) == 'list-your-business-4') {
 		    wp_register_script('jquery-templates', 'http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js', false, false, true);
@@ -357,6 +358,30 @@ function gp_db_session_handler($form_id, $form_name) {
 		$update_result = $wpdb->update( $form_name, array('HASH' => $HASH, 'LAST_ACTIVITY' => $LAST_ACTIVITY), array('ID' => $form_id, 'UID' => $UID), array('%s', '%s'), array('%d', '%d'));
 		
 		return true;	
+	}
+}
+
+add_action('wpmu_activate_user', 'gp_wpmu_activate_user');
+function gp_wpmu_activate_user() {
+	global $current_site;
+	
+	if ( !empty( $meta[ 'subscribe_greenrazor' ] ) ) {
+		/*
+		if (cm_subscribe($subscription_post['subscription-greenrazor'])) {
+			update_usermeta($user_id, 'subscription', $subscription_post );
+		} else {
+			$subscription_post['subscription-greenrazor']='false';
+			update_usermeta($user_id, 'subscription', $subscription_post );
+		}
+		*/
+	}
+	
+	if ( !empty( $meta[ 'subscribe_advertiser' ] ) ) {
+		if ( $meta[ 'subscribe_advertiser' ] == true ) {
+			update_usermeta($user_id, 'advertiser', true );
+		} else {
+			update_usermeta($user_id, 'advertiser', false );
+		}
 	}
 }
 ?>

@@ -229,4 +229,32 @@ function array_insert($array,$pos,$val)
 
     return $array;
 }
+
+function time_ago( $tm, $rcs = 0 ) {
+   $cur_tm = time(); $dif = $cur_tm-$tm;
+   $pds = array( 'second', 'minute', 'hour', 'day', 'week', 'month', 'year', 'decade' );
+   $lngh = array( 1, 60, 3600, 86400, 604800, 2630880, 31570560, 315705600 );
+   for ( $v = sizeof( $lngh )-1; ( $v >= 0 ) && ( ( $no = $dif/$lngh[$v] ) <= 1 ); $v-- ); if ( $v < 0 ) $v = 0; $_tm = $cur_tm-( $dif%$lngh[$v] );
+
+   $no = floor( $no ); if( $no <> 1 ) $pds[$v] .='s'; $x=sprintf( "%d %s ", $no,$pds[$v] );
+   #if(($rcs == 1)&&($v >= 1)&&(($cur_tm-$_tm) > 0)) $x .= time_ago($_tm);
+   if( ($rcs > 0 ) && ( $v >= 1 ) && ( ( $cur_tm-$_tm ) > 0 ) ) $x .= time_ago( $_tm, --$rcs );
+   return $x;
+}
+
+function abbr_number( $val )
+{
+	$scale = array( ''=>1, 'K'=>1000,'M'=>1000000,'B'=>1000000000 );
+    foreach ( $scale as $p => $div ) {
+        $t = round( $val/$div ) . $p;
+        if ( strlen( $t ) < ( 3+strlen( $p ) ) ) {
+            break;
+        }
+    }
+    return trim( $t );
+}
+
+function get_profile_author() {
+	return (get_query_var('author_name')) ? get_user_by('slug', get_query_var('author_name')) : get_userdata(get_query_var('author'));
+}
 ?>

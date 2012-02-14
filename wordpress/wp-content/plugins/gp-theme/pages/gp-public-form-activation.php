@@ -11,8 +11,9 @@ if ( !is_multisite() ) {
 	die();
 }
 
-if ( is_object( $wp_object_cache ) )
+if ( is_object( $wp_object_cache ) ) {
 	$wp_object_cache->cache_enabled = false;
+}
 
 do_action( 'activate_header' );
 
@@ -42,7 +43,7 @@ add_action( 'wp_head', 'do_activate_header' );
 
 if ( empty($_GET['key']) && empty($_POST['key']) ) { ?>
 
-	<h2><?php _e('Activation Key Required') ?></h2>
+	<h3><?php _e('Activation Key Required') ?></h3>
 	<form name="activateform" id="activateform" method="post" action="/activate">
 		<p>
 		    <label for="key"><?php _e('Activation Key:') ?></label>
@@ -58,21 +59,25 @@ if ( empty($_GET['key']) && empty($_POST['key']) ) { ?>
 	$key = !empty($_GET['key']) ? $_GET['key'] : $_POST['key'];
 	$result = wpmu_activate_signup($key);
 	if ( is_wp_error($result) ) {
-		if ( 'already_active' == $result->get_error_code() || 'blog_taken' == $result->get_error_code() ) {
+		if ( 'already_active' == $result->get_error_code() ) {
 		    $signup = $result->get_error_data();
 			?>
-			<h2><?php _e('Your account is now active!'); ?></h2>
+			<h3><?php _e('Congratulations! Your account is now active.'); ?></h3>
 			<?php
 			echo '<p class="lead-in">';
 			if ( $signup->domain . $signup->path == '' ) {
-				printf( __('Your account has been activated. You may now <a href="%1$s">log in</a> to the site using your chosen username of &#8220;%2$s&#8221;.  Please check your email inbox at %3$s for your password and login instructions. If you do not receive an email, please check your junk or spam folder. If you still do not receive an email within an hour, you can <a href="%4$s">reset your password</a>.'), network_site_url( 'wp-login.php', 'login' ), $signup->user_login, $signup->user_email, network_site_url( 'wp-login.php?action=lostpassword', 'login' ) );
-			} else {
-				printf( __('Your site at <a href="%1$s">%2$s</a> is active. You may now log in to your site using your chosen username of &#8220;%3$s&#8221;.  Please check your email inbox at %4$s for your password and login instructions.  If you do not receive an email, please check your junk or spam folder.  If you still do not receive an email within an hour, you can <a href="%5$s">reset your password</a>.'), 'http://' . $signup->domain, $signup->domain, $signup->user_login, $signup->user_email, network_site_url( 'wp-login.php?action=lostpassword' ) );
+				printf(
+					__('Your account has been activated. You may now <a href="%s" class="simplemodal-login">log in</a> to the site using your username &#8220;%s&#8221;. Please check your email inbox at %s for your password and login instructions. If you do not receive an email, please check your junk or spam folder. If you still do not receive an email within an hour, you can <a href="%s">reset your password</a>.'), 
+					network_site_url( 'wp-login.php', 'login' ), 
+					$signup->user_login, 
+					$signup->user_email, 
+					network_site_url( 'wp-login.php?action=lostpassword', 'login' ) 
+				);
 			}
 			echo '</p>';
 		} else {
 			?>
-			<h2><?php _e('An error occurred during the activation'); ?></h2>
+			<h3><?php _e('An error occurred during the activation'); ?></h3>
 			<?php
 		    echo '<p>'.$result->get_error_message().'</p>';
 		}
@@ -81,18 +86,17 @@ if ( empty($_GET['key']) && empty($_POST['key']) ) { ?>
 		$url = get_blogaddress_by_id( (int) $blog_id);
 		$user = new WP_User( (int) $user_id);
 		?>
-		<h2><?php _e('Your account is now active!'); ?></h2>
+		<h3><?php _e('Welcome to Green Pages.'); ?></h3>
+		
+		<p>Your account is now active!</p>
 
 		<div id="signup-welcome">
-			<p><span class="h3"><?php _e('Username:'); ?></span> <?php echo $user->user_login ?></p>
+			<p><span class="h3"><?php _e('Username:'); ?></span> <?php echo $user->user_email ?></p>
 			<p><span class="h3"><?php _e('Password:'); ?></span> <?php echo $password; ?></p>
 		</div>
 
-		<?php if ( $url != network_home_url('', 'http') ) : ?>
-			<p class="view"><?php printf( __('Your account is now activated. <a href="%1$s">View your site</a> or <a href="%2$s">Log in</a>'), $url, $url . 'wp-login.php' ); ?></p>
-		<?php else: ?>
-			<p class="view"><?php printf( __('Your account is now activated. <a href="%1$s">Log in</a> or go back to the <a href="%2$s">homepage</a>.' ), network_site_url('wp-login.php', 'login'), network_home_url() ); ?></p>
-		<?php endif;
+		<p class="view"><?php printf( __('Your account is now activated. <a href="%s" class="simplemodal-login">Log in</a> or go back to the <a href="%s">homepage</a>.' ), network_site_url('wp-login.php', 'login'), network_home_url() ); ?></p>
+<?php
 	}
 }
 ?>

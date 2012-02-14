@@ -20,7 +20,7 @@ function gp_wpmu_welcome_user_notification($user_id, $plaintext_pass = '') {
   if ( empty($plaintext_pass) )
     return;
 
-  $bcc = "eddy.repsondek@gmail.com, scmelton@gmail.com, katiepatrickgp@gmail.com";
+  $bcc = "eddy.repsondek@gmail.com, katiepatrickgp@gmail.com";
 
   $headers  = 'Content-type: text/html' . "\r\n";
   $headers .= 'Bcc: ' . $bcc . "\r\n";
