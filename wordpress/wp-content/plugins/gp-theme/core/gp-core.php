@@ -254,7 +254,9 @@ function abbr_number( $val )
     return trim( $t );
 }
 
-function get_profile_author() {
-	return (get_query_var('author_name')) ? get_user_by('slug', get_query_var('author_name')) : get_userdata(get_query_var('author'));
-}
+#	This function was being declared both here and in gp-au-theme & gp-us-theme repositories 
+#	gp-au-theme/loop.php & gp-us-theme/loop.php and developer environment was breaking
+#function get_profile_author() {
+#	return (get_query_var('author_name')) ? get_user_by('slug', get_query_var('author_name')) : get_userdata(get_query_var('author'));
+#}
 ?>
