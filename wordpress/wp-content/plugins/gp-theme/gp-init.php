@@ -100,7 +100,7 @@ function gp_plugin_scripts() {
 	
     # Add our own Jquery.
 	wp_deregister_script('jquery');
-	wp_register_script('jquery', GP_PLUGIN_URL . '/js/jquery-1.6.4.min.js');
+	wp_register_script('jquery', GP_PLUGIN_URL . '/js/jquery-1.7.1.min.js');
     wp_enqueue_script('jquery');
     
     if ( parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH) == "/wp-admin/profile.php" || parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH) == "/wp-admin/user-edit.php" ) {
@@ -138,7 +138,7 @@ function gp_site_scripts() {
     	wp_enqueue_style('generic');
 		
 		wp_deregister_script('jquery');
-		wp_register_script('jquery', GP_PLUGIN_URL . '/js/jquery-1.6.4.min.js');
+		wp_register_script('jquery', GP_PLUGIN_URL . '/js/jquery-1.7.1.min.js');
     	wp_enqueue_script('jquery');
 		
     	// Required for both Pirobox and File Upload. Must be at Footer for File Upload.
@@ -152,6 +152,9 @@ function gp_site_scripts() {
 			wp_register_script('boxy', GP_PLUGIN_URL . '/js/jquery.boxy.js');
 	   		wp_enqueue_script('boxy');	
 		}
+		
+		wp_register_script('hashchange', GP_PLUGIN_URL . '/js/jquery.ba-hashchange.min.js');
+	    wp_enqueue_script('hashchange');
 		
 	    wp_register_script('account-menu', GP_PLUGIN_URL . '/js/account-menu.js');
 	    wp_enqueue_script('account-menu');
@@ -167,11 +170,10 @@ function gp_site_scripts() {
 	    
 	    wp_register_script('footer', GP_PLUGIN_URL . '/js/footer.js');
 	    wp_enqueue_script('footer');
-	    
-		global $post;
+global $post;
 	    if (get_post_type($post->ID) != "page") {
-			wp_register_script('gp_socialbar', GP_PLUGIN_URL . '/js/gp_socialbar.js');
-			wp_enqueue_script('gp_socialbar');
+		wp_register_script('gp_socialbar', GP_PLUGIN_URL . '/js/gp_socialbar.js');
+		wp_enqueue_script('gp_socialbar');
 	    }
 
 	    #if (basename(get_permalink()) == 'list-your-business-4') {
