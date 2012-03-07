@@ -108,7 +108,7 @@ function gp_plugin_scripts() {
     	wp_enqueue_script('gp_textareacounter');
      }
     
-    if ($_REQUEST['post_type'] == 'gp_events' || $_REQUEST['post_type'] == 'gp_competitions') {
+    //if ($_REQUEST['post_type'] == 'gp_events' || $_REQUEST['post_type'] == 'gp_competitions') {
     	wp_register_style('jquery-ui', GP_PLUGIN_URL . '/css/jquery-ui-1.8.9.custom.css');
     	wp_enqueue_style('jquery-ui');
     	
@@ -120,7 +120,7 @@ function gp_plugin_scripts() {
 
     	wp_register_script('pubforce-admin', GP_PLUGIN_URL . '/js/pubforce-admin.js');
     	wp_enqueue_script('pubforce-admin');
-    }
+    //}
 }
 
 function gp_login_scripts() {
@@ -153,28 +153,20 @@ function gp_site_scripts() {
 	   		wp_enqueue_script('boxy');	
 		}
 		
+		wp_register_script('gp', GP_PLUGIN_URL . '/js/gp.js');
+	    wp_enqueue_script('gp');
+		
 		wp_register_script('hashchange', GP_PLUGIN_URL . '/js/jquery.ba-hashchange.min.js');
 	    wp_enqueue_script('hashchange');
-		
-	    wp_register_script('account-menu', GP_PLUGIN_URL . '/js/account-menu.js');
-	    wp_enqueue_script('account-menu');
 	    
-	    wp_register_script('directory-menu', GP_PLUGIN_URL . '/js/directory-menu.js');
-	    wp_enqueue_script('directory-menu');
-	    
-	    wp_register_script('followus-nav', GP_PLUGIN_URL . '/js/followus-nav.js');
-	    wp_enqueue_script('followus-nav');
-	    
-	    wp_register_script('like', GP_PLUGIN_URL . '/js/like.js');
-	    wp_enqueue_script('like');
-	    
-	    wp_register_script('footer', GP_PLUGIN_URL . '/js/footer.js');
-	    wp_enqueue_script('footer');
-global $post;
+	    /*
+		global $post;
+
 	    if (get_post_type($post->ID) != "page") {
 		wp_register_script('gp_socialbar', GP_PLUGIN_URL . '/js/gp_socialbar.js');
 		wp_enqueue_script('gp_socialbar');
 	    }
+	    */
 
 	    #if (basename(get_permalink()) == 'list-your-business-4') {
 		    wp_register_script('jquery-templates', 'http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js', false, false, true);
@@ -212,9 +204,6 @@ global $post;
     	
     	wp_register_style('pirobox-default', GP_PLUGIN_URL . '/js/pirobox_extended/content/css/default.css');
     	wp_enqueue_style('pirobox-default');
-		
-		wp_register_style('pirobox-stylesheet', GP_PLUGIN_URL . '/js/pirobox_extended/css/sansation/stylesheet.css');
-    	wp_enqueue_style('pirobox-stylesheet');
 	}
 }
 
