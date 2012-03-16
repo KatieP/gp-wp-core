@@ -81,3 +81,5 @@
 #simplemodal-login-container .user_checkbox {display:block;margin-bottom:20px;margin-top:-10px;}
 #simplemodal-login-container .simplemodal-close-button {position:absolute;top:-18px;right:-18px;width:30px;height:30px;}
 #simplemodal-login-container .simplemodal-close-button a.simplemodal-close {width:30px;height:30px;display:block;background:url(/wp-content/plugins/gp-theme/graphics/close.png) no-repeat center center;background-color:transparent;border:0px;}
+
+#simplemodal-login-container .troubleshoot {margin-left:22px;}

@@ -415,6 +415,7 @@ if (!class_exists('SimpleModalLogin')) {
 			}
 				
 			$output .= '
+				<div class="troubleshoot">Having trouble <a href="/wp-login">signing in?</a></div>
 			</div>
 		</form>';
 
@@ -566,6 +567,7 @@ function registration_form() {
 			}
 				
 			$output .= '
+						<div class="troubleshoot">Having trouble <a href="/register">signing up?</a></div>
 					</div>
 				</form>
 			';
