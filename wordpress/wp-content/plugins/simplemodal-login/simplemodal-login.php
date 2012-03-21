@@ -521,7 +521,7 @@ function registration_form() {
 						<div class="simplemodal-spacer"></div>
 						<span class="user_checkbox"><input type="checkbox" name="subscribe-greenrazor" value="subscribe-greenrazor" checked /> Subscribe to our newsletter?</span>
 						<span class="user_checkbox"><input type="checkbox" name="subscribe-advertiser" value="subscribe-advertiser" /> Register for an advertisers account?</span>
-						<input type="textbox" style="display:none;" name="gp_love" value="I <3 Green Pages!" />
+						<input type="textbox" style="display:none;" name="gp_love" value="I &lt;3 Green Pages!" />
 					</div>
 					<div class="submit">
 						<span class="reg_passmail">%s</span>

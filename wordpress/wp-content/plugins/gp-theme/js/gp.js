@@ -48,8 +48,10 @@ $(document).ready(function() {
 	});	
 });
 
-$(document).ready(function() {
-    var $sharebar = $("#gp_sharebar"),
+$("#gp_sharebar").ready(function() {
+	if ( $(this).length ) {return false;}
+	
+    var $sharebar = $(this),
     $window = $(window),
     offset = $sharebar.offset(),
     topPadding = 20;
@@ -331,4 +333,14 @@ $(document).ready(function() {
 			$(this).next('.profile-action-items').hide();		
 		}
 	}
+});
+
+$(document).ready(function() {
+	$('.filterby_state').on('change', function () {
+		var url = $(this).val();
+		if (url) {
+			window.location = url;
+		}
+		return false;
+	});
 });
