@@ -88,22 +88,32 @@ function validate_user_signup() {
 		return $errors;
 	}
 	
-	global $wpdb, $current_site;
+	global $wpdb, $current_site, $gp;
 	
 	// Format data
 	$key = substr( md5( time() . rand() . $user_email ), 0, 16 );
 	// $meta = serialize(apply_filters( 'add_signup_meta', array() ));
 	
-	$subscribe_greenrazor = isset( $_POST[ 'subscribe-greenrazor' ] ) ? true : false;
 	$subscribe_advertiser = isset( $_POST[ 'subscribe-advertiser' ] ) ? true : false;
+	
+	$subscriptions = array();
+	$cm_lists = $gp->campaignmonitor[$current_site->id]['lists'];
+	if ( is_array( $cm_lists ) ) {
+		foreach ( $cm_lists as $list_key => $list_value ) {
+			if ( isset( $_POST[ $list_key ] ) ) {
+				$add_subscription = isset( $_POST[ $list_key ] ) ? true : false;
+				$subscriptions = $subscriptions + array( $list_key => $add_subscription );
+			}
+		}
+	}
 	
 	if($current_site->id) {
 		$meta = array(
 			'add_to_blog' => $current_site->id,
 			'new_role' => 'subscriber',
-			'subscribe_greenrazor' => $subscribe_greenrazor,
-			'subscribe_advertiser' => $subscribe_advertiser
+			'subscribe-advertiser' => $subscribe_advertiser
 		);
+		$meta = $meta + $subscriptions;
 	} else {
 		$meta = array();
 	}

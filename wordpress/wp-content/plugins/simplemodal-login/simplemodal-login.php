@@ -375,9 +375,11 @@ if (!class_exists('SimpleModalLogin')) {
 			);
 
 			if ($this->users_can_register && $this->options['registration']) {
-				$output .= sprintf('<a class="simplemodal-register" href="%s">%s</a>', 
+				$output .= sprintf('<a class="simplemodal-register" href="%s">%s</a> - <a href="%s">%s</a>', 
 					site_url('wp-login.php?action=register', 'login'), 
-					__('Register', 'simplemodal-login')
+					__('Register', 'simplemodal-login'),
+					site_url('/wp-login.php', 'login'), 
+					__('Problems?', 'simplemodal-login')
 				);
 			}
 
@@ -389,7 +391,7 @@ if (!class_exists('SimpleModalLogin')) {
 				$output .= sprintf('<a class="simplemodal-forgotpw" href="%s" title="%s">%s</a>',
 					site_url('wp-login.php?action=lostpassword', 'login'),
 					__('Password Lost and Found', 'simplemodal-login'),
-					__('Lost your password?', 'simplemodal-login')
+					__('Lost password?', 'simplemodal-login')
 				);
 			}
 
@@ -415,7 +417,6 @@ if (!class_exists('SimpleModalLogin')) {
 			}
 				
 			$output .= '
-				<div class="troubleshoot">Having trouble <a href="/wp-login">signing in?</a></div>
 			</div>
 		</form>';
 
@@ -494,6 +495,8 @@ if (!class_exists('SimpleModalLogin')) {
 		 * @return string
 		 */
 function registration_form() {
+			global $gp, $current_site;
+	
 			$output = sprintf('
 				<form name="registerform" id="registerform" action="/register" method="post">
 					<div class="simplemodal-close-button"><a href="#" class="simplemodal-close"></a></div>
@@ -515,12 +518,27 @@ function registration_form() {
 			$output .= ob_get_clean();
 				
 			$output .= sprintf('
-						
 						<input type="hidden" name="signup_for" value="user" /> 
 						<input type="hidden" name="stage" value="validate-user-signup" />
 						<div class="simplemodal-spacer"></div>
-						<span class="user_checkbox"><input type="checkbox" name="subscribe-greenrazor" value="subscribe-greenrazor" checked /> Subscribe to our newsletter?</span>
-						<span class="user_checkbox"><input type="checkbox" name="subscribe-advertiser" value="subscribe-advertiser" /> Register for an advertisers account?</span>
+			');
+			
+			$cm_lists = $gp->campaignmonitor[$current_site->id]['lists'];
+			if ( is_array( $cm_lists ) ) {
+				foreach ( $cm_lists as $key => $value ) {
+					if ( $value['register_add'] === true ) {
+						$output .= sprintf(
+								'<span class="user_checkbox"><input type="checkbox" name="%s" value="%s" checked /> %s</span>',
+								__($key, 'simplemodal-login'),
+								__($key, 'simplemodal-login'),
+								__($value['register_text'], 'simplemodal-login')
+						);
+					}
+				}
+			}
+						
+			$output .= sprintf('
+						<!--<span class="user_checkbox"><input type="checkbox" name="subscribe-advertiser" value="subscribe-advertiser" /> Register for an advertisers account?</span>//-->
 						<input type="text" style="display:none;" name="gp_love" value="I &lt;3 Green Pages!" />
 					</div>
 					<div class="submit">
@@ -529,19 +547,21 @@ function registration_form() {
 						<input type="submit" name="wp-submit" value="%s" tabindex="100" />
 					</div>
 					<div class="nav">
-						<a class="simplemodal-login" href="%s">%s</a>',
+						<a class="simplemodal-login" href="%s">%s</a> - <a href="%s">%s</a>',
 				__('A password will be e-mailed to you.', 'simplemodal-login'),
 				__('Cancel', 'simplemodal-login'),
 				__('Register', 'simplemodal-login'),
 				site_url('wp-login.php', 'login'),
-				__('Log in', 'simplemodal-login')
+				__('Log in', 'simplemodal-login'),
+				site_url('register', 'login'),
+				__('Problems?', 'simplemodal-login')
 			);
 					
 			if ($this->options['reset']) {
 				$output .= sprintf(' - <a class="simplemodal-forgotpw" href="%s" title="%s">%s</a>',
 					site_url('wp-login.php?action=lostpassword', 'login'),
 					__('Password Lost and Found', 'simplemodal-login'),
-					__('Lost your password?', 'simplemodal-login')
+					__('Lost password?', 'simplemodal-login')
 				);
 			}
 					
@@ -567,7 +587,6 @@ function registration_form() {
 			}
 				
 			$output .= '
-						<div class="troubleshoot">Having trouble <a href="/register">signing up?</a></div>
 					</div>
 				</form>
 			';

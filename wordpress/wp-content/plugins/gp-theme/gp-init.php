@@ -16,6 +16,7 @@ define( 'GP_PLUGIN_URL', plugins_url( '/gp-theme' ) );
 
 require_once( GP_PLUGIN_DIR . '/core/gp-core.php' );
 require_once( GP_PLUGIN_DIR . '/core/gp-email-notification.php' );
+require_once( GP_PLUGIN_DIR . '/core/gp-campaignmonitor.php' );
 require_once( GP_PLUGIN_DIR . '/pages/gp-shortcodes.php' );
 
 add_action( 'init', 'gp_set_core_globals' );
@@ -76,6 +77,22 @@ function gp_set_core_globals() {
 	
 	$gp->plugin->prefix = 'gp_theme';
 	$gp->loggedin_user->id = $current_user->ID;
+	$gp->campaignmonitor = array(
+		1 => array(
+			'api' => 'fd592f119aba9e1a50c9c7f09119e0ff',
+			'lists' => array(
+				'subscription-greenrazor' => array('api' => '6f745fb4dad5ab592b5bac0f23d9e826', 'profile_text' => 'Weekly "Green Razor" newsletter', 'register_add' => true, 'register_text' => 'Subscribe to our weekly newsletter the "Green Razor"?'),
+				'subscription-promotional' => array('api' => 'ab2c53e2475810da981d03ed5986a262', 'profile_text' => '3rd party marketing and promotional emails', 'register_add' => true, 'register_text' => 'Support us by receiving occasional Promotional emails?')
+			)
+		), 
+		2 => array(
+			'api' => 'fd592f119aba9e1a50c9c7f09119e0ff',
+			'lists' => array(
+				'subscription-greenrazor' => array('api' => '96446bb7331d8f3a2857f6d29a71c21c', 'profile_text' => 'Weekly "Green Razor" newsletter', 'register_add' => true, 'register_text' => 'Subscribe to our weekly newsletter the "Green Razor"?'),
+				'subscription-promotional' => array('api' => '5889bd046d839212942eae902bff3a9d', 'profile_text' => '3rd party marketing and promotional emails', 'register_add' => true, 'register_text' => 'Support us by receiving occasional Promotional emails?')
+			)
+		)
+	);
 }
 
 function gp_run_updates() {
@@ -128,7 +145,7 @@ function gp_login_scripts() {
 }
 
 function gp_site_scripts() {
-	global $current_user;
+	global $current_user, $wpdb;
 
 	if(!is_admin()){
 		wp_register_style('reset', GP_PLUGIN_URL . '/css/reset.css');
@@ -148,7 +165,7 @@ function gp_site_scripts() {
 	    wp_register_script('pirobox-extended', GP_PLUGIN_URL . '/js/pirobox_extended/js/pirobox_extended.js');
 	    wp_enqueue_script('pirobox-extended');
 		
-		if ($current_user->subscription["subscription-greenrazor"] != "true" || !is_user_logged_in()) {
+		if ($current_user->{$wpdb->prefix . 'subscription'}["subscription-greenrazor"] != "true" || !is_user_logged_in()) {
 			wp_register_script('boxy', GP_PLUGIN_URL . '/js/jquery.boxy.js');
 	   		wp_enqueue_script('boxy');	
 		}
@@ -191,7 +208,7 @@ function gp_site_scripts() {
 		    wp_enqueue_style('fileupload-ui');
 	    #}
     	
-		if ($current_user->subscription["subscription-greenrazor"] != "true" || !is_user_logged_in()) {
+		if ($current_user->{$wpdb->prefix . 'subscription'}["subscription-greenrazor"] != "true" || !is_user_logged_in()) {
 			wp_register_style('boxy', GP_PLUGIN_URL . '/js/boxy.css');
     		wp_enqueue_style('boxy');
 		}
@@ -352,26 +369,29 @@ function gp_db_session_handler($form_id, $form_name) {
 	}
 }
 
-add_action('wpmu_activate_user', 'gp_wpmu_activate_user');
-function gp_wpmu_activate_user() {
-	global $current_site;
+add_action('wpmu_activate_user', 'gp_wpmu_activate_user', 10, 3);
+function gp_wpmu_activate_user($user_id, $password, $meta) {
+	global $current_site, $gp, $wpdb;
 	
-	if ( !empty( $meta[ 'subscribe_greenrazor' ] ) ) {
-		/*
-		if (cm_subscribe($subscription_post['subscription-greenrazor'])) {
-			update_usermeta($user_id, 'subscription', $subscription_post );
-		} else {
-			$subscription_post['subscription-greenrazor']='false';
-			update_usermeta($user_id, 'subscription', $subscription_post );
+	$subscription_post = array();
+	$cm_lists = $gp->campaignmonitor[$current_site->id]['lists'];
+	if ( is_array( $cm_lists ) ) {
+		foreach ( $cm_lists as $key => $value ) {
+			if ( !empty( $meta[ $key ] ) ) {
+				if ( !cm_subscribe( $key, $meta[ $key ] ) ) {
+						$meta[ $key ] = false;
+				}
+				$subscription_post = $subscription_post + array( $key => $meta[ $key ] );
+			}
 		}
-		*/
+		update_usermeta($user_id, $wpdb->prefix . 'subscription', $subscription_post);
 	}
-	
-	if ( !empty( $meta[ 'subscribe_advertiser' ] ) ) {
-		if ( $meta[ 'subscribe_advertiser' ] == true ) {
-			update_usermeta($user_id, 'advertiser', true );
+
+	if ( !empty( $meta[ 'subscribe-advertiser' ] ) ) {
+		if ( $meta[ 'subscribe-advertiser' ] == true ) {
+			update_usermeta($user_id, 'reg_advertiser', true );
 		} else {
-			update_usermeta($user_id, 'advertiser', false );
+			update_usermeta($user_id, 'reg_advertiser', false );
 		}
 	}
 }
