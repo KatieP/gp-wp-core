@@ -1,5 +1,5 @@
 <?php
-function cm_subscribe($item = '', $subscribe = "false") {
+function cm_subscribe($item = '', $subscribe = "false", $userid = NULL) {
 	global $current_site, $gp, $wpdb;
 
 	if (empty($item)) {return false;}
@@ -22,7 +22,15 @@ function cm_subscribe($item = '', $subscribe = "false") {
 
 	if (!isset($cm_listId)) {return false;}
 	
-	if (is_user_logged_in()) {
+	if ( is_int( $userid ) &&  !is_user_logged_in() ) {
+		$user_data = get_userdata( $userid );
+		$user_email = $user_data->user_email;
+		$user_name = $user_data->display_name;
+		$user_id = $userid;
+		$user_postcode = $user_data->locale_postcode;
+	}
+	
+	if ( is_user_logged_in() ) {
 		global $current_user;
 		$user_email = $current_user->user_email;
 		$user_name = $current_user->display_name;
@@ -30,7 +38,7 @@ function cm_subscribe($item = '', $subscribe = "false") {
 		$user_postcode = $current_user->locale_postcode;
 	}
 	
-	require_once '/var/www/production/local.www.thegreenpages.com.au/wordpress/wp-content/plugins/gp-theme/lib/createsend-api/csrest_subscribers.php';
+	require_once( GP_PLUGIN_DIR . '/lib/createsend-api/csrest_subscribers.php' );
 	
 	$wrap = new CS_REST_Subscribers($cm_listId, $cm_api);
 
@@ -91,7 +99,7 @@ function cm_update_current_user() {
 	
 	if (!is_user_logged_in()) {return;}
 		
-	require_once '/var/www/production/local.www.thegreenpages.com.au/wordpress/wp-content/plugins/gp-theme/lib/createsend-api/csrest_subscribers.php';
+	require_once( GP_PLUGIN_DIR . '/lib/createsend-api/csrest_subscribers.php' );
 
 	if ( is_array( $gp->campaignmonitor ) ) {
 		foreach ( $gp->campaignmonitor as $key => $value ) {

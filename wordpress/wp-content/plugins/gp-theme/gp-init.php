@@ -378,7 +378,7 @@ function gp_wpmu_activate_user($user_id, $password, $meta) {
 	if ( is_array( $cm_lists ) ) {
 		foreach ( $cm_lists as $key => $value ) {
 			if ( !empty( $meta[ $key ] ) ) {
-				if ( !cm_subscribe( $key, $meta[ $key ] ) ) {
+				if ( !cm_subscribe( $key, $meta[ $key ], $user_id ) ) {
 						$meta[ $key ] = false;
 				}
 				$subscription_post = $subscription_post + array( $key => $meta[ $key ] );
