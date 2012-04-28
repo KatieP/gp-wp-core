@@ -63,7 +63,7 @@ function gp_wpmu_welcome_user_notification($user_id, $plaintext_pass = '') {
   $message .=	'					<!--Headings1 News-->' . "\r\n";
   $message .=	'						<table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin: 20px 0 0px 0;">' . "\r\n";
   $message .=	'							<tr>' . "\r\n";
-  $message .=	'								<td><span style="font-size:20px; padding:0px 0 0 0px;color:rgb(1,174,216);font-weight:bold;">Get Involved in the News, Campaigns & Events <br>Straight from the Environmental Community</td>' . "\r\n";
+  $message .=	'								<td><span style="font-size:20px; padding:0px 0 0 0px;color:rgb(1,174,216);font-weight:bold;">Get Involved in the News, Projects & Events <br>Straight from the Environmental Community</td>' . "\r\n";
   $message .=	'								<td align="right">' . "\r\n";
   $message .=	'								</td>' . "\r\n";
   $message .=	'							</tr>' . "\r\n";

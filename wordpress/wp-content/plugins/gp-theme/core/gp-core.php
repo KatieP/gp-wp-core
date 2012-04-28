@@ -5,7 +5,7 @@ $post_type_to_url_part = array("gp_news" => "news",
                                "gp_advertorial" => "eco-friendly-products",
                                "gp_competitions" => "competitions",
                                "gp_people" => "people",
-                               "gp_ngocampaign" => "ngo-campaign");
+                               "gp_projects" => "projects");
 
 function gp_core_create_tables() {
 	global $wpdb, $gp;
