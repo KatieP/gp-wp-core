@@ -135,8 +135,8 @@ function gp_plugin_scripts() {
     	wp_register_script('jquery-ui-datepicker', GP_PLUGIN_URL . '/js/jquery.ui.datepicker.js');
     	wp_enqueue_script('jquery-ui-datepicker');
 
-    	wp_register_script('pubforce-admin', GP_PLUGIN_URL . '/js/pubforce-admin.js');
-    	wp_enqueue_script('pubforce-admin');
+    	//wp_register_script('pubforce-admin', GP_PLUGIN_URL . '/js/pubforce-admin.js');
+    	//wp_enqueue_script('pubforce-admin');
     //}
 }
 
