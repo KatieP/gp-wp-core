@@ -12,6 +12,7 @@ class gp_legacy {
 				[crm_index_vs_listing].[ivl_listingid],
 				[crm_index_vs_listing].[ivl_indexid],
 				[LINKS].[LINK_NAME],
+				[LINKS].[LINK_EXPIRED],
 				d2.[index_title] AS d2,
 				d3.[index_title] AS d3
   			FROM 
@@ -34,15 +35,29 @@ class gp_legacy {
   				d3.[index_active] = 1
   			AND
   				d3.[index_regionid] = 1
+  			AND
+  				[LINKS].[LINK_APPROVED] = 1
+  			AND
+  				[LINKS].[link_country] = 'AU'
   			;
   		";
+		
+		#[LINKS].[link_expired]
 		
 		$msresult = mssql_query($mssql, $this->connect);
 		
 		$pages = array();
 		while ($row = mssql_fetch_array($msresult)) {
-			if (!$pages["listing_title"]) {
+			if (!array_key_exists('listing_title', $pages)) {
 				$pages["listing_title"] = $row['LINK_NAME'];
+			}
+			
+			if (!array_key_exists('listing_expired', $pages)) {
+				if ($row['LINK_EXPIRED'] != NULL) {
+					$pages["listing_expired"] = $row['LINK_EXPIRED'];
+				} else {
+					$pages["listing_expired"] = false;
+				}
 			}
 			
 			$pages[] = array(
