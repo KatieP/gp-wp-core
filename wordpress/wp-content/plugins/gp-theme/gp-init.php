@@ -18,6 +18,7 @@ require_once( GP_PLUGIN_DIR . '/core/gp-core.php' );
 require_once( GP_PLUGIN_DIR . '/core/gp-email-notification.php' );
 require_once( GP_PLUGIN_DIR . '/core/gp-campaignmonitor.php' );
 require_once( GP_PLUGIN_DIR . '/pages/gp-shortcodes.php' );
+require_once( GP_PLUGIN_DIR . '/core/gp-legacy.php' );
 
 add_action( 'init', 'gp_set_core_globals' );
 add_action( 'admin_init', 'gp_run_updates' );
