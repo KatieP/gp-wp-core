@@ -12,7 +12,7 @@ class gp_legacy {
 				[crm_index_vs_listing].[ivl_listingid],
 				[crm_index_vs_listing].[ivl_indexid],
 				[LINKS].[LINK_NAME],
-				[LINKS].[LINK_EXPIRED],
+				LINK_EXPIRED = DATEDIFF(s, '19700101', [LINKS].[LINK_EXPIRED]),
 				d2.[index_title] AS d2,
 				d3.[index_title] AS d3
   			FROM 
@@ -42,8 +42,6 @@ class gp_legacy {
   			;
   		";
 		
-		#[LINKS].[link_expired]
-		
 		$msresult = mssql_query($mssql, $this->connect);
 		
 		$pages = array();
@@ -53,10 +51,10 @@ class gp_legacy {
 			}
 			
 			if (!array_key_exists('listing_expired', $pages)) {
-				if ($row['LINK_EXPIRED'] != NULL) {
-					$pages["listing_expired"] = $row['LINK_EXPIRED'];
-				} else {
+				if ($row['LINK_EXPIRED'] == NULL || time() < $row['LINK_EXPIRED'] ) {
 					$pages["listing_expired"] = false;
+				} else {
+					$pages["listing_expired"] = $row['LINK_EXPIRED'];
 				}
 			}
 			
