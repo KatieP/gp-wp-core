@@ -65,6 +65,24 @@ $("#gp_sharebar").ready(function() {
     });
 });
 
+$(document).ready(function() {
+    var $sharebar = $("#gp_sharebar");
+    
+    if ( $sharebar.length != 1 ) {return false;}
+    
+    var $window = $(window),
+    offset = $sharebar.offset(),
+    topPadding = 20;
+
+    $window.scroll(function() {
+        if ($window.scrollTop() > (offset.top-topPadding)) {
+            $sharebar.addClass("fixed");
+        } else {
+            $sharebar.removeClass("fixed");
+        }
+    });
+});
+
 $(document).ready(function() { 
     $('.favourite-profile').on('click', 'a', clickStar);
     
