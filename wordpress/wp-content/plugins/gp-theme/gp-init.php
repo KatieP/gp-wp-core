@@ -135,9 +135,6 @@ function gp_plugin_scripts() {
     	
     	wp_register_script('jquery-ui-datepicker', GP_PLUGIN_URL . '/js/jquery.ui.datepicker.js');
     	wp_enqueue_script('jquery-ui-datepicker');
-
-    	//wp_register_script('pubforce-admin', GP_PLUGIN_URL . '/js/pubforce-admin.js');
-    	//wp_enqueue_script('pubforce-admin');
     //}
 }
 
@@ -159,12 +156,9 @@ function gp_site_scripts() {
 		wp_register_script('jquery', GP_PLUGIN_URL . '/js/jquery-1.7.1.min.js');
     	wp_enqueue_script('jquery');
 		
-    	// Required for both Pirobox and File Upload. Must be at Footer for File Upload.
+    	// Required for File Upload. Must be at Footer.
 		wp_register_script('jquery-ui', GP_PLUGIN_URL . '/js/jquery-ui-1.8.16.min.js', false, false, true);
 	    wp_enqueue_script('jquery-ui');
-	    
-	    wp_register_script('pirobox-extended', GP_PLUGIN_URL . '/js/pirobox_extended/js/pirobox_extended.js');
-	    wp_enqueue_script('pirobox-extended');
 		
 		if ($current_user->{$wpdb->prefix . 'subscription'}["subscription-greenrazor"] != "true" || !is_user_logged_in()) {
 			wp_register_script('boxy', GP_PLUGIN_URL . '/js/jquery.boxy.js');
@@ -176,15 +170,6 @@ function gp_site_scripts() {
 		
 		wp_register_script('hashchange', GP_PLUGIN_URL . '/js/jquery.ba-hashchange.min.js');
 	    wp_enqueue_script('hashchange');
-	    
-	    /*
-		global $post;
-
-	    if (get_post_type($post->ID) != "page") {
-		wp_register_script('gp_socialbar', GP_PLUGIN_URL . '/js/gp_socialbar.js');
-		wp_enqueue_script('gp_socialbar');
-	    }
-	    */
 
 	    #if (basename(get_permalink()) == 'list-your-business-4') {
 		    wp_register_script('jquery-templates', 'http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js', false, false, true);
@@ -213,15 +198,6 @@ function gp_site_scripts() {
 			wp_register_style('boxy', GP_PLUGIN_URL . '/js/boxy.css');
     		wp_enqueue_style('boxy');
 		}
-		
-		wp_register_style('pirobox-style', GP_PLUGIN_URL . '/js/pirobox_extended/css_pirobox/style_2/style.css');
-    	wp_enqueue_style('pirobox-style');
-    	
-    	wp_register_style('pirobox-css', GP_PLUGIN_URL . '/js/pirobox_extended/css/css.css');
-    	wp_enqueue_style('pirobox-css');
-    	
-    	wp_register_style('pirobox-default', GP_PLUGIN_URL . '/js/pirobox_extended/content/css/default.css');
-    	wp_enqueue_style('pirobox-default');
 	}
 }
 
