@@ -13,8 +13,12 @@ class gp_legacy {
 				[crm_index_vs_listing].[ivl_indexid],
 				[LINKS].[LINK_NAME],
 				LINK_EXPIRED = DATEDIFF(s, '19700101', [LINKS].[LINK_EXPIRED]),
-				d2.[index_title] AS d2,
-				d3.[index_title] AS d3
+				d1.[id] AS i1,
+				d1.[name] AS t1,
+				d2.[index_id] AS i2,
+				d2.[index_title] AS t2,
+				d3.[index_id] AS i3,
+				d3.[index_title] AS t3
   			FROM 
   				[greenpagesaustralia_com_au].[greenpagesauAdmin].[crm_index_vs_listing]
   			INNER JOIN 
@@ -28,7 +32,11 @@ class gp_legacy {
   			LEFT OUTER JOIN 
   				[greenpagesaustralia_com_au].[greenpagesauAdmin].[crm_index] AS d2
   			ON
-  				d3.[index_heirachy] = d2.[index_id]
+  				d3.[index_heirachy] = d2.[index_id]	
+  			INNER JOIN 
+  				[greenpagesaustralia_com_au].[greenpagesauAdmin].[crm_index_supercategory] AS d1
+  			ON 
+  				d2.[index_supercategoryid] = d1.[id]
   			WHERE 
   				[crm_index_vs_listing].[ivl_listingid] = {$old_crm_id}
   			AND
@@ -46,8 +54,16 @@ class gp_legacy {
 		
 		$pages = array();
 		while ($row = mssql_fetch_array($msresult)) {
+			if (!array_key_exists('listing_id', $pages)) {
+				$pages["listing_id"] = $row['ivl_listingid'];
+			}
+			
 			if (!array_key_exists('listing_title', $pages)) {
 				$pages["listing_title"] = $row['LINK_NAME'];
+			}
+			
+			if (!array_key_exists('listing_path_example', $pages)) {
+				$pages["listing_path_example"] = "/index.asp?page_id=105&id={$row['ivl_indexid']}&company_id={$row['ivl_listingid']}";
 			}
 			
 			if (!array_key_exists('listing_expired', $pages)) {
@@ -58,9 +74,18 @@ class gp_legacy {
 				}
 			}
 			
-			$pages[] = array(
-				"directory_path" => "/index.asp?page_id=105&id={$row['ivl_indexid']}&company_id={$row['ivl_listingid']}",
-				"directory_trail" => array($row['d2'], $row['d3'])
+			if (!array_key_exists('directory', $pages)) {
+				$pages["directory"] = array();
+			}
+			
+			$pages["directory"][] = array(
+				"directory_path" => "/index.asp?page_id=80&id={$row['ivl_indexid']}",
+				"listing_path" => "/index.asp?page_id=105&id={$row['ivl_indexid']}&company_id={$row['ivl_listingid']}",
+				"directory_trail" => array(
+					array('id' => $row['i1'], 'title' => $row['t1']),
+					array('id' => $row['i2'], 'title' => $row['t2']), 
+					array('id' => $row['i3'], 'title' => $row['t3'])
+				)
 			);
 		}
 		
