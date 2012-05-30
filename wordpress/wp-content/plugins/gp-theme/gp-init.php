@@ -13,10 +13,12 @@ define( 'GP_VERSION', '0.1' );
 define( 'GP_DB_VERSION', '0.4' );
 define( 'GP_PLUGIN_DIR', WP_PLUGIN_DIR . '/gp-theme' );
 define( 'GP_PLUGIN_URL', plugins_url( '/gp-theme' ) );
+define( 'WP_ADMIN_DIR', ABSPATH . 'wp-admin' );
 
 require_once( GP_PLUGIN_DIR . '/core/gp-core.php' );
 require_once( GP_PLUGIN_DIR . '/core/gp-email-notification.php' );
 require_once( GP_PLUGIN_DIR . '/core/gp-campaignmonitor.php' );
+require_once( GP_PLUGIN_DIR . '/core/gp-metaboxes.php' );
 require_once( GP_PLUGIN_DIR . '/pages/gp-shortcodes.php' );
 require_once( GP_PLUGIN_DIR . '/core/gp-legacy.php' );
 
