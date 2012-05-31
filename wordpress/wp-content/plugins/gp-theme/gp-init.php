@@ -8,7 +8,7 @@ Author: Eddy Respondek
 Author URI: 
 License: 
 */
-#
+
 define( 'GP_VERSION', '0.1' );
 define( 'GP_DB_VERSION', '0.4' );
 define( 'GP_PLUGIN_DIR', WP_PLUGIN_DIR . '/gp-theme' );
@@ -109,6 +109,8 @@ function gp_run_updates() {
 }
 
 function gp_plugin_scripts() {
+    #$thisposttype = get_post_type();
+	
 	# Re-register to place BEFORE our custom style. We are adding to this stylesheet. (Isn't there a better way to order this?)
 	wp_deregister_style('colors');
     wp_register_style('colors', WP_ADMIN_DIR . '/css/colors-fresh.css');
@@ -124,11 +126,11 @@ function gp_plugin_scripts() {
     wp_enqueue_script('jquery');
     
     if ( parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH) == "/wp-admin/profile.php" || parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH) == "/wp-admin/user-edit.php" ) {
-    	wp_register_script('gp_textareacounter', GP_PLUGIN_URL . '/js/textareacounter.js');
-    	wp_enqueue_script('gp_textareacounter');
-     }
+		wp_register_script('gp_textareacounter', GP_PLUGIN_URL . '/js/textareacounter.js');
+		wp_enqueue_script('gp_textareacounter');
+	}
     
-    //if ($_REQUEST['post_type'] == 'gp_events' || $_REQUEST['post_type'] == 'gp_competitions') {
+    #if ($thisposttype == 'gp_events' || $thisposttype == 'gp_competitions') {
     	wp_register_style('jquery-ui', GP_PLUGIN_URL . '/css/jquery-ui-1.8.9.custom.css');
     	wp_enqueue_style('jquery-ui');
     	
@@ -137,7 +139,7 @@ function gp_plugin_scripts() {
     	
     	wp_register_script('jquery-ui-datepicker', GP_PLUGIN_URL . '/js/jquery.ui.datepicker.js');
     	wp_enqueue_script('jquery-ui-datepicker');
-    //}
+    #}
 }
 
 function gp_login_scripts() {
