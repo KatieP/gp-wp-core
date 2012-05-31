@@ -8,7 +8,7 @@ Author: Eddy Respondek
 Author URI: 
 License: 
 */
-
+#
 define( 'GP_VERSION', '0.1' );
 define( 'GP_DB_VERSION', '0.4' );
 define( 'GP_PLUGIN_DIR', WP_PLUGIN_DIR . '/gp-theme' );
