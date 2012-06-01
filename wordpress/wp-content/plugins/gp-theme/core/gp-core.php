@@ -7,7 +7,7 @@ $post_type_to_url_part = array("gp_news" => "news",
                                "gp_people" => "people",
                                "gp_projects" => "projects");
 
-function gp_core_create_tables() {
+function gp_core_create_gp_tables() {
 	global $wpdb, $gp;
 
 	if ( !empty($wpdb->charset) ) {
@@ -256,5 +256,13 @@ function abbr_number( $val )
 
 function get_profile_author() {
 	return (get_query_var('author_name')) ? get_user_by('slug', get_query_var('author_name')) : get_userdata(get_query_var('author'));
+}
+
+function getPluralName ($newposttype) {
+	if ($newposttype['plural'] == true) {
+		return $newposttype['name'] . 's';
+	} else {
+		return $newposttype['name'];
+	}
 }
 ?>

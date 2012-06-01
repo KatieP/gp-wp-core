@@ -142,20 +142,40 @@ function gp_js_postGeoLoc_meta() {
 	$custom = get_post_custom($post->ID);
 	$thisposttype = get_post_type();
 	
-	$meta_geolat = (!isset($custom[$thisposttype . "_google_geo_latitude"][0])) ? "-33.8688" : $custom[$thisposttype . "_google_geo_latitude"][0];
-	$meta_geolng = (!isset($custom[$thisposttype . "_google_geo_longitude"][0])) ? "151.2195" : $custom[$thisposttype . "_google_geo_longitude"][0];
+	$meta_geolat = (!isset($custom[$thisposttype . "_google_geo_latitude"][0])) ? 'false' : $custom[$thisposttype . "_google_geo_latitude"][0];
+	$meta_geolng = (!isset($custom[$thisposttype . "_google_geo_longitude"][0])) ? 'false' : $custom[$thisposttype . "_google_geo_longitude"][0];
 	
 	echo '
 	<script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places" type="text/javascript"></script>
 	<script type="text/javascript">
-	function initialize() {
+	
+	
+	function geo_error(error) {
+		clearTimeout(location_timeout);
+		doMap(false, false);
+	}
+	
+	function doMap(geoLat, geoLng) {
+		var dbLat = ' . $meta_geolat . ';
+		var dbLng = ' . $meta_geolng . ';
+
+		if (dbLat || dbLng) {
+			geoLat = dbLat;
+			geoLng = dbLng;
+		}
+		
+		if (!geoLat || !geoLng) {
+			geoLat = -33.8688;
+			geoLng = 151.2195;
+		}
+		
 		var options = {
 			types: [\'(cities)\']
 		};
-      
+        
 		var mapOptions = {
-			center: new google.maps.LatLng(' . $meta_geolat . ', ' . $meta_geolng . '),
-			zoom: 5,
+			center: new google.maps.LatLng(geoLat, geoLng),
+			zoom: 6,
 			disableDefaultUI: true,
 			disableDoubleClickZoom: true,
 			draggable: false,
@@ -177,10 +197,10 @@ function gp_js_postGeoLoc_meta() {
 			var place = autocomplete.getPlace();
 			if (place.geometry.viewport) {
 				map.fitBounds(place.geometry.viewport);
-				map.setZoom(5);
+				map.setZoom(7);
 			} else {
 				map.setCenter(place.geometry.location);
-				map.setZoom(5);
+				map.setZoom(7);
 			}
 
 			var image = new google.maps.MarkerImage(
@@ -228,6 +248,27 @@ function gp_js_postGeoLoc_meta() {
 				}
 			}
 		});
+	}
+	
+	function initialize() {
+		//doMap(-33.8688, 151.2195);	
+	
+		if (navigator && navigator.geolocation) {
+			var location_timeout = setTimeout("doMap(-33.8688, 151.2195)", 10000);
+				navigator.geolocation.getCurrentPosition(
+				function geo_success(position) {
+					clearTimeout(location_timeout);
+					doMap(position.coords.latitude, position.coords.longitude);
+				}, 
+				function geo_error(error) {
+					clearTimeout(location_timeout);
+					doMap(false, false);
+				}, 
+				{maximumAge:Infinity,timeout:10000}
+			);
+		} else {
+			doMap(-33.8688, 151.2195);
+		}
 	}
 	google.maps.event.addDomListener(window, \'load\', initialize);
  	</script>
