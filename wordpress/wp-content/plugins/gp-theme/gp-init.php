@@ -11,7 +11,7 @@ License:
 
 define( 'GP_VERSION', '0.1' );
 define( 'GP_DB_VERSION', '0.5' );
-define( 'GP_MAXMIND_VERSION', '0.1' );
+define( 'GP_MAXMIND_VERSION', '0.0' );
 define( 'GP_PLUGIN_DIR', WP_PLUGIN_DIR . '/gp-theme' );
 define( 'GP_PLUGIN_URL', plugins_url( '/gp-theme' ) );
 define( 'WP_ADMIN_DIR', ABSPATH . 'wp-admin' );
@@ -106,11 +106,11 @@ function gp_run_updates() {
 	
 	if (get_option('GP_DB_VERSION') != GP_DB_VERSION) {
 		gp_core_create_gp_tables();
-		gp_core_create_maxmind_tables();
 		update_option('GP_DB_VERSION', GP_DB_VERSION);
 	}
 
 	if (get_option('GP_MAXMIND_VERSION') != GP_MAXMIND_VERSION) {
+		gp_core_create_maxmind_tables();
 		gp_core_import_maxmind_citiesdata();
 		update_option('GP_MAXMIND_VERSION', GP_MAXMIND_VERSION);
 	}
