@@ -35,12 +35,12 @@ if (!session_id()) {
 define('DB_NAME', 's1-wordpress');
 
 /** MySQL database username */
-#define('DB_USER', 's1-wordpress');
-define('DB_USER', 'root');
+define('DB_USER', 's1-wordpress');
+#define('DB_USER', 'root'); # Toggle for dev environment only 
 
 /** MySQL database password */
-#define('DB_PASSWORD', '7BXmxPmwy4LJZNhR');
-define('DB_PASSWORD', '');
+define('DB_PASSWORD', '7BXmxPmwy4LJZNhR');
+#define('DB_PASSWORD', ''); # Toggle for dev environment only
 
 /** MySQL hostname */
 define('DB_HOST', 'localhost');
