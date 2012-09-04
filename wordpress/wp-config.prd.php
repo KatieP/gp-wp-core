@@ -36,11 +36,9 @@ define('DB_NAME', 's1-wordpress');
 
 /** MySQL database username */
 define('DB_USER', 's1-wordpress');
-#define('DB_USER', 'root'); # Toggle for dev environment only 
 
 /** MySQL database password */
 define('DB_PASSWORD', '7BXmxPmwy4LJZNhR');
-#define('DB_PASSWORD', ''); # Toggle for dev environment only
 
 /** MySQL hostname */
 define('DB_HOST', 'localhost');
@@ -117,4 +115,3 @@ if ( !defined('ABSPATH') )
 
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
-
