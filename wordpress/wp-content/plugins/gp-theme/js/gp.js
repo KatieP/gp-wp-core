@@ -2,7 +2,8 @@ $("#auth-tools").ready(function() {
 	$("#auth-tools > li").removeClass('no-js');
 
 	$("#auth-tools > li > a").click(function(e) {
-		e.preventDefault();
+		//temporarily disable simplemodal login. uncomment to make it work again
+		//e.preventDefault();
 
 		$("#auth-tools li ul").not($(this).next("ul")).hide();
 		$("#auth-tools li a").not($(this)).removeClass("selected");

@@ -1,6 +1,6 @@
 <?php
 /** Enable W3 Total Cache */
-#define('WP_CACHE', true); // Added by W3 Total Cache
+define('WP_CACHE', false); // Added by W3 Total Cache
 
 /** 
  * ENABLE SESSION MANAGEMENT
@@ -35,11 +35,9 @@ if (!session_id()) {
 define('DB_NAME', 's1-wordpress');
 
 /** MySQL database username */
-#define('DB_USER', 's1-wordpress');
 define('DB_USER', 'root');
 
 /** MySQL database password */
-#define('DB_PASSWORD', '7BXmxPmwy4LJZNhR');
 define('DB_PASSWORD', '');
 
 /** MySQL hostname */
