@@ -174,17 +174,32 @@ function gp_site_scripts() {
         wp_register_style('reset', GP_PLUGIN_URL . '/css/reset.css');
         wp_enqueue_style('reset');
 
-        wp_register_style('generic', get_bloginfo('template_url') . '/template/generic.css');
+        wp_register_style('generic', get_bloginfo('template_url') . '/template/css/generic.css');
         wp_enqueue_style('generic');
+        
+        wp_register_style('jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css');
+        wp_enqueue_style('jquery-ui');
+        
+        wp_register_style('jquery-ui-custom-css', get_bloginfo('template_url') . '/template/custom-theme/jquery-ui-1.8.22.custom.css');
+        wp_enqueue_style('jquery-ui-custom-css');
+        
+        wp_register_style('gp_web_fonts', get_bloginfo('template_url') . '/template/css/fontfaces.css');
+        wp_enqueue_style( 'gp_web_fonts');
 
         wp_deregister_script('jquery');
         wp_register_script('jquery', GP_PLUGIN_URL . '/js/jquery-1.7.1.min.js');
         wp_enqueue_script('jquery');
 
-        // Required for File Upload. Must be at Footer.
-        wp_register_script('jquery-ui', GP_PLUGIN_URL . '/js/jquery-ui-1.8.16.min.js', false, false, true);
-        wp_enqueue_script('jquery-ui');
-
+        wp_deregister_script('jquery-ui-widget');
+        wp_register_script('jquery-ui-widget', GP_PLUGIN_URL . '/js/jquery.ui.widget.js');
+        wp_enqueue_script('jquery-ui-widget');
+        
+        wp_register_script('jquery-ui-datepicker', GP_PLUGIN_URL . '/js/jquery.ui.datepicker.js');
+        wp_enqueue_script('jquery-ui-datepicker');
+        
+        wp_register_script('jquery-ui-dialog', GP_PLUGIN_URL . '/js/jquery.ui.dialog.js');
+        wp_enqueue_script('jquery-ui-dialog');
+        
         if ($current_user->{$wpdb->prefix . 'subscription'}["subscription-greenrazor"] != "true" || !is_user_logged_in()) {
             wp_register_script('boxy', GP_PLUGIN_URL . '/js/jquery.boxy.js');
             wp_enqueue_script('boxy');
@@ -196,7 +211,20 @@ function gp_site_scripts() {
         wp_register_script('hashchange', GP_PLUGIN_URL . '/js/jquery.ba-hashchange.min.js');
         wp_enqueue_script('hashchange');
 
+        if ($current_user->{$wpdb->prefix . 'subscription'}["subscription-greenrazor"] != "true" || !is_user_logged_in()) {
+            wp_register_style('boxy', GP_PLUGIN_URL . '/js/boxy.css');
+            wp_enqueue_style('boxy');
+        }
+        
+        // Required for File Upload. Must be at Footer.
+        wp_deregister_script('jquery-ui-core');
+        wp_register_script('jquery-ui-core', GP_PLUGIN_URL . '/js/jquery.ui.core.js', false, false, true);
+        wp_enqueue_script('jquery-ui-core');
+        
         #if (basename(get_permalink()) == 'list-your-business-4') {
+        wp_register_style('fileupload-ui', GP_PLUGIN_URL . '/css/jquery.fileupload-ui.css');
+        wp_enqueue_style('fileupload-ui');
+        
         wp_register_script('jquery-templates', 'http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js', false, false, true);
         wp_enqueue_script('jquery-templates');
 
@@ -211,18 +239,7 @@ function gp_site_scripts() {
 
         wp_register_script('file-upload', GP_PLUGIN_URL . '/js/file-upload.js', false, false, true);
         wp_enqueue_script('file-upload');
-
-        wp_register_style('jquery-ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css');
-        wp_enqueue_style('jquery-ui');
-
-        wp_register_style('fileupload-ui', GP_PLUGIN_URL . '/css/jquery.fileupload-ui.css');
-        wp_enqueue_style('fileupload-ui');
         #}
-         
-        if ($current_user->{$wpdb->prefix . 'subscription'}["subscription-greenrazor"] != "true" || !is_user_logged_in()) {
-            wp_register_style('boxy', GP_PLUGIN_URL . '/js/boxy.css');
-            wp_enqueue_style('boxy');
-        }
     }
 }
 
