@@ -3,12 +3,12 @@
 Plugin Name: SimpleModal Login
 Plugin URI: http://www.ericmmartin.com/projects/simplemodal-login/
 Description: A modal Ajax login, registration, and password reset feature for WordPress which utilizes jQuery and the SimpleModal jQuery plugin.
-Version: 1.0.4
+Version: 1.0.6
 Author: Eric Martin
 Author URI: http://www.ericmmartin.com
 */
 
-/*  Copyright 2010 Eric Martin (eric@ericmmartin.com)
+/*  Copyright 2012 Eric Martin (eric@ericmmartin.com)
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -42,12 +42,12 @@ if (!class_exists('SimpleModalLogin')) {
 		/**
 		 * @var string The plugin version
 		 */
-		var $version = '1.0.4';
+		var $version = '1.0.6';
 
 		/**
 		 * @var string The plugin version
 		 */
-		var $simplemodalVersion = '1.4.1';
+		var $simplemodalVersion = '1.4.2';
 
 		/**
 		 * @var string The options string name for this plugin
@@ -216,7 +216,7 @@ if (!class_exists('SimpleModalLogin')) {
 		}
 
 		/**
-		 * @desc Loads the SimpleModal Login options. Responsible for 
+		 * @desc Loads the SimpleModal Login options. Responsible for
 		 * handling upgrades and default option values.
 		 * @return array
 		 */
@@ -322,12 +322,7 @@ if (!class_exists('SimpleModalLogin')) {
 				$reset_form = $this->reset_form();
 				$output .= apply_filters('simplemodal_reset_form', $reset_form);
 			}
-
-			$output .= sprintf('
-	<div class="simplemodal-login-credit"><a href="http://www.ericmmartin.com/projects/simplemodal-login/">%s</a></div>
-</div>',
-				__('Powered by', 'simplemodal-login') . " SimpleModal Login"
-			);
+			$output .= '</div>';
 
 			echo $output;
 		}
@@ -439,6 +434,8 @@ if (!class_exists('SimpleModalLogin')) {
 			wp_enqueue_script('simplemodal-login', $this->pluginurl . $script, null, $this->version, true);
 			wp_localize_script('simplemodal-login', 'SimpleModalLoginL10n', array(
 				'shortcut' => $this->options['shortcut'] ? 'true' : 'false',
+				'logged_in' => is_user_logged_in() ? 'true' : 'false',
+				'admin_url' => get_admin_url(),
 				'empty_username' => __('<strong>ERROR</strong>: The username field is empty.', 'simplemodal-login'),
 				'empty_password' => __('<strong>ERROR</strong>: The password field is empty.', 'simplemodal-login'),
 				'empty_email' => __('<strong>ERROR</strong>: The email field is empty.', 'simplemodal-login'),
@@ -464,13 +461,13 @@ if (!class_exists('SimpleModalLogin')) {
 		 * @return string
 		 */
 		function login_redirect($redirect_to, $req_redirect_to, $user) {
-		    if (!isset($user->user_login) || !$this->is_ajax()) {
+			if (!isset($user->user_login) || !$this->is_ajax()) {
 				return $redirect_to;
-		    }
-		    if ($this->is_plugin_active('peters-login-redirect/wplogin_redirect.php')
-		    		&& function_exists('redirect_to_front_page')) {
-		    	$redirect_to = redirect_to_front_page($redirect_to, $req_redirect_to, $user);
-		    }
+			}
+			if ($this->is_plugin_active('peters-login-redirect/wplogin_redirect.php')
+					&& function_exists('redirect_to_front_page')) {
+				$redirect_to = redirect_to_front_page($redirect_to, $req_redirect_to, $user);
+			}
 			echo "<div id='simplemodal-login-redirect'>$redirect_to</div>";
 			exit();
 		}
@@ -494,9 +491,9 @@ if (!class_exists('SimpleModalLogin')) {
 		 * into your function.
 		 * @return string
 		 */
-function registration_form() {
+		function registration_form() {
 			global $gp, $current_site;
-	
+			
 			$output = sprintf('
 				<form name="registerform" id="registerform" action="/register" method="post">
 					<div class="simplemodal-close-button"><a href="#" class="simplemodal-close"></a></div>
@@ -512,11 +509,11 @@ function registration_form() {
 				__('Username', 'simplemodal-login'),
 				__('E-mail', 'simplemodal-login')
 			);
-					
+
 			ob_start();
 			do_action('register_form');
 			$output .= ob_get_clean();
-				
+			
 			$output .= sprintf('
 						<input type="hidden" name="signup_for" value="user" /> 
 						<input type="hidden" name="stage" value="validate-user-signup" />
@@ -536,7 +533,7 @@ function registration_form() {
 					}
 				}
 			}
-						
+
 			$output .= sprintf('
 						<!--<span class="user_checkbox"><input type="checkbox" name="subscribe-advertiser" value="subscribe-advertiser" /> Register for an advertisers account?</span>//-->
 						<input type="text" style="display:none;" name="gp_love" value="I &lt;3 Green Pages!" />
@@ -588,6 +585,7 @@ function registration_form() {
 				
 			$output .= '
 					</div>
+					<div class="simplemodal-login-activity" style="display:none;"></div>
 				</form>
 			';
 
@@ -639,6 +637,7 @@ function registration_form() {
 
 			$output .= '
 		</div>
+		<div class="simplemodal-login-activity" style="display:none;"></div>
 	</form>';
 
 			return $output;

@@ -130,20 +130,9 @@ function gp_run_updates() {
 }
 
 function gp_plugin_scripts() {
-    #$thisposttype = get_post_type();
-
-    # Re-register to place BEFORE our custom style. We are adding to this stylesheet. (Isn't there a better way to order this?)
-    wp_deregister_style('colors');
-    wp_register_style('colors', WP_ADMIN_DIR . '/css/colors-fresh.css');
-    wp_enqueue_style('colors');
-
-    # Our custom admin style.
-    wp_register_style('gp_admin', GP_PLUGIN_URL . '/css/gp-admin.css');
-    wp_enqueue_style('gp_admin');
-
     # Add our own Jquery.
     wp_deregister_script('jquery');
-    wp_register_script('jquery', GP_PLUGIN_URL . '/js/jquery-1.7.1.min.js');
+    wp_register_script('jquery', GP_PLUGIN_URL . '/js/jquery-1.8.0.min.js');
     wp_enqueue_script('jquery');
 
     if ( parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH) == "/wp-admin/profile.php" || parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH) == "/wp-admin/user-edit.php" ) {
@@ -158,7 +147,7 @@ function gp_plugin_scripts() {
     wp_register_script('jquery-ui', GP_PLUGIN_URL . '/js/jquery-ui-1.8.9.custom.min.js');
     wp_enqueue_script('jquery-ui');
      
-    wp_register_script('jquery-ui-datepicker', GP_PLUGIN_URL . '/js/jquery.ui.datepicker.js');
+    wp_register_script('jquery-ui-datepicker', GP_PLUGIN_URL . '/js/jquery.ui.datepicker.min.js');
     wp_enqueue_script('jquery-ui-datepicker');
     #}
 }
@@ -171,8 +160,8 @@ function gp_site_scripts() {
     global $current_user, $wpdb;
 
     if(!is_admin()){
-        wp_register_style('reset', GP_PLUGIN_URL . '/css/reset.css');
-        wp_enqueue_style('reset');
+        wp_register_style('normalize', GP_PLUGIN_URL . '/css/normalize.min.css');
+        wp_enqueue_style('normalize');
 
         wp_register_style('generic', get_bloginfo('template_url') . '/template/css/generic.css');
         wp_enqueue_style('generic');
@@ -186,29 +175,39 @@ function gp_site_scripts() {
         wp_register_style('gp_web_fonts', get_bloginfo('template_url') . '/template/css/fontfaces.css');
         wp_enqueue_style( 'gp_web_fonts');
 
+        wp_deregister_script('modernizr');
+        wp_register_script('modernizr', GP_PLUGIN_URL . '/js/modernizr-2.6.1.min.js');
+        wp_enqueue_script('modernizr');
+        
         wp_deregister_script('jquery');
-        wp_register_script('jquery', GP_PLUGIN_URL . '/js/jquery-1.7.1.min.js');
+        wp_register_script('jquery', GP_PLUGIN_URL . '/js/jquery-1.8.0.min.js');
         wp_enqueue_script('jquery');
-
+        
         wp_deregister_script('jquery-ui-widget');
-        wp_register_script('jquery-ui-widget', GP_PLUGIN_URL . '/js/jquery.ui.widget.js');
+        wp_register_script('jquery-ui-widget', GP_PLUGIN_URL . '/js/jquery.ui.widget.min.js');
         wp_enqueue_script('jquery-ui-widget');
         
-        wp_register_script('jquery-ui-datepicker', GP_PLUGIN_URL . '/js/jquery.ui.datepicker.js');
+        wp_deregister_script('jquery-ui-datepicker');
+        wp_register_script('jquery-ui-datepicker', GP_PLUGIN_URL . '/js/jquery.ui.datepicker.min.js');
         wp_enqueue_script('jquery-ui-datepicker');
         
-        wp_register_script('jquery-ui-dialog', GP_PLUGIN_URL . '/js/jquery.ui.dialog.js');
+        wp_deregister_script('jquery-ui-dialog');
+        wp_register_script('jquery-ui-dialog', GP_PLUGIN_URL . '/js/jquery.ui.dialog.min.js');
         wp_enqueue_script('jquery-ui-dialog');
         
+        wp_deregister_script('jquery-ui-position');
+        wp_register_script('jquery-ui-position', GP_PLUGIN_URL . '/js/jquery.ui.position.min.js');
+        wp_enqueue_script('jquery-ui-position');
+        
         if ($current_user->{$wpdb->prefix . 'subscription'}["subscription-greenrazor"] != "true" || !is_user_logged_in()) {
-            wp_register_script('boxy', GP_PLUGIN_URL . '/js/jquery.boxy.js');
+            wp_register_script('boxy', GP_PLUGIN_URL . '/js/jquery.boxy.js', false, false, true);
             wp_enqueue_script('boxy');
         }
 
-        wp_register_script('gp', GP_PLUGIN_URL . '/js/gp.js');
+        wp_register_script('gp', GP_PLUGIN_URL . '/js/gp.js', false, false, true);
         wp_enqueue_script('gp');
 
-        wp_register_script('hashchange', GP_PLUGIN_URL . '/js/jquery.ba-hashchange.min.js');
+        wp_register_script('hashchange', GP_PLUGIN_URL . '/js/jquery.ba-hashchange.min.js', false, false, true);
         wp_enqueue_script('hashchange');
 
         if ($current_user->{$wpdb->prefix . 'subscription'}["subscription-greenrazor"] != "true" || !is_user_logged_in()) {
@@ -218,7 +217,7 @@ function gp_site_scripts() {
         
         // Required for File Upload. Must be at Footer.
         wp_deregister_script('jquery-ui-core');
-        wp_register_script('jquery-ui-core', GP_PLUGIN_URL . '/js/jquery.ui.core.js', false, false, true);
+        wp_register_script('jquery-ui-core', GP_PLUGIN_URL . '/js/jquery.ui.core.min.js', false, false, true);
         wp_enqueue_script('jquery-ui-core');
         
         #if (basename(get_permalink()) == 'list-your-business-4') {
