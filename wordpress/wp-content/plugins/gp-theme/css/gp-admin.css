@@ -1,6 +1,7 @@
+/*
 *, body {
-	font-family: Helvetica !important;
-	color: #666;
+    font-family: Helvetica !important;
+    color: #666;
 }
 
 #wpwrap{width:972px;margin:0 auto;position:relative;clear:both;}
@@ -13,23 +14,23 @@ a,#adminmenu a,#poststuff #edButtonPreview,#poststuff #edButtonHTML,#the-comment
 #wpbody-content .wrap {padding:0;margin:0;}
 
 input[type="button"], input[type="reset"], input[type="submit"], #minor-publishing-actions .preview {
-	text-shadow: none;
-	font-weight: 600;
-	color: #fff;
-	font-size: 11px;
-	background:none;
-	background-color: #bbb;
-	cursor: pointer;
-	border: 0;
-		-moz-border-radius: 2px;
-		-webkit-border-radius: 2px;
-	border-radius: 2px;
+    text-shadow: none;
+    font-weight: 600;
+    color: #fff;
+    font-size: 11px;
+    background:none;
+    background-color: #bbb;
+    cursor: pointer;
+    border: 0;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+    border-radius: 2px;
 }
 
 input.button-primary,button.button-primary,a.button-primary{background:none;background-color: #61c201;}
 
 #quicktags #ed_toolbar input {
-	color: #555;border:1px solid #bbb;
+    color: #555;border:1px solid #bbb;
 }
 
 #adminmenuback{background:none;border:none;}
@@ -37,33 +38,36 @@ input.button-primary,button.button-primary,a.button-primary{background:none;back
 #adminmenu li .awaiting-mod span, #adminmenu li span.update-plugins span, #sidemenu li a span.update-plugins span {color: #fff;}
 
 #adminmenu li .awaiting-mod, #adminmenu li span.update-plugins {
-	background-color:red;
-	line-height:12px;
-	padding:2px 1px 0 1px;
-		-moz-border-radius: 2px;
-		-webkit-border-radius: 2px;
-	border-radius: 2px;
+    background-color:red;
+    line-height:12px;
+    padding:2px 1px 0 1px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+    border-radius: 2px;
 }
+*/
 
-/**
+/*
 #adminmenuwrap {
-	border: 1px solid #e7e7e7;
-	background-color: #f2f2f2;
-	color: #666666;
-	font-size: 11px;
-		-moz-border-radius: 2px;
-		-webkit-border-radius: 2px;
-	border-radius: 2px;
+    border: 1px solid #e7e7e7;
+    background-color: #f2f2f2;
+    color: #666666;
+    font-size: 11px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+    border-radius: 2px;
 }
-**/
+*/
 
+/*
 #adminmenuwrap {border: none;}
 .wp-submenu {border-left:1px solid #eee;border-right:1px solid #eee;}
 #adminmenu li.wp-menu-separator {background:none;border:none;background-color:#fff;height:16px;}
 #adminmenu div.separator {border:none;}
+*/
 
 #map_canvas {
-	height: 150px;
-	width: 99%;
-	margin-top: 0.6em;
+    height: 150px;
+    width: 99%;
+    margin-top: 0.6em;
 }

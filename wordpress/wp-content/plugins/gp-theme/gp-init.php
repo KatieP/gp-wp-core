@@ -130,26 +130,22 @@ function gp_run_updates() {
 }
 
 function gp_plugin_scripts() {
-    # Add our own Jquery.
-    wp_deregister_script('jquery');
-    wp_register_script('jquery', GP_PLUGIN_URL . '/js/jquery-1.8.0.min.js');
-    wp_enqueue_script('jquery');
 
     if ( parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH) == "/wp-admin/profile.php" || parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH) == "/wp-admin/user-edit.php" ) {
-        wp_register_script('gp_textareacounter', GP_PLUGIN_URL . '/js/textareacounter.js');
+        wp_register_script('gp_textareacounter', GP_PLUGIN_URL . '/js/textareacounter.js', false, false, true);
         wp_enqueue_script('gp_textareacounter');
     }
 
-    #if ($thisposttype == 'gp_events' || $thisposttype == 'gp_competitions') {
+    wp_register_style('gp-admin', GP_PLUGIN_URL . '/css/gp-admin.css');
+    wp_enqueue_style('gp-admin');
+    
     wp_register_style('jquery-ui', GP_PLUGIN_URL . '/css/jquery-ui-1.8.9.custom.css');
     wp_enqueue_style('jquery-ui');
-     
-    wp_register_script('jquery-ui', GP_PLUGIN_URL . '/js/jquery-ui-1.8.9.custom.min.js');
-    wp_enqueue_script('jquery-ui');
-     
-    wp_register_script('jquery-ui-datepicker', GP_PLUGIN_URL . '/js/jquery.ui.datepicker.min.js');
+ 
+    wp_deregister_script('jquery-ui-datepicker');
+    wp_register_script('jquery-ui-datepicker', GP_PLUGIN_URL . '/js/jquery.ui.datepicker.min.js', false, false, true);
     wp_enqueue_script('jquery-ui-datepicker');
-    #}
+
 }
 
 function gp_login_scripts() {

@@ -213,8 +213,8 @@ function gp_js_postGeoLoc_meta() {
 
     if ( $meta_source == 'maxmind' ) {
         echo '
-        if ( !$(\'.maxmind_acknowledgment\').length ) {
-            $(\'#footer\').append(\'<div class="maxmind_acknowledgment">This product includes GeoLite data created by MaxMind, available from <a href="http://maxmind.com/" target="_blank">http://maxmind.com/</a></div>\');
+        if ( !jQuery(\'.maxmind_acknowledgment\').length ) {
+            jQuery(\'#footer\').append(\'<div class="maxmind_acknowledgment">This product includes GeoLite data created by MaxMind, available from <a href="http://maxmind.com/" target="_blank">http://maxmind.com/</a></div>\');
         }
         ';
     }
