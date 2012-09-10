@@ -1,65 +1,141 @@
 @charset "UTF-8";
 
 body {
-	background-color: #fff;
-	font-family: Helvetica;
-	line-height: 1.5em;
-	font-size: 13px;
-	color: #666;
-	padding: 15px 0 15px 0;
+    background-color: #fff;
+    font-family: Helvetica;
+    line-height: 1.5em;
+    font-size: 13px;
+    color: #666;
+    padding: 15px 0 15px 0;
 }
 
 a {
-	color: #01aed8;
-	text-decoration: none;
+    color: #01aed8;
+    text-decoration: none;
 }
 
 a:hover {
-	color: #01aed8;
-	text-decoration: none;
+    color: #01aed8;
+    text-decoration: none;
 }
 
 .clear {
-	display: block;
-	float: none;
-	clear: both;
+    display: block;
+    float: none;
+    clear: both;
 }
 
 .block {
-	display: none;
+    display: none;
 }
 
 :focus {
-	outline-color: -moz-use-text-color;
-	outline-style: none;
-	outline-width: 0pt;
+    outline-color: -moz-use-text-color;
+    outline-style: none;
+    outline-width: 0pt;
 }
 
 .pos {
-	width: 972px;
-	margin: 0 auto;
-	position: relative;
-	clear: both;
+    width: 972px;
+    margin: 0 auto;
+    position: relative;
+    clear: both;
+}
+
+input[type="text"], input[type="password"], textarea {
+    display: block;
+    height: 44px;
+    font-size: 16px;
+    font-family: Helvetica;
+    color: grey;
+    padding: 10px;
+    margin: 8px 8px 20px 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+    border-radius: 2px; 
+}
+
+input[type="button"], input[type="reset"], input[type="submit"] {
+    color: #fff;
+    font-weight: 600;
+    line-height: 32px;
+    font-size: 11px;
+    display: block;
+    height: 33px;
+    padding: 0 10px 0 10px;
+    background-color: #bbb;
+    float: right;
+    margin: 0 0 0 10px;
+    border: 0;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+input[type="submit"] {
+    background-color: #61c201; 
+}
+
+label {
+    font-weight: 600;
+    color: #01aed8!important;
+    display: block;
+    font-size: 12px!important;
+    clear: both;
 }
 
 #login {width:364px;}
-h1 a{background:url(../graphics/login-mast.gif) no-repeat top center;height:41px;width:364px;}
 
-
-#loginform {
-	background-color: #f2f2f2;
-	border-width: 8px;
-	border-color: #d5e8c2;
-	border-radius: 2px;
+#login h1 a {
+    background: url(../graphics/login-mast.gif) no-repeat top center;
+    height: 41px;
+    width: 364px;
 }
 
-input #wp-submit {
-	font-weight: 600;
-	line-height: 32px;
-	font-size: 11px;
-	height: 33px;
-	padding: 0 10px;
-	background-color: #bbbbbb;
-	border-radius: 2px;
-	background-color: #61c201;
+
+#loginform, #lostpasswordform {
+    background-color: #f2f2f2;
+    border-width: 8px;
+    border-color: #d5e8c2;
+    border-radius: 2px;
 }
+
+input#wp-submit.button-primary {
+    font-size: 11px!important;
+    background-image: none;
+    text-shadow: none;
+}
+
+p.submit {
+    display: block;
+    height: 33px;
+    line-height: 32px;
+    margin-top: 6px;
+}
+
+.login form {
+    padding: 26px 24px 26px 24px;
+}
+
+.login form .input, .login input[type="text"] {
+    box-shadow: none;
+    display: block;
+    font-size: 16px;
+    font-family: Helvetica;
+    color: grey;
+    padding: 10px!important;
+    margin: 8px 8px 20px 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+    border-radius: 2px; 
+}
+
+.login form .forgetmenot label {color:#666!important; float:left; font-size:10px!important; line-height:34px; font-weight: normal;}
+.login form .forgetmenot label input{margin-right:6px; float:left; margin-top:12px;}
+.login #nav, .login #backtoblog {color:#666!important; clear:both; padding-top:16px; text-align:center;}
+.login #nav a, .login #backtoblog a {color:#666!important;}
