@@ -62,23 +62,6 @@ $(document).ready(function() {
 	});	
 });
 
-$("#gp_sharebar").ready(function() {
-	if ( $(this).length ) {return false;}
-	
-    var $sharebar = $(this),
-    $window = $(window),
-    offset = $sharebar.offset(),
-    topPadding = 20;
- 
-    $window.scroll(function() {
-        if ($window.scrollTop() > (offset.top-topPadding)) {
-            $sharebar.addClass("fixed");
-        } else {
-            $sharebar.removeClass("fixed");
-        }
-    });
-});
-
 $(document).ready(function() {
     var $sharebar = $("#gp_sharebar");
     
@@ -87,11 +70,14 @@ $(document).ready(function() {
     var $window = $(window),
     offset = $sharebar.offset(),
     topPadding = 20;
+    toolbarHeight = $("header:first").outerHeight();
 
     $window.scroll(function() {
-        if ($window.scrollTop() > (offset.top-topPadding)) {
+        if ($window.scrollTop() > (offset.top - topPadding - toolbarHeight)) {
+        	$sharebar.css({ top: topPadding + toolbarHeight });
             $sharebar.addClass("fixed");
         } else {
+        	$sharebar.css({ top: offset.top });
             $sharebar.removeClass("fixed");
         }
     });
