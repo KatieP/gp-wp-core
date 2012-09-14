@@ -15,7 +15,7 @@ function gp_core_create_maxmind_tables() {
         $charset_collate = "DEFAULT CHARACTER SET " . $wpdb->charset;
     }
 
-    $sql[] = "DROP TABLE IF EXISTS " . $wpdb->base_prefix . "maxmind_geolitecityblocks_ipv4;";
+    $wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->base_prefix . "maxmind_geolitecityblocks_ipv4;" );
 
     $sql[] = "CREATE TABLE " . $wpdb->base_prefix . "maxmind_geolitecityblocks_ipv4 (
         startIPNum INT(10) UNSIGNED NOT NULL,
@@ -24,7 +24,7 @@ function gp_core_create_maxmind_tables() {
   		PRIMARY KEY (startIPNum, endIPNum)
   		) ENGINE=MyISAM " . $charset_collate . " PACK_KEYS=1 DELAY_KEY_WRITE=1;";
 
-    $sql[] = "DROP TABLE IF EXISTS " . $wpdb->base_prefix . "maxmind_geolitecitylocation;";
+    $wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->base_prefix . "maxmind_geolitecitylocation;" );
 
     $sql[] = "CREATE TABLE " . $wpdb->base_prefix . "maxmind_geolitecitylocation (
         locID INT(10) UNSIGNED NOT NULL,

@@ -11,8 +11,8 @@ License:
 
 define( 'GP_VERSION', '0.1' );
 define( 'GP_DB_VERSION', '0.5' );
-define( 'GP_GEONAMES_VERSION', '0.2' );
-define( 'GP_MAXMIND_VERSION', '0.1' );
+define( 'GP_GEONAMES_VERSION', '0.5' );
+define( 'GP_MAXMIND_VERSION', '0.5' );
 define( 'GP_PLUGIN_DIR', WP_PLUGIN_DIR . '/gp-theme' );
 define( 'GP_PLUGIN_URL', plugins_url( '/gp-theme' ) );
 define( 'WP_ADMIN_DIR', ABSPATH . 'wp-admin' );
