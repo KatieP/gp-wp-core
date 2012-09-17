@@ -5,6 +5,12 @@
 * http://forum.geonames.org/gforum/posts/list/45/732.page
 * http://forum.geonames.org/gforum/posts/list/15/80.page
 *
+* State Abbreviations:
+* http://forum.geonames.org/gforum/posts/list/516.page
+* http://www.commondatahub.com/state_source.jsp
+* http://anonscm.debian.org/gitweb/?p=iso-codes/iso-codes.git
+* http://stackoverflow.com/questions/1450744/source-of-iso-data-in-xml-format
+*
 * Future reference:
 // assuming file.zip is in the same directory as the executing script.
 $file = 'file.zip';
@@ -68,8 +74,6 @@ function gp_core_create_geonames_tables() {
         ishistoric BOOLEAN
         ) ENGINE=MyISAM " . $charset_collate . ";";
         
-        
-    
     $wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->base_prefix . "geonames_countryinfo;" );
     
     $sql[] = "CREATE TABLE " . $wpdb->base_prefix . "geonames_countryinfo ( 
@@ -189,8 +193,7 @@ function gp_core_import_geonames_citiesdata() {
         $source = $url . $remote_file;
         uploadRemoteFile($source, $destination, array("ZIP", "TXT"), true, false, true, 2, "http");
     }
-    
-    
+     
     $query = "LOAD data LOCAL INFILE '" . GP_PLUGIN_DIR . "/import/allCountries.txt' 
     INTO TABLE " . $wpdb->base_prefix . "geonames_geoname
     (geonameid, name, asciiname, alternatenames, latitude, longitude, fclass, fcode, country, cc2, admin1, admin2, admin3, admin4, population, elevation, gtopo30, timezone, modified);";

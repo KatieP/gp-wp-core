@@ -13,6 +13,8 @@ define( 'GP_VERSION', '0.1' );
 define( 'GP_DB_VERSION', '0.5' );
 define( 'GP_GEONAMES_VERSION', '0.5' );
 define( 'GP_MAXMIND_VERSION', '0.5' );
+define( 'GP_DEBIAN_ISOCODES_VERSION', '0.5' );
+
 define( 'GP_PLUGIN_DIR', WP_PLUGIN_DIR . '/gp-theme' );
 define( 'GP_PLUGIN_URL', plugins_url( '/gp-theme' ) );
 define( 'WP_ADMIN_DIR', ABSPATH . 'wp-admin' );
@@ -20,6 +22,7 @@ define( 'WP_ADMIN_DIR', ABSPATH . 'wp-admin' );
 require_once( GP_PLUGIN_DIR . '/core/gp-core.php' );
 require_once( GP_PLUGIN_DIR . '/core/gp-geonames.php' );
 require_once( GP_PLUGIN_DIR . '/core/gp-maxmind.php' );
+require_once( GP_PLUGIN_DIR . '/core/gp-debian-isocodes.php' );
 
 spl_autoload_register(function($class) {
     require_once( GP_PLUGIN_DIR . '/configs/AU.php' );
@@ -126,6 +129,12 @@ function gp_run_updates() {
         gp_core_create_maxmind_tables();
         gp_core_import_maxmind_citiesdata();
         update_option('GP_MAXMIND_VERSION', GP_MAXMIND_VERSION);
+    }
+    
+    if (get_option('GP_DEBIAN_ISOCODES_VERSION') != GP_DEBIAN_ISOCODES_VERSION) {
+        gp_core_create_debian_isocodes_tables();
+        gp_core_import_debian_isocodes_data();
+        update_option('GP_DEBIAN_ISOCODES_VERSION', GP_DEBIAN_ISOCODES_VERSION);
     }
 }
 
