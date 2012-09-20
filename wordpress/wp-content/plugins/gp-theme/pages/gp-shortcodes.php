@@ -113,4 +113,9 @@ function gp_shortcode_profileeditor( $atts ) {
 	require_once( GP_PLUGIN_DIR . '/pages/gp-public-form-profileeditor.php' );
 }
 add_shortcode( 'gp-profileeditor-form', 'gp_shortcode_profileeditor' );
+
+function gp_shortcode_welcome( $atts ) {
+	require_once( GP_PLUGIN_DIR . '/pages/gp-public-welcome.php' );
+}
+add_shortcode( 'gp-public-welcome', 'gp_shortcode_welcome' );
 ?>
