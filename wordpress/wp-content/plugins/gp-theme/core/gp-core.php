@@ -1,14 +1,5 @@
 <?php 
 
-$post_type_to_url_part = array(
-    "gp_news" => "news",
-    "gp_events" => "events",
-    "gp_advertorial" => "eco-friendly-products",
-    "gp_competitions" => "competitions",
-    "gp_people" => "people",
-    "gp_projects" => "projects"
-);
-
 function gp_core_create_gp_tables() {
     global $wpdb, $gp;
 
@@ -262,12 +253,53 @@ function get_profile_author() {
     return (get_query_var('author_name')) ? get_user_by('slug', get_query_var('author_name')) : get_userdata(get_query_var('author'));
 }
 
-function getPluralName ($newposttype) {
+function getPluralName($newposttype) {
     if ($newposttype['plural'] == true) {
         return $newposttype['name'] . 's';
     } else {
         return $newposttype['name'];
     }
+}
+
+function getPostTypeSlug( $posttype ) {
+    global $post;
+    $posttypes = Config::getPostTypes();
+
+    if ( !isset( $posttype ) ) {
+        $posttype = $post->post_type;
+    }
+    
+    foreach ( $posttypes as $value ) {
+        if ( $value['enabled'] === true && $value['id'] == $posttype ) {
+            return $value['args']['rewrite']['slug'];
+        }
+    }
+    
+    return "";
+}
+
+function getPostTypeID_by_Slug( $posttypeslug ) {
+    $posttypes = Config::getPostTypes();
+    
+    foreach ( $posttypes as $value ) {
+        if ( $value['enabled'] === true && $value['args']['rewrite']['slug'] == $posttypeslug ) {
+            return $value['id'];
+        }
+    }
+
+    return false;
+}
+
+function checkPostTypeSlug( $posttypeslug ) {
+    $posttypes = Config::getPostTypes();
+    
+    foreach ( $posttypes as $value ) {
+        if ( $value['enabled'] === true && $value['args']['rewrite']['slug'] == $posttypeslug ) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 function getRealIPAddress( $ip ) {

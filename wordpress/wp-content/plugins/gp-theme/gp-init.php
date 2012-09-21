@@ -24,8 +24,11 @@ require_once( GP_PLUGIN_DIR . '/core/gp-geonames.php' );
 require_once( GP_PLUGIN_DIR . '/core/gp-maxmind.php' );
 require_once( GP_PLUGIN_DIR . '/core/gp-debian-isocodes.php' );
 
+define( 'CURRENT_REGION', null );
+define( 'ACCOUNT_REGION', 'AU' );
+
 spl_autoload_register(function($class) {
-    require_once( GP_PLUGIN_DIR . '/configs/AU.php' );
+    require_once( GP_PLUGIN_DIR . '/configs/_default.php' );
 });
 
 require_once( GP_PLUGIN_DIR . '/core/gp-email-notification.php' );

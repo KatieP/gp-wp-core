@@ -695,12 +695,12 @@ class Config {
 		    FROM " . $wpdb->base_prefix . "debian_iso_3166_2 AS a
 		    INNER JOIN (
                 SELECT subset, count(*) AS subset_count
-                FROM " . $wpdb->base_prefix . "debian_iso_3166_2 WHERE country = 'AU' 
+                FROM " . $wpdb->base_prefix . "debian_iso_3166_2 WHERE country = 'IE' 
                     AND parent = ''
                 GROUP BY subset 
 		    ) AS b 
 		    ON a.subset = b.subset 
-		    WHERE a.country = 'AU' 
+		    WHERE a.country = 'IE' 
 		        AND a.parent = ''
 		    ORDER BY b.subset_count DESC, a.subset, a.name";
 

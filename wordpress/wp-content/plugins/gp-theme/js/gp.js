@@ -354,7 +354,7 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-	$('.filterby_state').on('change', function () {
+	$('#filterby_state').on('change', function () {
 		var url = $(this).val();
 		if (url) {
 			window.location = url;
