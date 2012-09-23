@@ -244,6 +244,75 @@ function gp_core_import_geonames_citiesdata() {
     
     $wpdb->query( $query );
     
+    # Fix Australian Capital Territory, Australia
+    $query = "UPDATE " . $wpdb->base_prefix . "geonames_admin1codesascii
+    SET name='Australian Capital Territory', nameAscii='Australian Capital Territory'
+    WHERE code='AU.01';";
+    
+    $wpdb->query( $query );
+    
+    # Fix West Bengal, India
+    $query = "UPDATE " . $wpdb->base_prefix . "geonames_admin1codesascii
+    SET name='West Bengal', nameAscii='West Bengal'
+    WHERE code='IN.28';";
+    
+    $wpdb->query( $query );
+    
+    # Fix Dehli, India
+    $query = "UPDATE " . $wpdb->base_prefix . "geonames_admin1codesascii
+    SET name='Delhi', nameAscii='Delhi'
+    WHERE code='IN.07';";
+    
+    $wpdb->query( $query );
+    
+    # Fix Puducherry, India
+    $query = "UPDATE " . $wpdb->base_prefix . "geonames_admin1codesascii
+    SET name='Puducherry', nameAscii='Puducherry'
+    WHERE code='IN.22';";
+    
+    $wpdb->query( $query );
+    
+    # Fix Daman and Diu, India
+    $query = "UPDATE " . $wpdb->base_prefix . "geonames_admin1codesascii
+    SET name='Daman and Diu', nameAscii='Daman and Diu'
+    WHERE code='IN.32';";
+    
+    $wpdb->query( $query );
+    
+    # Fix Bretagne, France
+    $query = "UPDATE " . $wpdb->base_prefix . "geonames_admin1codesascii
+    SET name='Bretagne', nameAscii='Bretagne'
+    WHERE code='FR.A2';";
+    
+    $wpdb->query( $query );
+    
+    # Fix Corse, France
+    $query = "UPDATE " . $wpdb->base_prefix . "geonames_admin1codesascii
+    SET name='Corse', nameAscii='Corse'
+    WHERE code='FR.A5';";
+    
+    $wpdb->query( $query );
+    
+    # Fix Gisborne District, New Zealand
+    $query = "UPDATE " . $wpdb->base_prefix . "geonames_admin1codesascii
+    SET name='Gisborne District', nameAscii='Gisborne District'
+    WHERE code='NZ.F1';";
+    
+    # Fix Marlborough District, New Zealand
+    $query = "UPDATE " . $wpdb->base_prefix . "geonames_admin1codesascii
+    SET name='Marlborough District', nameAscii='Marlborough District'
+    WHERE code='NZ.F4';";
+    
+    $wpdb->query( $query );
+    
+    # Fix Nelson City, New Zealand
+    $query = "UPDATE " . $wpdb->base_prefix . "geonames_admin1codesascii
+    SET name='Nelson City', nameAscii='Nelson City'
+    WHERE code='NZ.F5';";
+    
+    $wpdb->query( $query );
+    
+    
     add_option( "GP_GEONAMES_VERSION", GP_GEONAMES_VERSION );
     add_option( "gp_geonames_lastupdated", time() );
     

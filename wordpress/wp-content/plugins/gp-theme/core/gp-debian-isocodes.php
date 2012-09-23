@@ -27,7 +27,7 @@ function gp_core_create_debian_isocodes_tables() {
     require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
     dbDelta( $sql );
     
-    add_option( "GP_DEBIAN_ISOCODES_VERSION", GP_DEBIAN_ISOCODES_VERSION );
+    add_option( "GP_DB_VERSION", GP_DB_VERSION );
 }
 
 function gp_core_import_debian_isocodes_data() {
@@ -113,5 +113,22 @@ function gp_core_import_debian_isocodes_data() {
             }
         }
     }
+    
+    # Fix Dehli, Daman and Diu
+    $query = "UPDATE " . $wpdb->base_prefix . "debian_iso_3166_2
+    SET name='Daman and Diu'
+    WHERE id='IN-DD';";
+    
+    $wpdb->query( $query );
+    
+    # Fix Nord-Pas-de-Calais, France
+    $query = "UPDATE " . $wpdb->base_prefix . "debian_iso_3166_2
+    SET name='Nord-Pas-de-Calais'
+    WHERE id='FR-O';";
+    
+    $wpdb->query( $query );
+    
+    add_option( "GP_DEBIAN_ISOCODES_VERSION", GP_DEBIAN_ISOCODES_VERSION );
+    add_option( "gp_debian_isocodes_lastupdated", time() );
 }
 ?>

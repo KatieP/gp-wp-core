@@ -29,13 +29,15 @@ function gp_core_create_maxmind_tables() {
     $sql[] = "CREATE TABLE " . $wpdb->base_prefix . "maxmind_geolitecitylocation (
         locID INT(10) UNSIGNED NOT NULL,
         country VARCHAR(2) DEFAULT NULL,
-  		region VARCHAR(2) DEFAULT NULL,
+  		region VARCHAR(3) DEFAULT NULL,
   		city VARCHAR(45) DEFAULT NULL,
   		postalCode VARCHAR(7) DEFAULT NULL,
   		latitude DOUBLE DEFAULT NULL,
   		longitude DOUBLE DEFAULT NULL,
   		metroCode VARCHAR(3) DEFAULT NULL,
   		areaCode VARCHAR(3) DEFAULT NULL,
+  		regionfipsCode VARCHAR(2) DEFAULT NULL,
+  		regionName VARCHAR(255) DEFAULT NULL,
   		PRIMARY KEY (locID),
   		KEY Index_Country (country)
   		) ENGINE=MyISAM " . $charset_collate . " ROW_FORMAT=FIXED;";
@@ -95,7 +97,41 @@ function gp_core_import_maxmind_citiesdata() {
         IGNORE 2 LINES;";
 
     $wpdb->query( $query );
-
+    
+    # Delete blank France "00" regions
+    $query = "DELETE FROM " . $wpdb->base_prefix . "maxmind_geolitecitylocation WHERE country = 'FR' AND region = '00';";
+    
+    $results = $wpdb->query( $query );
+    
+    
+    # Fix New Zealand "85" region
+    $query = "UPDATE " . $wpdb->base_prefix . "maxmind_geolitecitylocation
+    SET region='G1'
+    WHERE locID='253032';";
+    
+    $results = $wpdb->query( $query );
+    
+    
+    # Fix missing Australia regions
+    $query = "REPLACE INTO " . $wpdb->base_prefix . "maxmind_geolitecitylocation(locID, country, region, city, postalCode, latitude, longitude, metroCode, areaCode, regionfipsCode, regionName)
+        SELECT locID, " . $wpdb->base_prefix . "maxmind_geolitecitylocation.country, " . $wpdb->base_prefix . "debian_iso_3166_2.code, city, postalCode, latitude, longitude, metroCode, areaCode, region, " . $wpdb->base_prefix . "debian_iso_3166_2.name
+        FROM " . $wpdb->base_prefix . "maxmind_geolitecitylocation 
+        LEFT OUTER JOIN " . $wpdb->base_prefix . "geonames_admin1codesascii 
+            ON concat(country, '.', region) = " . $wpdb->base_prefix . "geonames_admin1codesascii.code 
+        LEFT OUTER JOIN " . $wpdb->base_prefix . "debian_iso_3166_2
+            ON " . $wpdb->base_prefix . "geonames_admin1codesascii.name = " . $wpdb->base_prefix . "debian_iso_3166_2.name
+        WHERE 
+            region != '' 
+            AND ( " . $wpdb->base_prefix . "debian_iso_3166_2.country = 'AU' 
+            OR " . $wpdb->base_prefix . "debian_iso_3166_2.country = 'US' 
+            OR " . $wpdb->base_prefix . "debian_iso_3166_2.country = 'IN'
+            OR " . $wpdb->base_prefix . "debian_iso_3166_2.country = 'CA'
+            OR " . $wpdb->base_prefix . "debian_iso_3166_2.country = 'FR'
+            OR " . $wpdb->base_prefix . "debian_iso_3166_2.country = 'NZ' );";
+    
+    $results = $wpdb->query( $query );
+    
+    
     add_option( "GP_MAXMIND_VERSION", GP_MAXMIND_VERSION );
     add_option( "gp_maxmind_lastupdated", time() );
 }

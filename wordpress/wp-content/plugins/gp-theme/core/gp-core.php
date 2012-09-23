@@ -302,7 +302,7 @@ function checkPostTypeSlug( $posttypeslug ) {
     return false;
 }
 
-function getRealIPAddress( $ip ) {
+function getRealIPAddress( $ip=false ) {
     if ( filter_var(trim($ip), FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ) {
         return $ip;
     }
