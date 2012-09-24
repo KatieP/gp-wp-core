@@ -298,6 +298,8 @@ function gp_core_import_geonames_citiesdata() {
     SET name='Gisborne District', nameAscii='Gisborne District'
     WHERE code='NZ.F1';";
     
+    $wpdb->query( $query );
+    
     # Fix Marlborough District, New Zealand
     $query = "UPDATE " . $wpdb->base_prefix . "geonames_admin1codesascii
     SET name='Marlborough District', nameAscii='Marlborough District'

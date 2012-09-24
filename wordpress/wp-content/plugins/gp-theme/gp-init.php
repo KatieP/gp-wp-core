@@ -128,16 +128,16 @@ function gp_run_updates() {
         update_option('GP_GEONAMES_VERSION', GP_GEONAMES_VERSION);
     }
 
-    if (get_option('GP_MAXMIND_VERSION') != GP_MAXMIND_VERSION) {
-        gp_core_create_maxmind_tables();
-        gp_core_import_maxmind_citiesdata();
-        update_option('GP_MAXMIND_VERSION', GP_MAXMIND_VERSION);
-    }
-    
     if (get_option('GP_DEBIAN_ISOCODES_VERSION') != GP_DEBIAN_ISOCODES_VERSION) {
         gp_core_create_debian_isocodes_tables();
         gp_core_import_debian_isocodes_data();
         update_option('GP_DEBIAN_ISOCODES_VERSION', GP_DEBIAN_ISOCODES_VERSION);
+    }
+    
+    if (get_option('GP_MAXMIND_VERSION') != GP_MAXMIND_VERSION) {
+        gp_core_create_maxmind_tables();
+        gp_core_import_maxmind_citiesdata();
+        update_option('GP_MAXMIND_VERSION', GP_MAXMIND_VERSION);
     }
 }
 

@@ -47,42 +47,42 @@ function gp_core_import_debian_isocodes_data() {
                 if ( substr( $subset_plural, strlen( $subset_plural ) - 1, strlen( $subset_plural ) ) == "y" ) { $subset_plural = substr( $subset_plural, 0, strlen( $subset_plural ) - 1 ) . "ies"; }
                 if ( substr( $subset_plural, strlen( $subset_plural ) - 1, strlen( $subset_plural ) ) == "h" ) {$subset_plural = $subset_plural . "es"; }
                 if ( substr( $subset_plural, strlen( $subset_plural ) - 1, strlen( $subset_plural ) ) == "e" || substr( $subset_plural, strlen( $subset_plural ) - 1, strlen( $subset_plural ) ) != "s" ) { $subset_plural = $subset_plural . "s"; }
-                
-                $parent = "";
-                
-                # Fix United Kingdom parents
-                if ( $country['code'] == "GB" ) {
-                    switch ( strtolower( $subset['type'] ) ) {
-                        case "council area":
-                            $parent = "SCT";
-                            break;
-                        case "unitary authority (wales)":
-                            $parent = "WLS";
-                            $subset_plural = "unitary authorities";
-                            break;
-                        case "district council area":
-                            $parent = "NIR";
-                            break;
-                        case "two-tier county":
-                        case "london borough":
-                        case "metropolitan district":
-                            $parent = "ENG";
-                            break;
-                        case "unitary authority (england)":
-                            $parent = "ENG";
-                            $subset_plural = "unitary authorities";
-                            break;
-                        case "country":
-                            $parent = "GBN;UKM";
-                            break;
-                        case "province":
-                            $parent = "UKM";
-                            break;
-                    }
-                }
-
+                            
                 foreach ( $subset->iso_3166_2_entry as $entry ) {
                     $code = substr( $entry['code'], strlen( $country['code'] . "-" ), strlen( $entry['code'] ) );
+                    
+                    $parent = $entry['parent'];
+                    
+                    # Fix United Kingdom parents
+                    if ( $country['code'] == "GB" ) {
+                        switch ( strtolower( $subset['type'] ) ) {
+                            case "council area":
+                                $parent = "SCT";
+                                break;
+                            case "unitary authority (wales)":
+                                $parent = "WLS";
+                                $subset_plural = "unitary authorities";
+                                break;
+                            case "district council area":
+                                $parent = "NIR";
+                                break;
+                            case "two-tier county":
+                            case "london borough":
+                            case "metropolitan district":
+                                $parent = "ENG";
+                                break;
+                            case "unitary authority (england)":
+                                $parent = "ENG";
+                                $subset_plural = "unitary authorities";
+                                break;
+                            case "country":
+                                $parent = "GBN;UKM";
+                                break;
+                            case "province":
+                                $parent = "UKM";
+                                break;
+                        }
+                    }
                     
                     # Fix United Kingdom parents
                     if ( $country['code'] == "GB" && ( $code == "GBN" || $code == "EAW" ) ) { $parent = "UKM"; }
@@ -94,8 +94,6 @@ function gp_core_import_debian_isocodes_data() {
                     if ( $parent == "WLS" && strpos( $entry['name'], ";" ) >= 1 ) {
                         $entry['name'] = str_replace( ";", " (", $entry['name'] ) . ")";
                     }
-                    
-                    if ( $parent == "" ) { $parent = $entry['parent']; }
                     
                     $wpdb->query( $wpdb->prepare( 
                         "INSERT INTO " . $wpdb->base_prefix . "debian_iso_3166_2
@@ -113,7 +111,7 @@ function gp_core_import_debian_isocodes_data() {
             }
         }
     }
-    
+
     # Fix Dehli, Daman and Diu
     $query = "UPDATE " . $wpdb->base_prefix . "debian_iso_3166_2
     SET name='Daman and Diu'
@@ -127,6 +125,30 @@ function gp_core_import_debian_isocodes_data() {
     WHERE id='FR-O';";
     
     $wpdb->query( $query );
+    
+    # Add Wiltshire, England (Missing)
+    $wpdb->query( $wpdb->prepare( 
+        "INSERT INTO " . $wpdb->base_prefix . "debian_iso_3166_2 ( id, code, name, parent, subset, subset_plural, country ) VALUES( %s, %s, %s, %s, %s, %s, %s );", 
+        'GB-WIL', 
+        'WIL', 
+        'Wiltshire', 
+        'ENG',
+        'unitary authority',
+        'unitary authorities', 
+        'GB'
+    ) );
+    
+    # Add Cheshire (Old record. Maxmind is still using this reference.)
+    $wpdb->query( $wpdb->prepare(
+        "INSERT INTO " . $wpdb->base_prefix . "debian_iso_3166_2 ( id, code, name, parent, subset, subset_plural, country ) VALUES( %s, %s, %s, %s, %s, %s, %s );",
+        'GB-CHS',
+        'CHS',
+        'Cheshire',
+        'ENG',
+        'unitary authority',
+        'unitary authorities',
+        'GB'
+    ) );
     
     add_option( "GP_DEBIAN_ISOCODES_VERSION", GP_DEBIAN_ISOCODES_VERSION );
     add_option( "gp_debian_isocodes_lastupdated", time() );
