@@ -436,7 +436,6 @@ function gp_core_import_maxmind_citiesdata() {
         WHERE 
             region != '' 
             AND ( " . $wpdb->base_prefix . "debian_iso_3166_2.country = 'AU' 
-            OR " . $wpdb->base_prefix . "debian_iso_3166_2.country = 'US' 
             OR " . $wpdb->base_prefix . "debian_iso_3166_2.country = 'IN'
             OR " . $wpdb->base_prefix . "debian_iso_3166_2.country = 'FR'
             OR " . $wpdb->base_prefix . "debian_iso_3166_2.country = 'NZ' );";
@@ -449,7 +448,7 @@ function gp_core_import_maxmind_citiesdata() {
         SELECT locID, " . $wpdb->base_prefix . "maxmind_geolitecitylocation.country, " . $wpdb->base_prefix . "debian_iso_3166_2.code, city, postalCode, latitude, longitude, metroCode, areaCode, region, " . $wpdb->base_prefix . "debian_iso_3166_2.name
         FROM wp_maxmind_geolitecitylocation
         LEFT OUTER JOIN " . $wpdb->base_prefix . "debian_iso_3166_2
-            ON region = " . $wpdb->base_prefix . "debian_iso_3166_2.code
+            ON region = " . $wpdb->base_prefix . "debian_iso_3166_2.code AND " . $wpdb->base_prefix . "maxmind_geolitecitylocation.country = " . $wpdb->base_prefix . "debian_iso_3166_2.country
         WHERE
             region != ''
             AND ( " . $wpdb->base_prefix . "debian_iso_3166_2.country = 'US' 
@@ -460,14 +459,14 @@ function gp_core_import_maxmind_citiesdata() {
     
     # Fix ISO regional data - GB, IE
     $query = "REPLACE INTO " . $wpdb->base_prefix . "maxmind_geolitecitylocation(locID, country, region, city, postalCode, latitude, longitude, metroCode, areaCode, regionfipsCode, regionName)
-    SELECT locID, " . $wpdb->base_prefix . "maxmind_geolitecitylocation.country, " . $wpdb->base_prefix . "debian_iso_3166_2.code, city, postalCode, latitude, longitude, metroCode, areaCode, regionfipsCode, " . $wpdb->base_prefix . "debian_iso_3166_2.name
-    FROM wp_maxmind_geolitecitylocation
-    LEFT OUTER JOIN " . $wpdb->base_prefix . "debian_iso_3166_2
-        ON region = " . $wpdb->base_prefix . "debian_iso_3166_2.code
-    WHERE
-        region != ''
-        AND ( " . $wpdb->base_prefix . "debian_iso_3166_2.country = 'IE'
-        OR " . $wpdb->base_prefix . "debian_iso_3166_2.country = 'GB' );";
+        SELECT locID, " . $wpdb->base_prefix . "maxmind_geolitecitylocation.country, " . $wpdb->base_prefix . "debian_iso_3166_2.code, city, postalCode, latitude, longitude, metroCode, areaCode, regionfipsCode, " . $wpdb->base_prefix . "debian_iso_3166_2.name
+        FROM wp_maxmind_geolitecitylocation
+        LEFT OUTER JOIN " . $wpdb->base_prefix . "debian_iso_3166_2
+            ON region = " . $wpdb->base_prefix . "debian_iso_3166_2.code AND " . $wpdb->base_prefix . "maxmind_geolitecitylocation.country = " . $wpdb->base_prefix . "debian_iso_3166_2.country
+        WHERE
+            region != ''
+            AND ( " . $wpdb->base_prefix . "debian_iso_3166_2.country = 'IE'
+            OR " . $wpdb->base_prefix . "debian_iso_3166_2.country = 'GB' );";
     
     $wpdb->query( $query );
     
