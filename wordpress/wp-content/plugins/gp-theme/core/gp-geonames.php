@@ -337,6 +337,13 @@ function gp_core_import_geonames_citiesdata() {
     
     $wpdb->query( $query );
     
+    # Fix Northern Ireland
+    $query = "UPDATE " . $wpdb->base_prefix . "geonames_admin1codesascii
+    SET name='Northern Ireland', nameAscii='Northern Ireland'
+    WHERE code='GB.NIR';";
+    
+    $wpdb->query( $query );
+    
     
     add_option( "GP_GEONAMES_VERSION", GP_GEONAMES_VERSION );
     add_option( "gp_geonames_lastupdated", time() );

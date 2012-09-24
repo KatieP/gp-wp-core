@@ -691,19 +691,14 @@ class Config {
 		
 		self::$posttypes = $posttypes;
 		
-		$query = "SELECT a.code, a.name, a.subset, a.subset_plural, b.subset_count
-		    FROM " . $wpdb->base_prefix . "debian_iso_3166_2 AS a
-		    INNER JOIN (
-                SELECT subset, count(*) AS subset_count
-                FROM " . $wpdb->base_prefix . "debian_iso_3166_2 WHERE country = 'IE' 
-                    AND parent = ''
-                GROUP BY subset 
-		    ) AS b 
-		    ON a.subset = b.subset 
-		    WHERE a.country = 'IE' 
-		        AND a.parent = ''
-		    ORDER BY b.subset_count DESC, a.subset, a.name";
-
+		$query = "SELECT " . $wpdb->base_prefix . "debian_iso_3166_2.code, " . $wpdb->base_prefix . "debian_iso_3166_2.name, " . $wpdb->base_prefix . "geonames_admin1codesascii.name as subset, " . $wpdb->base_prefix . "geonames_admin1codesascii.name as subset_plural
+    		FROM " . $wpdb->base_prefix . "debian_iso_3166_2
+    		LEFT OUTER JOIN " . $wpdb->base_prefix . "geonames_admin1codesascii
+    		ON " . $wpdb->base_prefix . "geonames_admin1codesascii.code = concat(country, '.', parent)
+    		WHERE country = 'IE'
+    		    AND parent != ''
+    		ORDER BY parent, " . $wpdb->base_prefix . "debian_iso_3166_2.name;";
+		
 		$states = $wpdb->get_results( $query, ARRAY_A );
 		
 		if ( !$states )  { $states = array(); }
