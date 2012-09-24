@@ -145,6 +145,23 @@ function gp_core_create_geonames_tables() {
         rawoffset DECIMAL(3,1) 
         ) ENGINE=MyISAM " . $charset_collate . ";";
     
+    $wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->base_prefix . "geonames_postcodes;" );
+    
+    $sql[] = "CREATE TABLE " . $wpdb->base_prefix . "geonames_postcodes (
+    countrycode VARCHAR(2),
+    postalcode VARCHAR(20),
+    placename VARCHAR(180),
+    adminname1 VARCHAR(100),
+    admincode1 VARCHAR(20),
+    adminname2 VARCHAR(100),
+    admincode2 VARCHAR(20),
+    adminname3 VARCHAR(100),
+    admincode3 VARCHAR(20),
+    latitude DECIMAL(10,7),
+    longitude DECIMAL(10,7),
+    accuracy INT
+    ) ENGINE=MyISAM " . $charset_collate . ";";
+    
     require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
     dbDelta( $sql );
 
@@ -241,6 +258,12 @@ function gp_core_import_geonames_citiesdata() {
     $query = "LOAD data LOCAL INFILE '" . GP_PLUGIN_DIR . "/import/countryInfo.txt' 
     INTO TABLE " . $wpdb->base_prefix . "geonames_countryinfo IGNORE 51 LINES
     (iso_alpha2, iso_alpha3, iso_numeric, fips_code, name, capital, areaInSqKm, population, continent, languages, currency, geonameId);";
+    
+    $wpdb->query( $query );
+    
+    $query = "LOAD data LOCAL INFILE '" . GP_PLUGIN_DIR . "/import/allPostcodes.txt'
+    INTO TABLE " . $wpdb->base_prefix . "geonames_postcodes
+    (countrycode, postalcode, placename, adminname1, admincode1, adminname2, admincode2, adminname3, admincode3, latitude, longitude, accuracy);";
     
     $wpdb->query( $query );
     
