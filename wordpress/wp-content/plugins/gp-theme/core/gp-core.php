@@ -422,4 +422,35 @@ function uploadRemoteFile($source = false, $destination = false, $allowed_filety
 
     return false;
 }
+
+function getCurrentLocation($clientip = false) {
+    global $wpdb;
+    
+    $clientip = sprintf( "%u", ip2long( getRealIPAddress( $clientip ) ) );
+
+    $query = $wpdb->prepare(
+            "SELECT
+            " . $wpdb->prefix . "maxmind_geolitecitylocation.city,
+            " . $wpdb->prefix . "maxmind_geolitecitylocation.regionName as region,
+            " . $wpdb->prefix . "geonames_countryinfo.name AS country,
+            " . $wpdb->prefix . "maxmind_geolitecitylocation.postalCode as postcode,
+            " . $wpdb->prefix . "maxmind_geolitecitylocation.latitude,
+            " . $wpdb->prefix . "maxmind_geolitecitylocation.longitude,
+            " . $wpdb->prefix . "maxmind_geolitecitylocation.country as country_iso2,
+            " . $wpdb->prefix . "maxmind_geolitecitylocation.region as region_iso2
+            FROM " . $wpdb->prefix . "maxmind_geolitecityblocks_ipv4
+            INNER JOIN " . $wpdb->prefix . "maxmind_geolitecitylocation
+            ON " . $wpdb->prefix . "maxmind_geolitecityblocks_ipv4.locId = " . $wpdb->prefix . "maxmind_geolitecitylocation.locId
+            LEFT OUTER JOIN " . $wpdb->prefix . "geonames_countryinfo
+            ON " . $wpdb->prefix . "maxmind_geolitecitylocation.country = " . $wpdb->prefix . "geonames_countryinfo.iso_alpha2
+            WHERE
+            " . $wpdb->prefix . "maxmind_geolitecityblocks_ipv4.startIpNum <= %s
+            AND " . $wpdb->prefix . "maxmind_geolitecityblocks_ipv4.endIpNum >= %s
+            LIMIT 1;",
+            $clientip,
+            $clientip
+    );
+     
+    return $wpdb->get_row($query, ARRAY_A);
+}
 ?>

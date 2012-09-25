@@ -24,11 +24,16 @@ require_once( GP_PLUGIN_DIR . '/core/gp-geonames.php' );
 require_once( GP_PLUGIN_DIR . '/core/gp-maxmind.php' );
 require_once( GP_PLUGIN_DIR . '/core/gp-debian-isocodes.php' );
 
-define( 'CURRENT_REGION', null );
-define( 'ACCOUNT_REGION', 'AU' );
+spl_autoload_register(function($class) {
+    require_once( GP_PLUGIN_DIR . '/configs/_geo.php' );
+});
+
+$serviced_regions = array('AU', 'GB', 'NZ', 'IE', 'IN', 'FR', 'CA', 'US');
+$location = Geo::getCurrentLocation();
+define( 'SELECTED_COUNTRY', ( isset($location['country_iso2']) && in_array($location['country_iso2'], $serviced_regions) ) ? $location['country_iso2'] : '_default' );
 
 spl_autoload_register(function($class) {
-    require_once( GP_PLUGIN_DIR . '/configs/_default.php' );
+    require_once( GP_PLUGIN_DIR . '/configs/' . SELECTED_COUNTRY . '.php' );
 });
 
 require_once( GP_PLUGIN_DIR . '/core/gp-email-notification.php' );
