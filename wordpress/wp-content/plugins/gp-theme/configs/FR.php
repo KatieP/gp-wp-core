@@ -2,7 +2,7 @@
 
 class Config {
 
-	private static $posttypes, $states;
+	private static $posttypes, $states, $meta;
 
 	public static function init() {
 	    global $wpdb;
@@ -709,6 +709,13 @@ class Config {
 		if ( !$states )  { $states = array(); }
 		
 		self::$states = $states;
+		
+		
+		$meta = array(
+		        'facebook_id' => '268597359918650'
+		);
+		
+		self::$meta = $meta;
 	}
 	
 	public static function getPostTypes() {
@@ -719,6 +726,11 @@ class Config {
 	public static function getStates() {
 	    self::init();
 	    return self::$states;
+	}
+	
+	public static function getMeta() {
+	    self::init();
+	    return self::$meta;
 	}
 }
 
