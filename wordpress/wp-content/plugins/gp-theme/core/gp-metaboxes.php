@@ -366,7 +366,6 @@ function gp_js_postGeoLoc_meta() {
 }
 
 function gp_create_postEventDate_meta ($post, $metabox) {
-    global $states_au;
     $custom = get_post_custom($post->ID);
 
     $meta_nonce_name = 'gp_' . $metabox['args']['id'] . '-nonce';
@@ -376,10 +375,6 @@ function gp_create_postEventDate_meta ($post, $metabox) {
     $meta_ed = isset($custom["gp_events_enddate"][0]) ? $custom["gp_events_enddate"][0] : "";
     $meta_st = $meta_sd;
     $meta_et = $meta_ed;
-
-    $meta_loccountry = 'AU';
-    $meta_locstate = isset($custom["gp_events_locstate"][0]) ? $custom["gp_events_locstate"][0] : "";
-    $meta_locsuburb = isset($custom["gp_events_locsuburb"][0]) ? $custom["gp_events_locsuburb"][0] : "";
 
     $date_format = get_option('date_format');
     $time_format = get_option('time_format');
@@ -407,30 +402,6 @@ function gp_create_postEventDate_meta ($post, $metabox) {
     			value="<?php echo $clean_et; ?>" /></li>
     	</ul>
     </div>
-    
-    <div class="gp-meta">
-    	<ul>
-    		<li><label>State</label> <select name="gp_events_locstate">
-				<?php
-
-				foreach ($states_au as $state) {
-				    if ($state == $meta_locstate) {
-				        $state_selected = ' selected';
-				    } else {$state_selected = '';
-				    }
-				    echo '<option value="' . $state . '"' . $state_selected . '>' . $state . '</option>';
-				}
-
-				?>
-    		</select>
-    		</li>
-    		<li><label>Suburb</label><input name="gp_events_locsuburb" type="text"
-    			value="<?php echo $meta_locsuburb; ?>" /></li>
-    	</ul>
-    	<input type="hidden" name="gp_events_loccountry"
-    		value="<?php echo $meta_loccountry; ?>" />
-    </div>
-
 <?php
 }
 
@@ -447,20 +418,6 @@ function gp_save_postEventDate_meta() {
         $updateendd = strtotime ( $_POST[$thisposttype . '_enddate'] . $_POST[$thisposttype . '_endtime']);
         update_post_meta($post->ID, $thisposttype . '_enddate', $updateendd );
     }
-
-
-    if(isset($_POST[$thisposttype . '_loccountry'])) {
-        update_post_meta($post->ID, $thisposttype . '_loccountry', $_POST[$thisposttype . '_loccountry'] );
-    }
-
-    if(isset($_POST[$thisposttype . '_locstate'])) {
-        update_post_meta($post->ID, $thisposttype . '_locstate', $_POST[$thisposttype . '_locstate'] );
-    }
-
-    if(isset($_POST[$thisposttype . '_locsuburb'])) {
-        update_post_meta($post->ID, $thisposttype . '_locsuburb', $_POST[$thisposttype . '_locsuburb'] );
-    }
-
 
     return $post;
 }
