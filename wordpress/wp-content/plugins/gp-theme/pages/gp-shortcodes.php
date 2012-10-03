@@ -118,4 +118,10 @@ function gp_shortcode_welcome( $atts ) {
 	require_once( GP_PLUGIN_DIR . '/pages/gp-public-welcome.php' );
 }
 add_shortcode( 'gp-public-welcome', 'gp_shortcode_welcome' );
+
+function gp_shortcode_profile_notification( $atts ) {
+	require_once( GP_PLUGIN_DIR . '/pages/gp-public-form-profile_notification_editor.php' );
+}
+add_shortcode( 'gp-profile_notification', 'gp_shortcode_profile_notification' );
+
 ?>
