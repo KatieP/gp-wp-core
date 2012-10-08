@@ -1,5 +1,8 @@
 <?php
 
+$blog_url = get_bloginfo('wpurl');
+header('Location: '. $blog_url .'/forms/member-registration-form/');
+
 add_action('wp_head', 'signuppageheaders');
 
 function signuppageheaders() {
