@@ -1,6 +1,5 @@
 <?php
-
-class Config {
+class Edition {
 
 	private static $posttypes, $states, $meta;
 
@@ -14,6 +13,7 @@ class Config {
 				'plural' => false,
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date'),
 				'enabled' => true,
+			    'role_permissions' => array('administrator', 'contributor'),
 				'priority' => '1',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -79,6 +79,7 @@ class Config {
 				'plural' => true,
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date', 'dates'),
 				'enabled' => true,
+			    'role_permissions' => array('administrator', 'contributor', 'subscriber'),
 				'priority' => '0.6',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -145,6 +146,7 @@ class Config {
 				'plural' => true,
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date'),
 				'enabled' => false,
+			    'role_permissions' => array('administrator'),
 				'priority' => '0.6',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -210,6 +212,7 @@ class Config {
 				'plural' => true,
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date', 'dates'),
 				'enabled' => true,
+			    'role_permissions' => array('administrator', 'contributor', 'subscriber'),
 				'priority' => '0.6',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -276,6 +279,7 @@ class Config {
 				'plural' => false, 
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date'),
 				'enabled' => true,
+			    'role_permissions' => array('administrator'),
 				'priority' => '0.6',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -341,6 +345,7 @@ class Config {
 				'plural' => false, 
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date'),
 				'enabled' => false,
+			    'role_permissions' => array('administrator'),
 				'priority' => '0.6',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -406,6 +411,7 @@ class Config {
 				'plural' => false, 
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date'),
 				'enabled' => false,
+			    'role_permissions' => array('administrator'),
 				'priority' => '0.6',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -471,6 +477,7 @@ class Config {
 				'plural' => true,
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date'),
 				'enabled' => true,
+			    'role_permissions' => array('administrator', 'contributor', 'subscriber'),
 				'priority' => '0.6',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -537,6 +544,7 @@ class Config {
 				'plural' => true, 
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date'),
 				'enabled' => true,
+			    'role_permissions' => array('administrator', 'contributor', 'subscriber'),
 				'priority' => '0.6',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -602,6 +610,7 @@ class Config {
 				'plural' => false, 
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date'),
 				'enabled' => false,
+			    'role_permissions' => array('administrator'),
 				'priority' => '0.6',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -691,20 +700,13 @@ class Config {
 		
 		self::$posttypes = $posttypes;
 		
-		$query = "SELECT " . $wpdb->base_prefix . "debian_iso_3166_2.code, " . $wpdb->base_prefix . "debian_iso_3166_2.name, " . $wpdb->base_prefix . "geonames_admin1codesascii.name as subset, " . $wpdb->base_prefix . "geonames_admin1codesascii.name as subset_plural
-    		FROM " . $wpdb->base_prefix . "debian_iso_3166_2
-    		LEFT OUTER JOIN " . $wpdb->base_prefix . "geonames_admin1codesascii
-    		ON " . $wpdb->base_prefix . "geonames_admin1codesascii.code = concat(country, '.', parent)
-    		WHERE country = 'GB'
-    		    AND parent != ''
-    		    AND subset != 'london borough' # Hide London Boroughs
-    		    #AND IF(id = 'GB-LND', wp_debian_iso_3166_2.name = 'Greater London', wp_debian_iso_3166_2.name = wp_debian_iso_3166_2.name)
-    		    # couldn't subset IS NOT NULL (?) so...
-    		    AND " . $wpdb->base_prefix . "debian_iso_3166_2.code != 'ENG' 
-    		    AND " . $wpdb->base_prefix . "debian_iso_3166_2.code != 'WLS'
-    		    AND " . $wpdb->base_prefix . "debian_iso_3166_2.code != 'SCT'
-    		    AND " . $wpdb->base_prefix . "debian_iso_3166_2.parent != 'UKM'
-    		ORDER BY parent, " . $wpdb->base_prefix . "debian_iso_3166_2.name;";
+		$query = "SELECT a.code, a.name, b.name as subset, b.name as subset_plural
+    		FROM " . $wpdb->base_prefix . "debian_iso_3166_2 AS a
+    		LEFT OUTER JOIN " . $wpdb->base_prefix . "debian_iso_3166_2 AS b
+    		ON b.id = concat(a.country, '-', a.parent)
+    		WHERE a.country = 'NZ'
+    		    AND a.parent != '' OR a.code = 'CIT'
+    		ORDER BY a.parent, a.name;";
 
 		$states = $wpdb->get_results( $query, ARRAY_A );
 		
@@ -714,7 +716,7 @@ class Config {
 		
 		
 		$meta = array(
-		        'facebook_id' => '195318640600833'
+		        'facebook_id' => '111993925617124'
 		);
 		
 		self::$meta = $meta;

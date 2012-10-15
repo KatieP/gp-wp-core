@@ -1,12 +1,11 @@
 <?php
-
 class Geo {
 
 	private static $current_location, $user_location;
 
 	public static function init() {
 	    global $wpdb;
-
+	    
 	    #$clientip = false;                // Production
 	    $clientip = '58.109.255.255';     // AU example
 	    #$clientip = '62.49.255.255';      // UK example
@@ -38,5 +37,4 @@ class Geo {
 	}
 	
 }
-
 ?>

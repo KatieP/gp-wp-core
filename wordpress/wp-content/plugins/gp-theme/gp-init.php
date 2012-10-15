@@ -11,29 +11,32 @@ License:
 
 define( 'GP_VERSION', '0.1' );
 define( 'GP_DB_VERSION', '0.5' );
-define( 'GP_GEONAMES_VERSION', '0.6' );
-define( 'GP_MAXMIND_VERSION', '0.6' );
-define( 'GP_DEBIAN_ISOCODES_VERSION', '0.6' );
+define( 'GP_GEONAMES_VERSION', '0.4' );
+define( 'GP_MAXMIND_VERSION', '0.4' );
+define( 'GP_DEBIAN_ISOCODES_VERSION', '0.4' );
 
 define( 'GP_PLUGIN_DIR', WP_PLUGIN_DIR . '/gp-theme' );
 define( 'GP_PLUGIN_URL', plugins_url( '/gp-theme' ) );
 define( 'WP_ADMIN_DIR', ABSPATH . 'wp-admin' );
 
-require_once( GP_PLUGIN_DIR . '/core/gp-core.php' );
+require_once( GP_PLUGIN_DIR . '/core/gp-functions.php' );
+require_once( GP_PLUGIN_DIR . '/core/gp-db.php' );
+require_once( GP_PLUGIN_DIR . '/core/gp-wp-admin.php' );
 require_once( GP_PLUGIN_DIR . '/core/gp-geonames.php' );
 require_once( GP_PLUGIN_DIR . '/core/gp-maxmind.php' );
 require_once( GP_PLUGIN_DIR . '/core/gp-debian-isocodes.php' );
 
 spl_autoload_register(function($class) {
-    require_once( GP_PLUGIN_DIR . '/configs/_geo.php' );
+    require_once( GP_PLUGIN_DIR . '/config/_site.php' );
+    require_once( GP_PLUGIN_DIR . '/config/_geo.php' );
 });
 
-$serviced_regions = array('AU', 'GB', 'NZ', 'IE', 'IN', 'FR', 'CA', 'US');
-$location = Geo::getCurrentLocation();
-define( 'SELECTED_COUNTRY', ( isset($location['country_iso2']) && in_array($location['country_iso2'], $serviced_regions) ) ? $location['country_iso2'] : '_default' );
+$site_editions = Site::getEditions();
+$geo_currentlocation = Geo::getCurrentLocation();
+define( 'SELECTED_COUNTRY', ( isset($geo_currentlocation['country_iso2']) && in_array($geo_currentlocation['country_iso2'], $site_editions) ) ? $geo_currentlocation['country_iso2'] : '_default' );
 
 spl_autoload_register(function($class) {
-    require_once( GP_PLUGIN_DIR . '/configs/' . SELECTED_COUNTRY . '.php' );
+    require_once( GP_PLUGIN_DIR . '/editions/' . SELECTED_COUNTRY . '.php' );
 });
 
 require_once( GP_PLUGIN_DIR . '/core/gp-email-notification.php' );
@@ -66,31 +69,24 @@ function default_login_redirect( $redirect, $request_redirect )
 }
 add_filter( 'login_redirect', 'default_login_redirect', 10, 2 );
 
-function sanitize_username( $username, $raw_username, $strict ) {
-    $username = $raw_username;
-    $username = wp_strip_all_tags( $username );
-    $username = remove_accents( $username );
-    // Kill octets
-    $username = preg_replace( '|%([a-fA-F0-9][a-fA-F0-9])|', '', $username );
-    $username = preg_replace( '/&.+?;/', '', $username ); // Kill entities
-
-    // If strict, reduce to ASCII for max portability.
-    if ( $strict )
-        $username = preg_replace( '|[^a-zA-Z0-9 _.\-]|i', '', $username );
-
-    $username = trim( $username );
-    // Consolidate contiguous whitespace
-    $username = preg_replace( '|\s+|', ' ', $username );
-
-    return $username;
+/* RECORD DATE/TIME OF LAST TIME USER LOGGED IN */
+function user_last_login($login) {
+    global $user_ID;
+    $user = get_userdatabylogin($login);
+    update_usermeta($user->ID, 'last_login', $epochtime = strtotime('now'));
 }
-add_filter( 'sanitize_user', 'sanitize_username', 10, 3 );
+add_action('wp_login','user_last_login');
 
-add_filter('admin_title', 'gp_admin_title');
-function gp_admin_title($admin_title) {
-    global $title;
-    return get_bloginfo('name') . " &rsaquo; " . wp_specialchars( strip_tags( $title ) );
+/* REDIRECT USER AFTER LOGIN/LOGOUT */
+function redirect_login() {
+    wp_redirect($_SERVER['HTTP_REFERER']);
 }
+#add_action('wp_login','redirect_login');
+
+function redirect_logout() {
+    wp_redirect($_SERVER['HTTP_REFERER']);
+}
+#add_action('wp_logout ','redirect_logout');
 
 function gp_set_core_globals() {
     global $gp;
@@ -255,151 +251,6 @@ function gp_site_scripts() {
     }
 }
 
-function gp_session_onlogout() {
-    session_destroy();
-    session_unset();
-}
-
-function gp_session_onlogin() {
-    // Force create new session id and clear existing session data.
-    session_regenerate_id(true);
-}
-
-function gp_session_handler() {
-    // ref: http://stackoverflow.com/questions/520237/how-do-i-expire-a-php-session-after-30-minutes
-    // ref: http://stackoverflow.com/questions/5081025/php-session-fixation-hijacking
-
-    /*
-     * Note about sessions on Linux:
-    * What most people also don't know, is that most Linux distributions (Debian and Ubuntu for me atleast) have a cronbjob that cleans up your session dir using the value set in the global /etc/php5/php.ini (which defaults to 24mins). So even if you set a value larger in your scripts, the cronbjob will still cleanup sessions using the global value.
-    * If you run into that situation, you can set the global value higher in /etc/php5/php.ini, disable the cronjob or even better, do your own session cleanup in a non-systemwide directory or a database.
-    *
-    * Note about session on Wordpress:
-    * Wordpress is stateless which means it doesn't use sessions. It uses cookies for logins. We have to manually enable sessions and to do that have have to ensure we're not going to destroy everyone's session data everytime something gets changed. The only way to do this is to start new session in the "wp-config.php" file as it's the only file that doesn't get loaded everytime.
-    */
-
-    // Destroy session if older than 60mins
-    if (isset($_SESSION['LAST_ACTIVITY']) && (strtotime('now') - $_SESSION['LAST_ACTIVITY'] > 3600)) {
-    session_destroy();
-    session_unset();
-}
-$_SESSION['LAST_ACTIVITY'] = strtotime('now');
-
-// Avoid "session hijacking", track HTTP_USER_AGENT strings between requests.
-if (isset($_SESSION['USER_AGENT']) && ($_SESSION['USER_AGENT'] != $_SERVER['HTTP_USER_AGENT'])) {
-    session_destroy();
-    session_unset();
-} else if (!isset($_SESSION['USER_AGENT'])) {
-    $_SESSION['USER_AGENT'] = $_SERVER['HTTP_USER_AGENT'];
-}
-
-// Avoid "session fixation", periodically (every 60mins) regenerate the session id since it's creation.
-if (!isset($_SESSION['CREATED'])) {
-    $_SESSION['CREATED'] = strtotime('now');
-} else if (strtotime('now') - $_SESSION['CREATED'] > 3600) {
-    session_regenerate_id(); // in the examples they call 'true' to destory all session data - what's the point of that?
-    $_SESSION['CREATED'] = strtotime('now');
-}
-
-return true;
-}
-
-
-/*
- * Notes for when we implement full DB sessions -
-* ref: http://www.djangobook.com/en/beta/chapter12/
-* For anonymous users use cookies to store hashed session ids
-*/
-function gp_db_session_handler($form_id, $form_name) {
-    global $wpdb, $current_user;
-
-    define(SECRET, "ge8upazuwabutuyuzukawrachurebaja");
-
-    $qrystring = $wpdb->prepare("SELECT UID, HASH, LAST_ACTIVITY, USER_AGENT, CREATED FROM ". $form_name . " WHERE ID = " . $form_id);
-    $qryresults = $wpdb->get_row($qrystring);
-
-    if ( empty( $qryresults->UID ) ) {
-        $success = false;
-    } else {
-        $UID = $qryresults->UID;
-        $HASH = $qryresults->HASH;
-        $LAST_ACTIVITY = $qryresults->LAST_ACTIVITY;
-        $USER_AGENT = $qryresults->USER_AGENT;
-        $CREATED = $qryresults->CREATED;
-    }
-
-    // Destroy session if older than 30mins
-    if (strtotime('now') - $LAST_ACTIVITY > 1800) {
-        $success = false;
-    }
-
-    // Avoid "session hijacking", track HTTP_USER_AGENT strings between requests.
-    if ($USER_AGENT != $_SERVER['HTTP_USER_AGENT']) {
-        $success = false;
-    }
-
-    // If anonymous user then use cookies. Otherwise use Wordpress authentication.
-    if (!is_user_logged_in()) {
-        if (base64_decode($_COOKIE[$form_name]) !=  md5(SECRET . $HASH . $form_id) . "-" . $form_id) {
-            $success = false;
-        }
-        if ($UID != 0) {
-            $success = false;
-        }
-    } else {
-        if ($UID != $current_user->ID) {
-            $success = false;
-        }
-    }
-
-    if ($success === false) {
-        $UID = 0;
-        $HASH = null;
-        $LAST_ACTIVITY = strtotime('now');
-        $USER_AGENT = $_SERVER['HTTP_USER_AGENT'];
-        $CREATED = strtotime('now');
-
-        if (!is_user_logged_in()) {
-            // Delete cookie
-            $HASH = md5(uniqid(rand(), true) . SECRET);
-            $SIG = md5(SECRET . $HASH . $form_id);
-            $cookie = base64_encode($SIG . "-" . $form_id);
-            setcookie($form_name, $cookie, 0, '/', 'www.thegreenpages.com.au', isset($_SERVER["HTTPS"]), true);
-            #session_set_cookie_params('o, /', 'www.thegreenpages.com.au', isset($_SERVER["HTTPS"]), true)
-            // Create cookie
-        } else {
-            // Delete DB record
-            $UID = $current_user->ID;
-        }
-        // Create DB record
-        $wpdb->insert( $form_name, array('UID' => $UID, 'HASH' => $HASH, 'LAST_ACTIVITY' => $LAST_ACTIVITY, 'USER_AGENT' => $USER_AGENT, 'CREATED' => $CREATED), array('%d', '%s', '%s', '%s', '%s'));
-
-        $update_result = $wpdb->update( $form_name, array('HASH' => $HASH, 'LAST_ACTIVITY' => $LAST_ACTIVITY, 'USER_AGENT' => $USER_AGENT, 'CREATED' => $CREATED), array('ID' => $form_id, 'UID' => $UID), array('%s', '%s', '%s', '%s'), array('%d', '%d'));
-
-        return false;
-    } else {
-        $LAST_ACTIVITY = strtotime('now');
-
-        if (!is_user_logged_in()) {
-            // Avoid "session fixation", periodically (every 30mins) regenerate the session id since it's creation.
-            if (time() - $CREATED > 1800) {
-                $HASH = md5(uniqid(rand(), true) . SECRET);
-                $CREATED = strtotime('now');
-                # update HASH, CREATED in db
-                $SIG = md5(SECRET . $HASH . $form_id);
-                $cookie = base64_encode($SIG . "-" . $form_id);
-                # update or destory cookie??
-                setcookie($form_name, $cookie, 0, '/', 'www.thegreenpages.com.au', isset($_SERVER["HTTPS"]), true);
-            }
-        }
-
-        // Update DB record
-        $update_result = $wpdb->update( $form_name, array('HASH' => $HASH, 'LAST_ACTIVITY' => $LAST_ACTIVITY), array('ID' => $form_id, 'UID' => $UID), array('%s', '%s'), array('%d', '%d'));
-
-        return true;
-    }
-}
-
 add_action('wpmu_activate_user', 'gp_wpmu_activate_user', 10, 3);
 function gp_wpmu_activate_user($user_id, $password, $meta) {
     global $current_site, $gp, $wpdb;
@@ -426,4 +277,7 @@ function gp_wpmu_activate_user($user_id, $password, $meta) {
         }
     }
 }
+
+
+
 ?>

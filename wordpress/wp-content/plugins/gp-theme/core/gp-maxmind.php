@@ -448,7 +448,8 @@ function gp_core_import_maxmind_citiesdata() {
         SELECT locID, " . $wpdb->base_prefix . "maxmind_geolitecitylocation.country, " . $wpdb->base_prefix . "debian_iso_3166_2.code, city, postalCode, latitude, longitude, metroCode, areaCode, region, " . $wpdb->base_prefix . "debian_iso_3166_2.name
         FROM wp_maxmind_geolitecitylocation
         LEFT OUTER JOIN " . $wpdb->base_prefix . "debian_iso_3166_2
-            ON region = " . $wpdb->base_prefix . "debian_iso_3166_2.code AND " . $wpdb->base_prefix . "maxmind_geolitecitylocation.country = " . $wpdb->base_prefix . "debian_iso_3166_2.country
+            ON region = " . $wpdb->base_prefix . "debian_iso_3166_2.code 
+            AND " . $wpdb->base_prefix . "maxmind_geolitecitylocation.country = " . $wpdb->base_prefix . "debian_iso_3166_2.country
         WHERE
             region != ''
             AND ( " . $wpdb->base_prefix . "debian_iso_3166_2.country = 'US' 
@@ -469,6 +470,142 @@ function gp_core_import_maxmind_citiesdata() {
             OR " . $wpdb->base_prefix . "debian_iso_3166_2.country = 'GB' );";
     
     $wpdb->query( $query );
+    
+    /* WARNING!
+     * This needs to be run ONE time on our production server at the time 
+     * the GEO LOCATION version of this site is deployed. You should delete
+     * this when done however it won't affect anything if kept.
+     */
+    $query = "UPDATE wp_postmeta SET meta_key='gp_google_geo_location' WHERE meta_key='gp_news_google_geo_location';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_location' WHERE meta_key='gp_events_google_geo_location';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_location' WHERE meta_key='gp_projects_google_geo_location';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_location' WHERE meta_key='gp_competitions_google_geo_location';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_location' WHERE meta_key='gp_advertorial_google_geo_location';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_latitude' WHERE meta_key='gp_news_google_geo_latitude';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_latitude' WHERE meta_key='gp_events_google_geo_latitude';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_latitude' WHERE meta_key='gp_projects_google_geo_latitude';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_latitude' WHERE meta_key='gp_competitions_google_geo_latitude';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_latitude' WHERE meta_key='gp_advertorial_google_geo_latitude';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_longitude' WHERE meta_key='gp_news_google_geo_longitude';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_longitude' WHERE meta_key='gp_events_google_geo_longitude';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_longitude' WHERE meta_key='gp_projects_google_geo_longitude';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_longitude' WHERE meta_key='gp_competitions_google_geo_longitude';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_longitude' WHERE meta_key='gp_advertorial_google_geo_longitude';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_country' WHERE meta_key='gp_news_google_geo_country';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_country' WHERE meta_key='gp_events_google_geo_country';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_country' WHERE meta_key='gp_projects_google_geo_country';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_country' WHERE meta_key='gp_competitions_google_geo_country';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_country' WHERE meta_key='gp_advertorial_google_geo_country';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_administrative_area_level_1' WHERE meta_key='gp_news_google_geo_administrative_area_level_1';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_administrative_area_level_1' WHERE meta_key='gp_events_google_geo_administrative_area_level_1';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_administrative_area_level_1' WHERE meta_key='gp_projects_google_geo_administrative_area_level_1';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_administrative_area_level_1' WHERE meta_key='gp_competitions_google_geo_administrative_area_level_1';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_administrative_area_level_1' WHERE meta_key='gp_advertorial_google_geo_administrative_area_level_1';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_administrative_area_level_2' WHERE meta_key='gp_news_google_geo_administrative_area_level_2';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_administrative_area_level_2' WHERE meta_key='gp_events_google_geo_administrative_area_level_2';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_administrative_area_level_2' WHERE meta_key='gp_projects_google_geo_administrative_area_level_2';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_administrative_area_level_2' WHERE meta_key='gp_competitions_google_geo_administrative_area_level_2';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_administrative_area_level_2' WHERE meta_key='gp_advertorial_google_geo_administrative_area_level_2';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_administrative_area_level_3' WHERE meta_key='gp_news_google_geo_administrative_area_level_3';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_administrative_area_level_3' WHERE meta_key='gp_events_google_geo_administrative_area_level_3';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_administrative_area_level_3' WHERE meta_key='gp_projects_google_geo_administrative_area_level_3';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_administrative_area_level_3' WHERE meta_key='gp_competitions_google_geo_administrative_area_level_3';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_administrative_area_level_3' WHERE meta_key='gp_advertorial_google_geo_administrative_area_level_3';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_locality' WHERE meta_key='gp_news_google_geo_locality';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_locality' WHERE meta_key='gp_events_google_geo_locality';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_locality' WHERE meta_key='gp_projects_google_geo_locality';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_locality' WHERE meta_key='gp_competitions_google_geo_locality';
+    UPDATE wp_postmeta SET meta_key='gp_google_geo_locality' WHERE meta_key='gp_advertorial_google_geo_locality';
+    UPDATE wp_postmeta SET meta_key='gp_maxmind_geo_latitude' WHERE meta_key='gp_news_maxmind_geo_latitude';
+    UPDATE wp_postmeta SET meta_key='gp_maxmind_geo_latitude' WHERE meta_key='gp_events_maxmind_geo_latitude';
+    UPDATE wp_postmeta SET meta_key='gp_maxmind_geo_latitude' WHERE meta_key='gp_projects_maxmind_geo_latitude';
+    UPDATE wp_postmeta SET meta_key='gp_maxmind_geo_latitude' WHERE meta_key='gp_competitions_maxmind_geo_latitude';
+    UPDATE wp_postmeta SET meta_key='gp_maxmind_geo_latitude' WHERE meta_key='gp_advertorial_maxmind_geo_latitude';
+    UPDATE wp_postmeta SET meta_key='gp_maxmind_geo_longitude' WHERE meta_key='gp_news_maxmind_geo_longitude';
+    UPDATE wp_postmeta SET meta_key='gp_maxmind_geo_longitude' WHERE meta_key='gp_events_maxmind_geo_longitude';
+    UPDATE wp_postmeta SET meta_key='gp_maxmind_geo_longitude' WHERE meta_key='gp_projects_maxmind_geo_longitude';
+    UPDATE wp_postmeta SET meta_key='gp_maxmind_geo_longitude' WHERE meta_key='gp_competitions_maxmind_geo_longitude';
+    UPDATE wp_postmeta SET meta_key='gp_maxmind_geo_longitude' WHERE meta_key='gp_advertorial_maxmind_geo_longitude';
+    UPDATE wp_postmeta SET meta_key='gp_maxmind_geo_country' WHERE meta_key='gp_news_maxmind_geo_country';
+    UPDATE wp_postmeta SET meta_key='gp_maxmind_geo_country' WHERE meta_key='gp_events_maxmind_geo_country';
+    UPDATE wp_postmeta SET meta_key='gp_maxmind_geo_country' WHERE meta_key='gp_projects_maxmind_geo_country';
+    UPDATE wp_postmeta SET meta_key='gp_maxmind_geo_country' WHERE meta_key='gp_competitions_maxmind_geo_country';
+    UPDATE wp_postmeta SET meta_key='gp_maxmind_geo_country' WHERE meta_key='gp_advertorial_maxmind_geo_country';
+    UPDATE wp_postmeta SET meta_key='gp_maxmind_geo_region' WHERE meta_key='gp_news_maxmind_geo_region';
+    UPDATE wp_postmeta SET meta_key='gp_maxmind_geo_region' WHERE meta_key='gp_events_maxmind_geo_region';
+    UPDATE wp_postmeta SET meta_key='gp_maxmind_geo_region' WHERE meta_key='gp_projects_maxmind_geo_region';
+    UPDATE wp_postmeta SET meta_key='gp_maxmind_geo_region' WHERE meta_key='gp_competitions_maxmind_geo_region';
+    UPDATE wp_postmeta SET meta_key='gp_maxmind_geo_region' WHERE meta_key='gp_advertorial_maxmind_geo_region';
+    UPDATE wp_postmeta SET meta_key='gp_maxmind_geo_city' WHERE meta_key='gp_news_maxmind_geo_city';
+    UPDATE wp_postmeta SET meta_key='gp_maxmind_geo_city' WHERE meta_key='gp_events_maxmind_geo_city';
+    UPDATE wp_postmeta SET meta_key='gp_maxmind_geo_city' WHERE meta_key='gp_projects_maxmind_geo_city';
+    UPDATE wp_postmeta SET meta_key='gp_maxmind_geo_city' WHERE meta_key='gp_competitions_maxmind_geo_city';
+    UPDATE wp_postmeta SET meta_key='gp_maxmind_geo_city' WHERE meta_key='gp_advertorial_maxmind_geo_city';";
+    
+    $wpdb->query( $query );
+    
+    #news, events, projects, competitions, advertorial
+    
+    # Add Geonames postcode information (Geonames postcode table must be available)
+    /*foreach ( array('AU', 'IN', 'FR', 'NZ') as $value ) {
+        $query = mysql_unbuffered_query("UPDATE " . $wpdb->base_prefix . "maxmind_geolitecitylocation
+        LEFT JOIN (SELECT * FROM " . $wpdb->base_prefix . "geonames_postcodes
+            WHERE countrycode = '" . $value . "'
+            GROUP BY placename, admincode1
+            ORDER BY postalcode) AS m
+        ON " . $wpdb->base_prefix . "maxmind_geolitecitylocation.city = m.placename
+        AND " . $wpdb->base_prefix . "maxmind_geolitecitylocation.region = m.admincode1
+        AND " . $wpdb->base_prefix . "maxmind_geolitecitylocation.country = m.countrycode
+        SET " . $wpdb->base_prefix . "maxmind_geolitecitylocation.postalCode = m.postalcode
+        WHERE " . $wpdb->base_prefix . "maxmind_geolitecitylocation.country = '" . $value . "'
+        AND " . $wpdb->base_prefix . "maxmind_geolitecitylocation.city != ''
+        AND m.postalcode IS NOT NULL");
+            
+        $wpdb->query( $query );*/
+/*
+        $query = mysql_query("SELECT locID, country, region, city 
+            FROM " . $wpdb->base_prefix . "maxmind_geolitecitylocation
+            WHERE city != '' AND (country = 'AU');");
+    
+        $i =0;
+        if ( $query ) {
+            while ( $row = mysql_fetch_row($query) ) {
+                $i = $i + 1;
+                $uquery = "UPDATE " . $wpdb->base_prefix . "maxmind_geolitecitylocation
+                    CROSS JOIN (SELECT postalcode FROM " . $wpdb->base_prefix . "geonames_postcodes
+                        WHERE countrycode = '" . $row[1] . "'
+                        AND admincode1 = '" . $row[2]  . "'
+                        AND placename = '" . $row[3] . "') AS m
+                    SET " . $wpdb->base_prefix . "maxmind_geolitecitylocation.postalCode = m.postalcode
+                    WHERE " . $wpdb->base_prefix . "maxmind_geolitecitylocation.locID = " . $row[0] . "
+                    AND " . $wpdb->base_prefix . "maxmind_geolitecitylocation.city != ''
+                    AND m.postalcode IS NOT NULL;";
+                echo $uquery;
+                $wpdb->query( $uquery );
+            }
+            mysql_free_result( $query );
+        }
+        echo $i;
+*/
+    /*}*/
+    
+    # Add Geonames postcode information (Geonames postcode table must be available)
+    /*foreach ( array('GB', 'IE') as $value ) {
+        $query = mysql_unbuffered_query("UPDATE " . $wpdb->base_prefix . "maxmind_geolitecitylocation
+        LEFT JOIN (SELECT * FROM " . $wpdb->base_prefix . "geonames_postcodes
+            WHERE countrycode = '" . $value . "'
+            GROUP BY placename, admincode2
+            ORDER BY postalcode) AS m
+        ON " . $wpdb->base_prefix . "maxmind_geolitecitylocation.city = m.placename
+        AND " . $wpdb->base_prefix . "maxmind_geolitecitylocation.region = m.admincode2
+        AND " . $wpdb->base_prefix . "maxmind_geolitecitylocation.country = m.countrycode
+        SET " . $wpdb->base_prefix . "maxmind_geolitecitylocation.postalCode = m.postalcode
+        WHERE " . $wpdb->base_prefix . "maxmind_geolitecitylocation.country = '" . $value . "'
+        AND " . $wpdb->base_prefix . "maxmind_geolitecitylocation.city != ''
+        AND m.postalcode IS NOT NULL");
+    
+        $wpdb->query( $query );
+    }*/
     
     
     add_option( "GP_MAXMIND_VERSION", GP_MAXMIND_VERSION );

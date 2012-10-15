@@ -1,6 +1,5 @@
 <?php
-
-class Config {
+class Edition {
 
 	private static $posttypes, $states, $meta;
 
@@ -15,6 +14,7 @@ class Config {
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date'),
 				'enabled' => true,
 				'priority' => '1',
+			    'role_permissions' => array('administrator', 'contributor'),
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
 				'GPmeta' => array(
@@ -79,6 +79,7 @@ class Config {
 				'plural' => true,
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date', 'dates'),
 				'enabled' => true,
+			    'role_permissions' => array('administrator', 'contributor', 'subscriber'),
 				'priority' => '0.6',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -145,6 +146,7 @@ class Config {
 				'plural' => true,
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date'),
 				'enabled' => false,
+			    'role_permissions' => array('administrator'),
 				'priority' => '0.6',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -210,6 +212,7 @@ class Config {
 				'plural' => true,
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date', 'dates'),
 				'enabled' => true,
+			    'role_permissions' => array('administrator', 'contributor', 'subscriber'),
 				'priority' => '0.6',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -276,6 +279,7 @@ class Config {
 				'plural' => false, 
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date'),
 				'enabled' => true,
+			    'role_permissions' => array('administrator'),
 				'priority' => '0.6',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -341,6 +345,7 @@ class Config {
 				'plural' => false, 
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date'),
 				'enabled' => false,
+			    'role_permissions' => array('administrator'),
 				'priority' => '0.6',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -406,6 +411,7 @@ class Config {
 				'plural' => false, 
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date'),
 				'enabled' => false,
+			    'role_permissions' => array('administrator'),
 				'priority' => '0.6',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -471,6 +477,7 @@ class Config {
 				'plural' => true,
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date'),
 				'enabled' => true,
+			    'role_permissions' => array('administrator', 'contributor', 'subscriber'),
 				'priority' => '0.6',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -537,6 +544,7 @@ class Config {
 				'plural' => true, 
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date'),
 				'enabled' => true,
+			    'role_permissions' => array('administrator', 'contributor', 'subscriber'),
 				'priority' => '0.6',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -602,6 +610,7 @@ class Config {
 				'plural' => false, 
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date'),
 				'enabled' => false,
+			    'role_permissions' => array('administrator'),
 				'priority' => '0.6',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',

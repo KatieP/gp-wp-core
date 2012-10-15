@@ -1,7 +1,5 @@
 <?php
-namespace _default; 
-
-class Config {
+class Edition {
 
 	private static $posttypes, $states, $meta;
 
@@ -15,6 +13,7 @@ class Config {
 				'plural' => false,
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date'),
 				'enabled' => true,
+			    'role_permissions' => array('administrator', 'contributor'),
 				'priority' => '1',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -80,6 +79,7 @@ class Config {
 				'plural' => true,
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date', 'dates'),
 				'enabled' => true,
+			    'role_permissions' => array('administrator', 'contributor', 'subscriber'),
 				'priority' => '0.6',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -146,6 +146,7 @@ class Config {
 				'plural' => true,
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date'),
 				'enabled' => false,
+			    'role_permissions' => array('administrator'),
 				'priority' => '0.6',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -211,6 +212,7 @@ class Config {
 				'plural' => true,
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date', 'dates'),
 				'enabled' => true,
+			    'role_permissions' => array('administrator', 'contributor', 'subscriber'),
 				'priority' => '0.6',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -277,6 +279,7 @@ class Config {
 				'plural' => false, 
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date'),
 				'enabled' => true,
+			    'role_permissions' => array('administrator'),
 				'priority' => '0.6',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -342,6 +345,7 @@ class Config {
 				'plural' => false, 
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date'),
 				'enabled' => false,
+			    'role_permissions' => array('administrator'),
 				'priority' => '0.6',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -407,6 +411,7 @@ class Config {
 				'plural' => false, 
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date'),
 				'enabled' => false,
+			    'role_permissions' => array('administrator'),
 				'priority' => '0.6',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -472,6 +477,7 @@ class Config {
 				'plural' => true,
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date'),
 				'enabled' => true,
+			    'role_permissions' => array('administrator', 'contributor', 'subscriber'),
 				'priority' => '0.6',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -538,6 +544,7 @@ class Config {
 				'plural' => true, 
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date'),
 				'enabled' => true,
+			    'role_permissions' => array('administrator', 'contributor', 'subscriber'),
 				'priority' => '0.6',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -603,6 +610,7 @@ class Config {
 				'plural' => false, 
 				'columns' => array('author', 'categories', 'tags', 'comments', 'date'),
 				'enabled' => false,
+			    'role_permissions' => array('administrator'),
 				'priority' => '0.6',
 				'changefreq' => 'monthly',
 				'keywords' => 'science, environment',
@@ -696,12 +704,12 @@ class Config {
 		    FROM " . $wpdb->base_prefix . "debian_iso_3166_2 AS a
 		    INNER JOIN (
                 SELECT subset, count(*) AS subset_count
-                FROM " . $wpdb->base_prefix . "debian_iso_3166_2 WHERE country = 'US' 
+                FROM " . $wpdb->base_prefix . "debian_iso_3166_2 WHERE country = 'CA' 
                     AND parent = ''
                 GROUP BY subset 
 		    ) AS b 
 		    ON a.subset = b.subset 
-		    WHERE a.country = 'US' 
+		    WHERE a.country = 'CA' 
 		        AND a.parent = ''
 		    ORDER BY b.subset_count DESC, a.subset, a.name";
 
@@ -713,10 +721,10 @@ class Config {
 		
 		
 		$meta = array(
-		        'facebook_id' => '243282385705362'
-		        );
+		        'facebook_id' => '257648914354781'
+		);
 		
-		self::$meta= $meta;
+		self::$meta = $meta;
 	}
 	
 	public static function getPostTypes() {
