@@ -1,12 +1,14 @@
 <?php
-global $sitemaptypes;
-$posttypes = Config::getPostTypes();
+global $sitemaptypes, $gp;
+
+$ns_loc = $gp->location['country_iso2'] . '\\Edition';
+$edition_posttypes = $ns_loc::getPostTypes();
 
 if ($_POST['gp_self'] == 1 ) {
     check_admin_referer('gp-theme-update_gp_sitemaps');
 
     foreach ( $sitemaptypes as $sitemapvalue ) {
-        foreach ( $posttypes as $posttypevalue ) {
+        foreach ( $edition_posttypes as $posttypevalue ) {
             if ($posttypevalue['enabled'] == true) {
                 if ( is_array( $_POST[$sitemapvalue['id']] ) && in_array( $posttypevalue['id'] , $_POST[$sitemapvalue['id']] ) ) {
                     #echo 'gp-' . $sitemapvalue['id'] . '_' . $posttypevalue['id'] . ' 1<br />';
@@ -39,9 +41,9 @@ if ($_POST['gp_self'] == 1 ) {
 		<h3>Enable Sitemaps</h3>
 		<table class="form-table">
 			<?php
-			if ( is_array( $sitemaptypes ) && is_array( $posttypes ) ) {
+			if ( is_array( $sitemaptypes ) && is_array( $edition_posttypes ) ) {
 			    echo '<tr><td></td>';
-			    foreach ( $posttypes as $posttypevalue ) {
+			    foreach ( $edition_posttypes as $posttypevalue ) {
 			        if ($posttypevalue['enabled'] == true) {
 			            if ($posttypevalue['plural'] == true) {
 			                echo '<th>' . $posttypevalue['name'] . 's</th>';
@@ -53,7 +55,7 @@ if ($_POST['gp_self'] == 1 ) {
 			    echo '</tr>';
 			    foreach ( $sitemaptypes as $sitemapvalue ) {
 			        echo '<tr><th>' . $sitemapvalue['name']. '</th>';
-			        foreach ( $posttypes as $posttypevalue ) {
+			        foreach ( $edition_posttypes as $posttypevalue ) {
 			            if ($posttypevalue['enabled'] == true) {
 			                if ( get_option('gp-' . $sitemapvalue['id'] . '_' . $posttypevalue['id']) == true ) {
 			                    $checked = ' checked="checked"';

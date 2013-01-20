@@ -1,7 +1,9 @@
 <?php
+namespace AU;
+
 class Edition {
 
-	private static $posttypes, $states, $meta;
+	private static $posttypes, $states, $meta, $sitefeeds, $xmlfeeds;
 
 	public static function init() {
 	    global $wpdb;
@@ -700,6 +702,96 @@ class Edition {
 		
 		self::$posttypes = $posttypes;
 		
+		
+		$sitefeeds = array(
+		    array(
+		        'id' => 'home',
+		        'pagination' => true,
+		        'page_1_results' => 20,
+		        'page_N_results' => 20,
+		        'template' => '',
+		        'query' => ''
+		    ),
+		    array(
+		        'id' => 'news',
+		        'pagination' => true,
+		        'page_1_results' => 20,
+		        'page_N_results' => 20,
+		        'template' => '',
+		        'query' => ''
+		    ),
+		    array(
+		        'id' => 'events',
+		        'pagination' => true,
+		        'page_1_results' => 20,
+		        'page_N_results' => 20,
+		        'template' => '',
+		        'query' => ''
+		    ),
+		    array(
+		        'id' => 'products',
+		        'pagination' => true,
+		        'page_1_results' => 20,
+		        'page_N_results' => 20,
+		        'template' => '',
+		        'query' => ''
+		    ),
+		    array(
+		        'id' => 'competitions',
+		        'pagination' => true,
+		        'page_1_results' => 20,
+		        'page_N_results' => 20,
+		        'template' => '',
+		        'query' => ''
+		    ),
+		    array(
+		        'id' => 'people',
+		        'pagination' => true,
+		        'page_1_results' => 20,
+		        'page_N_results' => 20,
+		        'template' => '',
+		        'query' => ''
+		    ),
+		    array(
+		        'id' => 'projects',
+		        'pagination' => true,
+		        'page_1_results' => 20,
+		        'page_N_results' => 20,
+		        'template' => '',
+		        'query' => ''
+		    )
+		);
+		
+		self::$sitefeeds = $sitefeeds;
+		
+		
+		$xmlfeeds = array(
+	        array(
+	            'id' => 'home',
+	        ),
+	        array(
+	            'id' => 'news'
+	        ),
+	        array(
+	            'id' => 'events'
+	        ),
+	        array(
+	            'id' => 'products'
+	        ),
+	        array(
+	            'id' => 'competitions'
+	        ),
+	        array(
+	            'id' => 'people'
+	        ),
+	        array(
+	            'id' => 'projects'
+	        )
+		);
+		
+		self::$xmlfeeds = $xmlfeeds;
+		
+		
 		$query = "SELECT a.code, a.name, a.subset, a.subset_plural, b.subset_count
 		    FROM " . $wpdb->base_prefix . "debian_iso_3166_2 AS a
 		    INNER JOIN (
@@ -730,6 +822,16 @@ class Edition {
 	public static function getPostTypes() {
 		self::init();
 		return self::$posttypes;
+	}
+	
+	public static function getSiteFeeds() {
+	    self::init();
+	    return self::$sitefeeds;
+	}
+	
+	public static function getXMLFeeds() {
+	    self::init();
+	    return self::$xmlfeeds;
 	}
 	
 	public static function getStates() {

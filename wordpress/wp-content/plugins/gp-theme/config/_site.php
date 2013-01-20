@@ -40,7 +40,16 @@ class Site {
 	    self::$posttypes = $posttypes;
 	    
 	    /** Serviced Editions  **/
-	    $editions = array('AU', 'GB', 'NZ', 'IE', 'IN', 'FR', 'CA', 'US');
+	    $editions = array(
+	        array('iso2' => 'AU', 'name' => 'Australia'), 
+	        array('iso2' => 'GB', 'name' => 'Great Britain'), 
+	        array('iso2' => 'NZ', 'name' => 'New Zealand'), 
+	        array('iso2' => 'IE', 'name' => 'Ireland'), 
+	        array('iso2' => 'IN', 'name' => 'India'), 
+	        array('iso2' => 'FR', 'name' => 'France'), 
+	        array('iso2' => 'CA', 'name' => 'Canada'), 
+	        array('iso2' => 'US', 'name' => 'United States of America')
+	    );
 	     
 	    self::$editions = $editions;
 	}

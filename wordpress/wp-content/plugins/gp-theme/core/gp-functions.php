@@ -109,8 +109,10 @@ function getPluralName($newposttype) {
 }
 
 function getPostTypeSlug( $posttype ) {
-    global $post;
-    $edition_posttypes = Edition::getPostTypes();
+    global $post, $gp;
+    
+    $ns_loc = $gp->location['country_iso2'] . '\\Edition';
+    $edition_posttypes = $ns_loc::getPostTypes();
 
     if ( !isset( $posttype ) ) {
         $posttype = $post->post_type;
@@ -126,7 +128,10 @@ function getPostTypeSlug( $posttype ) {
 }
 
 function getPostTypeID_by_Slug( $posttypeslug ) {
-    $edition_posttypes = Edition::getPostTypes();
+    global $gp;
+    
+    $ns_loc = $gp->location['country_iso2'] . '\\Edition';
+    $edition_posttypes = $ns_loc::getPostTypes();
     
     foreach ( $edition_posttypes as $value ) {
         if ( $value['enabled'] === true && $value['args']['rewrite']['slug'] == $posttypeslug ) {
@@ -138,7 +143,10 @@ function getPostTypeID_by_Slug( $posttypeslug ) {
 }
 
 function checkPostTypeSlug( $posttypeslug ) {
-    $edition_posttypes = Edition::getPostTypes();
+    global $gp;
+    
+    $ns_loc = $gp->location['country_iso2'] . '\\Edition';
+    $edition_posttypes = $ns_loc::getPostTypes();
     
     foreach ( $edition_posttypes as $value ) {
         if ( $value['enabled'] === true && $value['args']['rewrite']['slug'] == $posttypeslug ) {
@@ -270,7 +278,7 @@ function uploadRemoteFile($source = false, $destination = false, $allowed_filety
     return false;
 }
 
-function getCurrentLocation($clientip = false) {
+function getLocationByIP($clientip = false) {
     global $wpdb;
     
     $clientip = sprintf( "%u", ip2long( getRealIPAddress( $clientip ) ) );

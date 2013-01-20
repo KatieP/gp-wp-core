@@ -12,9 +12,10 @@ add_action( 'admin_head', 'js_GPMeta' );
  *
  */
 function js_GPMeta () {
+    global $gp;
     $thisposttype = get_post_type();
-    
-    $edition_posttypes = Edition::getPostTypes();
+    $ns_loc = $gp->location['country_iso2'] . '\\Edition';
+    $edition_posttypes = $ns_loc::getPostTypes();
 
     for($index = 0; $index < count($edition_posttypes); $index++) {
         if ( $edition_posttypes[$index]['enabled'] == true && $edition_posttypes[$index]['id'] == $thisposttype && is_array( $edition_posttypes[$index]['GPmeta'] ) ) {
@@ -31,8 +32,10 @@ function js_GPMeta () {
 
 function create_GPMeta () {
     // Create Meta Boxes Router
-
-    $edition_posttypes = Edition::getPostTypes();
+    global $gp;
+    
+    $ns_loc = $gp->location['country_iso2'] . '\\Edition';
+    $edition_posttypes = $ns_loc::getPostTypes();
     
     for($index = 0; $index < count($edition_posttypes); $index++) {
         if ( $edition_posttypes[$index]['enabled'] == true && is_array( $edition_posttypes[$index]['GPmeta'] ) ) {
@@ -49,9 +52,10 @@ function create_GPMeta () {
 
 function save_GPMeta () {
     // Save Meta Boxes Router
-    global $post;
+    global $post, $gp;
     
-    $edition_posttypes = Edition::getPostTypes();
+    $ns_loc = $gp->location['country_iso2'] . '\\Edition';
+    $edition_posttypes = $ns_loc::getPostTypes();
     
     if ( isset( $post ) && !current_user_can( 'edit_post', $post->ID ) ) {
         return $post->ID;
@@ -73,7 +77,8 @@ function save_GPMeta () {
 }
 
 function gp_create_postGeoLoc_meta($post, $metabox) {
-
+    global $gp;
+    
     $custom = get_post_custom($post->ID);
 
     $meta_geo_location = ( !isset($custom["gp_google_geo_location"][0]) || empty($custom["gp_google_geo_location"][0]) ) ? false : $custom["gp_google_geo_location"][0];
@@ -84,20 +89,23 @@ function gp_create_postGeoLoc_meta($post, $metabox) {
     $meta_geo_administrative_area_level_2 = ( !isset($custom["gp_google_geo_administrative_area_level_2"][0]) || empty($custom["gp_google_geo_administrative_area_level_2"][0]) ) ? false : $custom["gp_google_geo_administrative_area_level_2"][0];
     $meta_geo_administrative_area_level_3 = ( !isset($custom["gp_google_geo_administrative_area_level_3"][0]) || empty($custom["gp_google_geo_administrative_area_level_3"][0]) ) ? false : $custom["gp_google_geo_administrative_area_level_3"][0];
     $meta_geo_locality = ( !isset($custom["gp_google_geo_locality"][0]) || empty($custom["gp_google_geo_locality"][0]) ) ? false : $custom["gp_google_geo_locality"][0];
+    $meta_geo_locality_slug = ( !isset($custom["gp_google_geo_locality"][0]) || empty($custom["gp_google_geo_locality"][0]) ) ? false : sanitize_title($custom["gp_google_geo_locality"][0]);
     
-    $geo_currentlocation = Geo::getCurrentLocation();
+    $geo_currentlocation = $gp->location;
 
     $meta_maxmind_geo_latitude = ( isset($geo_currentlocation['latitude']) ) ? $geo_currentlocation['latitude'] : false ;
     $meta_maxmind_geo_longitude = ( isset($geo_currentlocation['longitude']) ) ? $geo_currentlocation['longitude'] : false ;
     $meta_maxmind_geo_country = ( isset($geo_currentlocation['country']) ) ? $geo_currentlocation['country_iso2'] : false ;
     $meta_maxmind_geo_region = ( isset($geo_currentlocation['region']) ) ? $geo_currentlocation['region_iso2'] : false ;
     $meta_maxmind_geo_city = ( isset($geo_currentlocation['city']) ) ? $geo_currentlocation['city'] : false ;
+    $meta_maxmind_geo_city_slug = ( isset($geo_currentlocation['city']) ) ? sanitize_title($geo_currentlocation['city']) : false ;
     
     $meta_maxmind_geo_latitude = ( !isset($custom["gp_maxmind_geo_latitude"][0]) || empty($custom["gp_maxmind_geo_latitude"][0]) ) ? $meta_maxmind_geo_latitude : $custom["gp_maxmind_geo_latitude"][0];
     $meta_maxmind_geo_longitude = ( !isset($custom["gp_maxmind_geo_longitude"][0]) || empty($custom["gp_maxmind_geo_longitude"][0]) ) ? $meta_maxmind_geo_longitude : $custom["gp_maxmind_geo_longitude"][0];
     $meta_maxmind_geo_country = ( !isset($custom["gp_maxmind_geo_country"][0]) || empty($custom["gp_maxmind_geo_country"][0]) ) ? $meta_maxmind_geo_country : $custom["gp_maxmind_geo_country"][0];
     $meta_maxmind_geo_region = ( !isset($custom["gp_maxmind_geo_region"][0]) || empty($custom["gp_maxmind_geo_region"][0]) ) ? $meta_maxmind_geo_region : $custom["gp_maxmind_geo_region"][0];
     $meta_maxmind_geo_city = ( !isset($custom["gp_maxmind_geo_city"][0]) || empty($custom["gp_maxmind_geo_city"][0]) ) ? $meta_maxmind_geo_city : $custom["gp_maxmind_geo_city"][0];
+    $meta_maxmind_geo_city_slug = ( !isset($custom["gp_maxmind_geo_city"][0]) || empty($custom["gp_maxmind_geo_city"][0]) ) ? $meta_maxmind_geo_city_slug : sanitize_title($custom["gp_maxmind_geo_city"][0]);
     
     $meta_nonce_name = 'gp_' . $metabox['args']['id'] . '-nonce';
     $meta_nonce_value = wp_create_nonce( $meta_nonce_name );
@@ -116,12 +124,14 @@ function gp_create_postGeoLoc_meta($post, $metabox) {
     <input name="gp_google_geo_administrative_area_level_2" id="gp_google_geo_administrative_area_level_2" ' . $inputhidden . ' value="' . $meta_geo_administrative_area_level_2 . '" readonly="readonly" />
     <input name="gp_google_geo_administrative_area_level_3" id="gp_google_geo_administrative_area_level_3" ' . $inputhidden . ' value="' . $meta_geo_administrative_area_level_3 . '" readonly="readonly" />
     <input name="gp_google_geo_locality" id="gp_google_geo_locality" ' . $inputhidden . ' value="' . $meta_geo_locality . '" readonly="readonly" />
+    <input name="gp_google_geo_locality_slug" id="gp_google_geo_locality_slug" ' . $inputhidden . ' value="' . $meta_geo_locality_slug . '" readonly="readonly" />
     <div class="clear"></div>
     <input name="gp_maxmind_geo_latitude" id="gp_maxmind_geo_latitude" ' . $inputhidden . ' value="' . $meta_maxmind_geo_latitude . '" readonly="readonly" />
     <input name="gp_maxmind_geo_longitude" id="gp_maxmind_geo_longitude" ' . $inputhidden . ' value="' . $meta_maxmind_geo_longitude . '" readonly="readonly" />
     <input name="gp_maxmind_geo_country" id="gp_maxmind_geo_country" ' . $inputhidden . ' value="' . $meta_maxmind_geo_country . '" readonly="readonly" />
     <input name="gp_maxmind_geo_region" id="gp_maxmind_geo_region" ' . $inputhidden . ' value="' . $meta_maxmind_geo_region . '" readonly="readonly" />
     <input name="gp_maxmind_geo_city" id="gp_maxmind_geo_city" ' . $inputhidden . ' value="' . $meta_maxmind_geo_city . '" readonly="readonly" />
+    <input name="gp_maxmind_geo_city_slug" id="gp_maxmind_geo_city_slug" ' . $inputhidden . ' value="' . $meta_maxmind_geo_city_slug . '" readonly="readonly" />
     <div id="map_canvas"></div>
     </div>
     ';
@@ -162,6 +172,10 @@ function gp_save_postGeoLoc_meta() {
         update_post_meta($post->ID, 'gp_google_geo_locality', $_POST['gp_google_geo_locality'] );
     }
     
+    if(isset($_POST['gp_google_geo_locality_slug'])) {
+        update_post_meta($post->ID, 'gp_google_geo_locality_slug', sanitize_title($_POST['gp_google_geo_locality']) );
+    }
+    
     if(isset($_POST['gp_maxmin_geo_latitude'])) {
         update_post_meta($post->ID, 'gp_maxmind_geo_latitude', $_POST['gp_maxmind_geo_latitude'] );
     }
@@ -182,11 +196,15 @@ function gp_save_postGeoLoc_meta() {
         update_post_meta($post->ID, 'gp_maxmind_geo_city', $_POST['gp_maxmind_geo_city'] );
     }
     
+    if(isset($_POST['gp_maxmin_geo_city_slug'])) {
+        update_post_meta($post->ID, 'gp_maxmind_geo_city_slug', $_POST['gp_maxmind_geo_city_slug'] );
+    }
+    
     return $post;
 }
 
 function gp_js_postGeoLoc_meta() {
-    global $post, $wpdb;
+    global $post, $wpdb, $gp;
 
     $custom = get_post_custom($post->ID);
 
@@ -205,7 +223,7 @@ function gp_js_postGeoLoc_meta() {
     $meta_source = ( $meta_postlat && $meta_postlng ) ? 'db' : false;
 
     if ( !$meta_source ) {
-        $geo_currentlocation = Geo::getCurrentLocation();
+        $geo_currentlocation = $gp->location;
 
         if ( $location ) {
             $meta_postlat = ( !empty($geo_currentlocation['latitude']) ) ? $geo_currentlocation['latitude'] : false;

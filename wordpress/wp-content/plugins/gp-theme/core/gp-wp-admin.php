@@ -62,14 +62,15 @@ function gp_admin_title($admin_title) {
 # http://w-shadow.com/blog/2010/06/30/add-new-buttons-alongside-screen-options-and-help/
 
 function gp_remove_meta_boxes(){
-    global $wp_meta_boxes;
+    global $wp_meta_boxes, $gp;
 
     if ( !get_user_role( array('administrator') ) ) {
         unset( $wp_meta_boxes['post'] );
         unset( $wp_meta_boxes['page'] );
     }
 
-    $edition_posttypes = Edition::getPostTypes();
+    $ns_loc = $gp->location['country_iso2'] . '\\Edition';
+    $edition_posttypes = $ns_loc::getPostTypes();
 
     if ( isset($edition_posttypes) ) {
         foreach ( $edition_posttypes as $posttype ) {

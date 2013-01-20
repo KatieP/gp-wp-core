@@ -1,4 +1,6 @@
 <?php
+namespace IE;
+
 class Edition {
 
 	private static $posttypes, $states, $meta;

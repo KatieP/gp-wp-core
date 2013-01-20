@@ -4,5 +4,5 @@
  * unsuccessfully detected the users geo-location. 
  */
 
-require_once( GP_PLUGIN_DIR . '/config/US.php' );
+require_once( GP_PLUGIN_DIR . '/editions/US.php' );
 ?>

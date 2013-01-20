@@ -19,35 +19,37 @@ define( 'GP_PLUGIN_DIR', WP_PLUGIN_DIR . '/gp-theme' );
 define( 'GP_PLUGIN_URL', plugins_url( '/gp-theme' ) );
 define( 'WP_ADMIN_DIR', ABSPATH . 'wp-admin' );
 
-require_once( GP_PLUGIN_DIR . '/core/gp-functions.php' );
-require_once( GP_PLUGIN_DIR . '/core/gp-db.php' );
-require_once( GP_PLUGIN_DIR . '/core/gp-wp-admin.php' );
-require_once( GP_PLUGIN_DIR . '/core/gp-geonames.php' );
-require_once( GP_PLUGIN_DIR . '/core/gp-maxmind.php' );
-require_once( GP_PLUGIN_DIR . '/core/gp-debian-isocodes.php' );
-
-spl_autoload_register(function($class) {
+//spl_autoload_register(function($class) {
+    require_once( GP_PLUGIN_DIR . '/core/gp-functions.php' );
+    require_once( GP_PLUGIN_DIR . '/core/gp-db.php' );
+    require_once( GP_PLUGIN_DIR . '/core/gp-wp-admin.php' );
+    require_once( GP_PLUGIN_DIR . '/core/gp-geonames.php' );
+    require_once( GP_PLUGIN_DIR . '/core/gp-maxmind.php' );
+    require_once( GP_PLUGIN_DIR . '/core/gp-debian-isocodes.php' );
     require_once( GP_PLUGIN_DIR . '/config/_site.php' );
     require_once( GP_PLUGIN_DIR . '/config/_geo.php' );
-});
 
-$site_editions = Site::getEditions();
-$geo_currentlocation = Geo::getCurrentLocation();
-define( 'SELECTED_COUNTRY', ( isset($geo_currentlocation['country_iso2']) && in_array($geo_currentlocation['country_iso2'], $site_editions) ) ? $geo_currentlocation['country_iso2'] : '_default' );
+    global $gp;
+    $geo_currentlocation = Geo::getCurrentLocation();
+    $gp->location = $geo_currentlocation;
 
-spl_autoload_register(function($class) {
+    define( 'SELECTED_COUNTRY', $geo_currentlocation['country_iso2'] );
+    
     require_once( GP_PLUGIN_DIR . '/editions/' . SELECTED_COUNTRY . '.php' );
-});
+//});
 
-require_once( GP_PLUGIN_DIR . '/core/gp-email-notification.php' );
-require_once( GP_PLUGIN_DIR . '/core/gp-campaignmonitor.php' );
-require_once( GP_PLUGIN_DIR . '/core/gp-metaboxes.php' );
-require_once( GP_PLUGIN_DIR . '/pages/gp-shortcodes.php' );
-require_once( GP_PLUGIN_DIR . '/core/gp-legacy.php' );
+//spl_autoload_register(function($class) {
+    require_once( GP_PLUGIN_DIR . '/core/gp-geo.php' );
+    require_once( GP_PLUGIN_DIR . '/core/gp-email-notification.php' );
+    require_once( GP_PLUGIN_DIR . '/core/gp-campaignmonitor.php' );
+    require_once( GP_PLUGIN_DIR . '/core/gp-metaboxes.php' );
+    require_once( GP_PLUGIN_DIR . '/pages/gp-shortcodes.php' );
+    require_once( GP_PLUGIN_DIR . '/core/gp-legacy.php' );
+//});
 
-add_action( 'init', 'gp_set_core_globals' );
-add_action( 'admin_init', 'gp_run_updates' );
-add_action( 'admin_menu', 'gp_set_admin_menu' );
+add_action('init', 'gp_set_core_globals');
+add_action('admin_init', 'gp_run_updates');
+add_action('admin_menu', 'gp_set_admin_menu');
 
 # We're using admin_init instead of admin_head because it doesn't handle enqueue_script/style() but...
 add_action('admin_init', 'gp_plugin_scripts');
@@ -57,7 +59,7 @@ add_action('login_head', 'gp_login_scripts');
 
 add_action('wp_login', 'gp_session_onlogin');
 add_action('wp_logout', 'gp_session_onlogout');
-add_action( 'init', 'gp_session_handler' );
+add_action('init', 'gp_session_handler');
 
 remove_action('wp_head', 'wp_generator');
 
@@ -93,9 +95,13 @@ function gp_set_core_globals() {
     global $current_user;
 
     $current_user = wp_get_current_user();
-
+    
+    $geo = new GeoSession();
+    
     $gp->plugin->prefix = 'gp_theme';
     $gp->loggedin_user->id = $current_user->ID;
+    $gp->states = $geo->getStates();
+    $gp->uri->country = strtolower($gp->location['country_iso2']) . "/";
     $gp->campaignmonitor = array(
         1 => array(
             'api' => 'fd592f119aba9e1a50c9c7f09119e0ff',
@@ -277,7 +283,5 @@ function gp_wpmu_activate_user($user_id, $password, $meta) {
         }
     }
 }
-
-
 
 ?>

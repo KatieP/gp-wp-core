@@ -1,4 +1,6 @@
 <?php
+namespace NZ;
+
 class Edition {
 
 	private static $posttypes, $states, $meta;

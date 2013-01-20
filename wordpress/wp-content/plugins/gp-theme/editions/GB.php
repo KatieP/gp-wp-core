@@ -1,4 +1,6 @@
 <?php
+namespace GB;
+
 class Edition {
 
 	private static $posttypes, $states, $meta;

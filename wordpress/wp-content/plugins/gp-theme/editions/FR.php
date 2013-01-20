@@ -1,4 +1,6 @@
 <?php
+namespace FR;
+
 class Edition {
 
 	private static $posttypes, $states, $meta;

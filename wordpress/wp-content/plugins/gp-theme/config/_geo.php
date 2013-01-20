@@ -16,7 +16,23 @@ class Geo {
 	    #$clientip = '60.243.255.255';     // IN example
 	    #$clientip = '62.161.255.255';     // FR example
 	    
-	    $current_location = getCurrentLocation( $clientip );
+	    $current_location = getLocationByIP( $clientip );
+	    
+	    $site_editions = Site::getEditions();
+	    
+	    $isEdition = false;
+	    foreach ( $site_editions as $edition ) {
+	        if ( $edition['iso2'] == $current_location['country_iso2'] ) {
+	            $isEdition = true;
+	        }
+	    }
+	    
+	    if ( $current_location == null || !$isEdition ) {
+	        $current_location = array(
+	            "country" => "United States", 
+	            "country_iso2" => "US"
+	        );
+	    }
 		
 		self::$current_location = $current_location;
 		
