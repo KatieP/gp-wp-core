@@ -76,22 +76,6 @@ global $current_user;
             </div> 
         </a> 
         <a href="<?php
-                     # Direct user to appropriate form depending on logged in status and user role
-                     if ( !is_user_logged_in() ) {
-                         echo '/forms/post-my-competition-public/';
-                     } else if ( is_user_logged_in()  && $current_user->reg_advertiser == 1 ) {
-                         echo '/forms/create-competition-post-subscriber/';
-                     } else {
-                         echo '/create-competition-post/';                         
-                     } 
-                 ?>"> 
-            <div class="inner-icon-container">
-                <span class="icon-trophy-2"></span>
-                <span class="icon-heading-text">Competitions</span>  
-                <span class="icon-heading-desc">Create a giveaway</span> 
-            </div> 
-        </a> 
-        <a href="<?php
                      # Direct user to appropriate form depending on logged in status
                      if ( !is_user_logged_in() ) {
                          echo '/forms/create-my-project-post-public/';
