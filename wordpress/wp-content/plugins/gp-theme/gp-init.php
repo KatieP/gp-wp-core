@@ -213,22 +213,12 @@ function gp_site_scripts() {
         wp_deregister_script('jquery-ui-position');
         wp_register_script('jquery-ui-position', GP_PLUGIN_URL . '/js/jquery.ui.position.min.js');
         wp_enqueue_script('jquery-ui-position');
-        
-        if ($current_user->{$wpdb->prefix . 'subscription'}["subscription-greenrazor"] != "true" || !is_user_logged_in()) {
-            wp_register_script('boxy', GP_PLUGIN_URL . '/js/jquery.boxy.js', false, false, true);
-            wp_enqueue_script('boxy');
-        }
 
         wp_register_script('gp', GP_PLUGIN_URL . '/js/gp.js', false, false, true);
         wp_enqueue_script('gp');
 
         wp_register_script('hashchange', GP_PLUGIN_URL . '/js/jquery.ba-hashchange.min.js', false, false, true);
         wp_enqueue_script('hashchange');
-
-        if ($current_user->{$wpdb->prefix . 'subscription'}["subscription-greenrazor"] != "true" || !is_user_logged_in()) {
-            wp_register_style('boxy', GP_PLUGIN_URL . '/js/boxy.css');
-            wp_enqueue_style('boxy');
-        }
         
         // Required for File Upload. Must be at Footer.
         wp_deregister_script('jquery-ui-core');
