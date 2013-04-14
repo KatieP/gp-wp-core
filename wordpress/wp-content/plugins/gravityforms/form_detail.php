@@ -82,7 +82,6 @@ class GFFormDetail{
             };
         </script>
 
-        <script src="<?php echo GFCommon::get_base_url() ?>/js/jquery.dimensions.js?ver=<?php echo GFCommon::$version ?>"></script>
         <script src="<?php echo GFCommon::get_base_url() ?>/js/floatmenu_init.js?ver=<?php echo GFCommon::$version ?>"></script>
         <script src="<?php echo GFCommon::get_base_url() ?>/js/menu.js?ver=<?php echo GFCommon::$version ?>"></script>
         <script src="<?php echo GFCommon::get_base_url() ?>/js/jquery.json-1.3.js?ver=<?php echo GFCommon::$version ?>"></script>
@@ -180,8 +179,9 @@ class GFFormDetail{
                 float:left;
                 width:50%;
             }
-            .field_type input{
-                width:100px;
+            .field_type input {
+                width: 120px;
+                padding: 0 10px 2px !important;
             }
 
             .description-list { margin: 10px 0; padding: 0 20px; }
@@ -1582,7 +1582,7 @@ class GFFormDetail{
                                     <input type="checkbox" id="field_choice_values_enabled" onclick="SetFieldProperty('enableChoiceValue', this.checked); ToggleChoiceValue(); SetFieldChoices();"/>
                                     <label for="field_choice_values_enabled" class="inline gfield_value_label"><?php _e("show values", "gravityforms") ?></label>
                                 </div>
-                                <?php _e("Choices", "gravityforms"); ?> <?php gform_tooltip("form_field_choices") ?><br />
+                                <?php $field_title = __("Choices", "gravityforms"); echo apply_filters("gform_choices_setting_title", $field_title); ?> <?php gform_tooltip("form_field_choices") ?><br />
 
                                 <div id="gfield_settings_choices_container">
                                     <label class="gfield_choice_header_label"><?php _e("Label", "gravityforms") ?></label><label class="gfield_choice_header_value"><?php _e("Value", "gravityforms") ?></label><label class="gfield_choice_header_price"><?php _e("Price", "gravityforms") ?></label>
@@ -1938,7 +1938,7 @@ class GFFormDetail{
                                         <?php gform_tooltip("form_field_calculation_formula") ?>
                                     </label>
                                     <div>
-                                        <?php GFCommon::insert_calculation_variables($form["fields"], "field_calculation_formula", '', 'FormulaContentCallback'); ?>
+                                        <?php GFCommon::insert_calculation_variables($form["fields"], "field_calculation_formula", '', 'FormulaContentCallback', 40); ?>
                                         <div class="gf_calculation_buttons">
                                             <?php foreach(array('+', '-', '/', '*', '(', ')', '.') as $button) { ?>
                                                 <input type="button" value="<?php echo in_array($button, array('.')) ? $button : " $button "; ?>" onclick="InsertVariable('field_calculation_formula', 'FormulaContentCallback', this.value);" />
@@ -2320,7 +2320,7 @@ class GFFormDetail{
 
                             $button_text = rgar($form,"id") > 0 ? __("Update Form", "gravityforms") : __("Save Form", "gravityforms");
                             $isNew = rgar($form, "id") > 0 ? 0 : 1;
-                            $save_button = '<input type="button" class="button-primary gfbutton" value="' . $button_text . '" onclick="SaveForm(' . $isNew . ');" />';
+                            $save_button = '<input type="button" class="button button-primary button-large update-form" value="' . $button_text . '" onclick="SaveForm(' . $isNew . ');" />';
                             $save_button = apply_filters("gform_save_form_button", $save_button);
                             echo $save_button;
                             ?>
@@ -2506,6 +2506,7 @@ class GFFormDetail{
 
         require_once(GFCommon::get_base_path() . "/form_display.php");
         $field_html = GFFormDisplay::get_field($field, "", true);
+        $field_html = str_replace("\n", "\\n", $field_html);
         $field_html = str_replace('"', '\"', $field_html);
         die("EndDuplicateField($field_json, \"$field_html\", $source_field_id);");
     }
@@ -2547,11 +2548,15 @@ class GFFormDetail{
     public static function save_form_info($id, $form_json){
         global $wpdb;
         $form_json = stripslashes($form_json);
-
-        //$form_json = preg_replace('|\r\n?|', '\n', $form_json);
         $form_json = nl2br($form_json);
 
-        $form_meta = GFCommon::json_decode($form_json, true);
+        GFCommon::log_debug("form meta json:" . $form_json);
+
+        $form_meta = json_decode($form_json, true);
+
+        GFCommon::log_debug("form meta:");
+        GFCommon::log_debug(print_r($form_json, true));
+
         if(!$form_meta)
             return array("status" => "invalid_json", "meta"=> null);
 

@@ -33,7 +33,8 @@ class GFFormDisplay{
 
         //don't validate when going to previous page
         if(empty($target_page) || $target_page >= $page_number){
-            $is_valid = self::validate($form, $field_values, $page_number);
+            $failed_validation_page = $page_number;
+            $is_valid = self::validate($form, $field_values, $page_number, $failed_validation_page);
         }
 
         //Upload files to temp folder when going to the next page or when submitting the form and it failed validation
@@ -46,6 +47,10 @@ class GFFormDisplay{
         // Load target page if it did not fail validation or if going to the previous page
         if($is_valid){
             $page_number = $target_page;
+        }
+        else
+        {
+			$page_number = $failed_validation_page;
         }
 
         $confirmation = "";
@@ -565,9 +570,10 @@ class GFFormDisplay{
                 <script type='text/javascript'>" . apply_filters("gform_cdata_open", "") . "" .
                     "function gformInitSpinner_{$form_id}(){" .
                         "jQuery('#gform_{$form_id}').submit(function(){" .
-                            "jQuery('#gform_submit_button_{$form_id}').attr('disabled', true).after('<' + 'img id=\"gform_ajax_spinner_{$form_id}\"  class=\"gform_ajax_spinner\" src=\"{$spinner_url}\" alt=\"\" />');" .
-                            "jQuery('#gform_wrapper_{$form_id} .gform_previous_button').attr('disabled', true); " .
-                            "jQuery('#gform_wrapper_{$form_id} .gform_next_button').attr('disabled', true).after('<' + 'img id=\"gform_ajax_spinner_{$form_id}\"  class=\"gform_ajax_spinner\" src=\"{$spinner_url}\" alt=\"\" />');" .
+                            "if(jQuery('#gform_ajax_spinner_{$form_id}').length == 0){".
+                                "jQuery('#gform_submit_button_{$form_id}, #gform_wrapper_{$form_id} .gform_previous_button, #gform_wrapper_{$form_id} .gform_next_button, #gform_wrapper_{$form_id} .gform_image_button').attr('disabled', true); " .
+                                "jQuery('#gform_submit_button_{$form_id}, #gform_wrapper_{$form_id} .gform_next_button, #gform_wrapper_{$form_id} .gform_image_button').after('<' + 'img id=\"gform_ajax_spinner_{$form_id}\"  class=\"gform_ajax_spinner\" src=\"{$spinner_url}\" alt=\"\" />'); " .
+                            "}".
                         "} );" .
                     "}" .
                     "jQuery(document).ready(function($){" .
@@ -579,7 +585,8 @@ class GFFormDisplay{
                             "var form_content = jQuery(this).contents().find('#gform_wrapper_{$form_id}');" .
                             "var is_redirect = contents.indexOf('gformRedirect(){') >= 0;".
                             "jQuery('#gform_submit_button_{$form_id}').removeAttr('disabled');" .
-                            "if(form_content.length > 0 && !is_redirect){" .
+                            "var is_form = !(form_content.length <= 0 || is_redirect);".
+                            "if(is_form){" .
                                 "jQuery('#gform_wrapper_{$form_id}').html(form_content.html());" .
                                 "{$scroll_position['default']}" .
                                 "if(window['gformInitDatepicker']) {gformInitDatepicker();}" .
@@ -799,11 +806,15 @@ class GFFormDisplay{
                 }
 
                 return true;
+
             case 'singleproduct':
+                $value = rgpost("input_" . $field["id"]);
                 $quantity_id = $field["id"] . ".3";
                 $quantity = rgpost($quantity_id, $value);
 
         }
+
+
 
         if(is_array($field["inputs"]))
         {
@@ -876,6 +887,7 @@ class GFFormDisplay{
         //reading entry that was just saved
         $lead = RGFormsModel::get_lead($lead["id"]);
 
+        $lead = GFFormsModel::set_entry_meta($lead, $form);
         do_action('gform_entry_created', $lead, $form);
 
         //if Akismet plugin is installed, run lead through Akismet and mark it as Spam when appropriate
@@ -983,7 +995,9 @@ class GFFormDisplay{
         return checkdate($month, $day, $year);
     }
 
-    public static function validate(&$form, $field_values, $page_number=0){
+    public static function validate(&$form, $field_values, $page_number=0, &$failed_validation_page=0){
+
+		$form = apply_filters('gform_pre_validation', $form);
 
         // validate form schedule
         if(self::validate_form_schedule($form))
@@ -996,8 +1010,14 @@ class GFFormDisplay{
         foreach($form["fields"] as &$field){
 
             //If a page number is specified, only validates fields that are on current page
-            if($page_number > 0 && $field["pageNumber"] != $page_number)
+            $field_in_other_page = $page_number > 0 && $field["pageNumber"] != $page_number;
+
+            //validate fields with "no duplicate" functionality when they are present on pages before the current page.
+            $validate_duplicate_feature = $field["noDuplicates"] && $page_number > 0 && $field["pageNumber"] <= $page_number;
+
+            if($field_in_other_page && !$validate_duplicate_feature){
                 continue;
+            }
 
             //ignore validation if field is hidden or admin only
             if(RGFormsModel::is_field_hidden($form, $field, $field_values) || $field["adminOnly"])
@@ -1013,6 +1033,8 @@ class GFFormDisplay{
             //display error if field does not allow duplicates and the submitted value already exists
             else if($field["noDuplicates"] && RGFormsModel::is_duplicate($form["id"], $field, $value)){
                 $field["failed_validation"] = true;
+                //set page number so the failed field displays if on multi-page form
+                $failed_validation_page = $field["pageNumber"];
 
                 $input_type = RGFormsModel::get_input_type($field);
                 switch($input_type){
@@ -1493,7 +1515,7 @@ class GFFormDisplay{
         }
 
         if(self::has_character_counter($form)){
-            wp_enqueue_script("gforms_character_counter", GFCommon::get_base_url() . "/js/jquery.textareaCounter.plugin.js", array("jquery"), GFCommon::$version, true);
+            wp_enqueue_script("gforms_character_counter", GFCommon::get_base_url() . "/js/jquery.textareaCounter.plugin.js", array("jquery"), GFCommon::$version, false);
         }
 
         if(self::has_input_mask($form)){
@@ -1551,7 +1573,7 @@ class GFFormDisplay{
         }
 
         if(self::has_character_counter($form) && !wp_script_is("gforms_character_counter", "queue")){
-            wp_enqueue_script("gforms_character_counter", GFCommon::get_base_url() . "/js/jquery.textareaCounter.plugin.js", array("jquery"), GFCommon::$version, true);
+            wp_enqueue_script("gforms_character_counter", GFCommon::get_base_url() . "/js/jquery.textareaCounter.plugin.js", array("jquery"), GFCommon::$version, false);
             wp_print_scripts(array("gforms_character_counter"));
         }
 
@@ -2377,7 +2399,6 @@ class GFFormDisplay{
         }
 
     }
-
 }
 
 ?>

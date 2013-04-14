@@ -1,3 +1,93 @@
+Version 1.6.12
+    - Fixed issue with double spinner icons when form is configured with image buttons
+    - Added new filter "gform_pre_validation" to allow add-ons to modify the form object before validation
+    - Added new filter "gform_toolbar_menu" to support custom toolbar buttons
+    - Fixed issue with website field validation failing tildas (~)
+    - Fixed issue with export not taking timezone into account when searching by start and end dates
+    - Fixed issue with "Date Field" type where a blank dates would display as 00-00 in the entry list instead of blank
+    - Fixed issue with export not converting start and end dates to GMT correctly
+    - Fixed issue with fields hidden by page conditional logic saving their values
+	- Removed debug alert statement
+	- Updated post creation to not fire Buddy Press' save_post function until the post data is complete
+    - Fixed issue with translating Widget title and description
+    - Added notification logging to help troubleshoot email issues
+
+-------------------------------------------------------------------------------------------------------------------
+Version 1.6.11
+    - Fixed warnings messages thrown by $wpdb->prepare()
+    - Fixed issue with sorting choices that prevents form from being saved
+
+-------------------------------------------------------------------------------------------------------------------
+Version 1.6.10.1
+    - Fixed issue with wpList script in WP 3.5 causing entry list trash and spam links not to work
+    - Updated form button UI to include text on WP 3.5+
+    - Fixed several styling issues in form editor
+
+-------------------------------------------------------------------------------------------------------------------
+Version 1.6.10.0.2
+    - Fixed Javascript error when resetting drop down values during the conditional logic processing
+
+-------------------------------------------------------------------------------------------------------------------
+Version 1.6.10.0.1
+    - Fixed issue with duplicating a text area with a new line in the default value
+
+-------------------------------------------------------------------------------------------------------------------
+Version 1.6.10
+    - Fixed issue with post category checkbox field always returning validation error when field is set to required (even when an item is checked)
+    - Fixed issue saving multi-input fields on instalations with locales that use comma as the decimal separator
+    - Added is_default_column to the gform_entry_meta filter allow developers to define default columns for the entry list
+    - Fixed a warning notice with gform_get_meta when no key is found
+    - Added gform_field_added and gform_field_deleted jQuery event actions
+    - Fixed issue with calculating fields throwing errors on IE7/8
+	- Fixed an issue which was causing gform_update_meta to insert multiple values for the same key
+	- Fixed an issue with conditional logic when using "Is Not" as the operator
+	- Updated entry export to prompt user when no fields have been chosen
+	- Fixed notice "Undefined index: gf_form_id" displayed when exporting forms and no form chosen
+    - Added gform_entry_meta filter to allow developers to add custom propeties to the lead object. Allows lead meta data to be added as sortable columns to the entry list and export entries file. Added the following functions to assist: GFFormsModel::get_entry_meta(), GFFormsModel::update_entry_meta(), GFSelectColumns::get_selectable_entry_meta, GFExport::get_entry_meta() and gform_get_meta_values_for_entries($entry_ids, $meta_keys)
+    - Fixed issue where default option was being selected for multi-selects when displayed via conditional logic
+    - Updated media button hook to "media_button" instead of "media_button_context"
+
+-------------------------------------------------------------------------------------------------------------------
+Version 1.6.9
+	- Fixed register link on multi-site; goes to primary site's Form Settings
+    - Added "gform_column_input_content" hook to allow modifying of list field column input ouput
+    - Updated "gformAddListItem()" function to support the handling of checkboxes when duplicating a list field row
+    - Fixed issue with postAuthor not being set in some instances and preventing form to save
+    - Fixed issue with greater than conditional logic when targeting radio buttons
+	- Added gform_choices_setting_title filter to allow the choice setting title to be changed
+    - Fixed issue with no duplicate validation firing too early on multi-page forms
+	- Added GFExport::add_default_export_fields($form) to refactor a fragment of duplicate code
+    - Fixed issue with multi-page form validation going to the wrong page
+
+-------------------------------------------------------------------------------------------------------------------
+Version 1.6.8
+    - Fixed issue with conditional logic when configuring multiple "is not" rules with checkboxes as targets
+    - Added hooks on the entry detail page to enable add-ons to create new "boxes" of information
+    - Fixed issue where post category placeholder (for selects) was populating the text as the value when the value should be blank
+    - Fixed issue where fields that are not on the last page of a multi-page form and are marked to not allow duplicates were not going through duplicate validation
+	- Added gform_append_field_choice_option_[field type] JS hook to allow additional options for each choice
+	- Added gform_load_field_choices JS hook to allow help text to be displayed below the choices
+    - Fixed issue where calculation fields hidden via conditional logic were still being processed
+    - Fixed bug where forms with no other Post Field than a "post_custom_field" were not creating posts
+    - Added "gform_before_resend_notifications" filter to allow modification of form object before notifications are resent
+    - Fixed category sorting for manually selected Post Category fields to be case insensitive
+    - Updated AJAX calls using sack and jquery to not pass along a cookie because this caused the loading of admin-ajax.php to be aborted for some users
+    - Fixed notice messages
+    - Fixed issue with spinner not displaying properly when using image buttons
+    - Fixed WordPress minimum version message so that it reflects the correct WordPress minimum version
+    - Fixed issue with number field not trimming value and triggering validation when number is followed by a space character
+    - Fixed issue where quantity was counted as 0 when a product's quantity field was hidden via conditional logic.
+    - Fixed conflict with some popup scripts (i.e. FancyBox) that caused the spinner to be displayed twice
+
+-------------------------------------------------------------------------------------------------------------------
+Version 1.6.7
+    - Fixed conflict with raw shortcode that caused a javascript error on AJAX forms
+    - Updated German translation file
+    - Updated "Edit Forms" menu navigation/page to be "Forms"
+    - Fixed issue with textarea counter on IE9 by moving script to the header instead of footer
+    - Fixed issue with conditional logic when target was set to 0
+    - Fixed issue when duplicating textareas with line breaks in their description
+
 -------------------------------------------------------------------------------------------------------------------
 Version 1.6.6
     - Fixed warning thrown in has_conditional_logic when $form["fields"] is empty

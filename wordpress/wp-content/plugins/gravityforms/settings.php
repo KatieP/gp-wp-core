@@ -70,7 +70,7 @@ class GFSettings{
             update_option("rg_gforms_disable_css", $_POST["gforms_disable_css"]);
             update_option("rg_gforms_enable_html5", $_POST["gforms_enable_html5"]);
             update_option("gform_enable_noconflict", $_POST["gform_enable_noconflict"]);
-            update_option("rg_gforms_enable_akismet", $_POST["gforms_enable_akismet"]);
+            update_option("rg_gforms_enable_akismet", rgpost("gforms_enable_akismet"));
             update_option("rg_gforms_captcha_public_key", $_POST["gforms_captcha_public_key"]);
             update_option("rg_gforms_captcha_private_key", $_POST["gforms_captcha_private_key"]);
 
@@ -249,8 +249,7 @@ class GFSettings{
                 jQuery(document).ready(function(){
                     jQuery.post(ajaxurl,{
                             action:"gf_upgrade_license",
-                            gf_upgrade_license: "<?php echo wp_create_nonce("gf_upgrade_license") ?>",
-                            cookie: encodeURIComponent(document.cookie)},
+                            gf_upgrade_license: "<?php echo wp_create_nonce("gf_upgrade_license") ?>"},
 
                             function(data){
                                 if(data.trim().length > 0)

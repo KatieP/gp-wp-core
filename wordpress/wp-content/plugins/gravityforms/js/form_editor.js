@@ -1164,7 +1164,7 @@ function UpdateFormObject(){
     form.postContentTemplate = "";
 
     if(HasPostField()){
-        form.postAuthor = jQuery('#field_post_author').val();
+        form.postAuthor = jQuery('#field_post_author').val() ? jQuery('#field_post_author').val() : "";
         form.useCurrentUserAsAuthor = jQuery('#gfield_current_user_as_author').is(":checked");
         form.postCategory = jQuery('#field_post_category').val();
         form.postFormat = jQuery('#field_post_format').length != 0 ? jQuery('#field_post_format').val() : 0;
@@ -1391,6 +1391,8 @@ function EndDeleteField(fieldId){
         }
     }
     TogglePageBreakSettings();
+	
+	jQuery(document).trigger('gform_field_deleted', [form, fieldId]);
 }
 
 function StartDuplicateField(element) {
@@ -1521,6 +1523,8 @@ function EndAddField(field, fieldString){
     newFieldElement.removeClass("field_selected");
 
     UpdateDescriptionPlacement();
+	
+	jQuery(document).trigger('gform_field_added', [form, field]);
 }
 
 function StartChangeNameFormat(format){
@@ -1927,6 +1931,8 @@ function LoadFieldChoices(field){
 
     //loading bulk input
     LoadBulkChoices(field);
+
+	jQuery(document).trigger('gform_load_field_choices', [field]);
 }
 function LoadBulkChoices(field){
     LoadCustomChoices();
@@ -2456,7 +2462,7 @@ function SetSelectedCategories(){
             field["choices"].push(new Choice(this.name, this.value));
     });
 
-    field["choices"].sort(function(a, b){return (a["text"] > b["text"]);});
+    field["choices"].sort(function(a, b){return ( a["text"].toLowerCase() > b["text"].toLowerCase() );});
 }
 
 function SetFieldLabel(label){

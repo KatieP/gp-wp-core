@@ -4,10 +4,10 @@
 admin.css
 Gravity Forms Administration Form Styles
 http: //www.gravityforms.com
-updated: March 23, 2012 3:50 PM
+updated: January 15, 2013 8:41 AM
 
 Gravity Forms is a Rocketgenius project
-copyright 2012 Rocketgenius Inc.
+copyright 2013 Rocketgenius Inc.
 http: //www.rocketgenius.com
 this may not be re-distrubited without the
 express written permission of the author.
@@ -1598,6 +1598,9 @@ a.button-primary.gfbutton {
 	border-radius: 16px;
 	padding: 3px 8px 4px 8px !important
 }
+
+    .update-form { float: right; }
+
 .menu.collapsible ol.field_type li input.button:hover {
 	color: #D54E21;
 	border-color: #8F8F8F;
@@ -1931,6 +1934,55 @@ li.gform_setting_right_half input {
 
 /* form toolbar  ----------------------------------------------------*/
 
+.gf_submenu { 
+	background: none repeat scroll 0 0 #FFF; 
+	border: 1px solid #dfdfdf; 
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2); 
+	display: none; 
+	float: none; 
+	margin: 0 0 0 -1px; 
+	position: absolute; 
+	padding: 5px 0; 
+	z-index: 99; 
+}
+
+.gf_submenu li { 
+	margin: 0;
+}
+
+.gf_submenu a {
+	display: block; 
+	padding: 2px 10px;
+}
+
+.gf_submenu a:hover { 
+	background-color: #eaf2fa; 
+	color: #333;
+}
+
+ul#gf_form_toolbar_links li:hover .gf_submenu { 
+	display: block;
+}
+
+ul#gf_form_toolbar_links .gf_submenu { 
+	margin-top: 5px;
+}
+
+ul#gf_form_toolbar_links .gf_submenu ul li { 
+	display: block; 
+	padding: 0;
+}
+
+ul#gf_form_toolbar_links .gf_submenu ul li a { 
+	background: transparent none; 
+	padding: 2px 10px; 
+	line-height: 18px;
+}
+
+ul#gf_form_toolbar_links .gf_submenu ul li a:hover { 
+	background-color: #eaf2fa
+}
+
 #contextual-help-link-wrap {
 	display: none
 }
@@ -1966,12 +2018,14 @@ ul#gf_form_toolbar_links li.gf_form_toolbar_selectform {
 	background-repeat: repeat-y;
 	background-position: right
 }
+
 ul#gf_form_toolbar_links li.gf_form_toolbar_settings a,
 ul#gf_form_toolbar_links li.gf_form_toolbar_editor a,
 ul#gf_form_toolbar_links li.gf_form_toolbar_notifications a,
-ul#gf_form_toolbar_links li.gf_form_toolbar_entries a ,
-ul#gf_form_toolbar_links li.gf_form_toolbar_preview a {
-	background-image: url(../images/gf_toolbar_iconsprite.png);
+ul#gf_form_toolbar_links li.gf_form_toolbar_entries a,
+ul#gf_form_toolbar_links li.gf_form_toolbar_preview a,
+ul#gf_form_toolbar_links li.gf_form_toolbar_results a  {
+	background-image: url(../images/gf-toolbar-iconsprite.png);
 	background-repeat: no-repeat;
 	padding: 1px 0 0 20px;
 	text-decoration: none;
@@ -1979,17 +2033,21 @@ ul#gf_form_toolbar_links li.gf_form_toolbar_preview a {
 	line-height: 16px;
 	white-space: nowrap
 }
+
 ul#gf_form_toolbar_links li a {
 	display: block
 }
+
 ul#gf_form_toolbar_links li a:hover,
 ul#gf_form_toolbar_links li a:focus,
 ul#gf_form_toolbar_links li a.gf_toolbar_active {
 	color: #333
 }
+
 ul#gf_form_toolbar_links li a.gf_toolbar_active {
 	font-weight: bold
 }
+
 ul#gf_form_toolbar_links li a.gf_toolbar_disabled {
 	color: #333;
 	filter: alpha(opacity=50);
@@ -1998,64 +2056,95 @@ ul#gf_form_toolbar_links li a.gf_toolbar_disabled {
 	opacity: 0.5;
 	-ms-filter: "alpha(opacity=50)"
 }
+
 ul#gf_form_toolbar_links li a.gf_toolbar_disabled {
 	cursor: default
 }
+
 ul#gf_form_toolbar_links li.gf_form_toolbar_settings {
-	width: 103px
+	
 }
+
 ul#gf_form_toolbar_links li.gf_form_toolbar_settings a {
 	background-position: 0 0
 }
+
 ul#gf_form_toolbar_links li.gf_form_toolbar_settings a:hover,
 ul#gf_form_toolbar_links li.gf_form_toolbar_settings a.gf_toolbar_active {
-	background-position: 0 -96px
+	background-position: 0 -120px
 }
+
 ul#gf_form_toolbar_links li.gf_form_toolbar_settings a.gf_toolbar_disabled:hover {
 	background-position: 0 0
 }
+
 ul#gf_form_toolbar_links li.gf_form_toolbar_editor a {
-	background-position: 0 -16px
+	background-position: 0 -20px
 }
+
 ul#gf_form_toolbar_links li.gf_form_toolbar_editor a:hover,
 ul#gf_form_toolbar_links li.gf_form_toolbar_editor a.gf_toolbar_active {
-	background-position: 0 -112px
+	background-position: 0 -140px
 }
+
 ul#gf_form_toolbar_links li.gf_form_toolbar_editor a.gf_toolbar_disabled:hover {
 	background-position: 0 -16px
 }
+
 ul#gf_form_toolbar_links li.gf_form_toolbar_notifications {
 	padding: 10px 6px 10px 4px
 }
+
 ul#gf_form_toolbar_links li.gf_form_toolbar_notifications a {
-	background-position: 0 -32px
+	background-position: 0 -40px
 }
+
 ul#gf_form_toolbar_links li.gf_form_toolbar_notifications a:hover,
 ul#gf_form_toolbar_links li.gf_form_toolbar_notifications a.gf_toolbar_active {
-	background-position: 0 -128px
+	background-position: 0 -180px
 }
+
 ul#gf_form_toolbar_links li.gf_form_toolbar_notifications a.gf_toolbar_disabled:hover {
-	background-position: 0 -32px
+	background-position: 0 -40px
 }
+
 ul#gf_form_toolbar_links li.gf_form_toolbar_entries a {
-	background-position: 0 -48px
+	background-position: 0 -60px
 }
+
 ul#gf_form_toolbar_links li.gf_form_toolbar_entries a:hover,
 ul#gf_form_toolbar_links li.gf_form_toolbar_entries a.gf_toolbar_active {
-	background-position: 0 -144px
+	background-position: 0 -160px
 }
+
 ul#gf_form_toolbar_links li.gf_form_toolbar_entries a.gf_toolbar_disabled:hover {
 	background-position: 0 -48px
 }
+
 ul#gf_form_toolbar_links li.gf_form_toolbar_preview a {
-	background-position: 0 -64px
+	background-position: 0 -80px
 }
+
 ul#gf_form_toolbar_links li.gf_form_toolbar_preview a:hover,
 ul#gf_form_toolbar_links li.gf_form_toolbar_preview a.gf_toolbar_active {
-	background-position: 0 -160px
+	background-position: 0 -200px
 }
+
 ul#gf_form_toolbar_links li.gf_form_toolbar_preview a.gf_toolbar_disabled:hover {
-	background-position: 0 -64px
+	background-position: 0 -200px
+}
+
+ul#gf_form_toolbar_links li.gf_form_toolbar_results a {
+	background-position: 0 -100px
+}
+
+ul#gf_form_toolbar_links li.gf_form_toolbar_results a:hover,
+ul#gf_form_toolbar_links li.gf_form_toolbar_results a.gf_toolbar_active {
+	background-position: 0 -220px
+}
+
+ul#gf_form_toolbar_links li.gf_form_toolbar_results a.gf_toolbar_disabled:hover {
+	background-position: 0 -220px
 }
 
 /* form switcher  ----------------------------------------------------*/
