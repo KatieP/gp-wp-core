@@ -362,29 +362,3 @@ $(document).ready(function() {
 		return false;
 	});
 });
-
-function uncheck_other_notifications(checked_option) {
-	/*
-	 * Ensures only one notification radio button is checked on 
-	 * gravity form Edit Notification form
-	 */
-	switch (checked_option) {
-		case "daily_email":
-			document.getElementById("daily_email").checked=true;
-			document.getElementById("weekly_email").checked=false;
-			document.getElementById("monthly_email").checked=false;
-			break;
-		case "weekly_email":
-			document.getElementById("weekly_email").checked=true;
-			document.getElementById("daily_email").checked=false;
-			document.getElementById("monthly_email").checked=false;	
-			break;
-		case "monthly_email":
-			document.getElementById("monthly_email").checked=true;
-			document.getElementById("daily_email").checked=false;
-			document.getElementById("weekly_email").checked=false;
-			break;
-		default: 
-			document.getElementById("daily_email").checked=true;
-	}	
-}
