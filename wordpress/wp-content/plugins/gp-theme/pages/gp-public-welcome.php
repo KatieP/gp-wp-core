@@ -6,7 +6,7 @@
  */
  
 global $current_user;
-
+$site_url = get_site_url(); ?>
 ?>
 <div class="icon-container">
     <h1 class="loop-title">
@@ -14,7 +14,7 @@ global $current_user;
         # Display main heading depending on logged in status
         if ( !is_user_logged_in() ) {
             ?>
-            <a href="/wp-register" target="_blank">
+            <a href="<?php echo $site_url; ?>/wp-register" target="_blank">
                 Welcome! Lets get started
             </a>
             <?php
@@ -30,13 +30,13 @@ global $current_user;
         <a href="<?php
                      # Direct user to appropriate form depending on logged in status and user role
                      if ( !is_user_logged_in() ) {
-                         echo '/get-involved/become-a-content-partner/';
+                         echo $site_url .'/get-involved/become-a-content-partner/';
                      } else if ( is_user_logged_in() && get_user_role( array('subscriber') ) ) {
-                         echo '/get-involved/become-a-content-partner/';
+                         echo $site_url .'/get-involved/become-a-content-partner/';
                      } else if ( is_user_logged_in() && get_user_role( array('contributor') ) ) {
-                         echo '/forms/create-news-post/';                         
+                         echo $site_url .'/forms/create-news-post/';                         
                      } else if ( is_user_logged_in() && get_user_role( array('administrator') ) ) {
-                         echo '/forms/create-news-post/';
+                         echo $site_url .'/forms/create-news-post/';
                      }
                  ?>"> 
             <div class="inner-icon-container">
@@ -48,9 +48,9 @@ global $current_user;
         <a href="<?php
                      # Direct user to appropriate form depending on logged in status
                      if ( !is_user_logged_in() ) {
-                         echo '/forms/create-my-event-post-public/';
+                         echo $site_url .'/forms/create-my-event-post-public/';
                      } else {
-                         echo '/forms/create-event-post/';
+                         echo $site_url .'/forms/create-event-post/';
                      }
                  ?>"> 
             <div class="inner-icon-container">
@@ -62,11 +62,11 @@ global $current_user;
         <a href="<?php
                      # Direct user to appropriate form depending on logged in status and user role
                      if ( !is_user_logged_in() ) {
-                         echo '/forms/create-my-product-post-public/';
+                         echo $site_url .'/forms/create-my-product-post-public/';
                      } else if ( is_user_logged_in()  && $current_user->reg_advertiser == 1 ) {
-                         echo '/forms/create-product-post-subscriber/';
+                         echo $site_url .'/forms/create-product-post-subscriber/';
                      } else {
-                         echo '/forms/create-product-post/';                         
+                         echo $site_url .'/forms/create-product-post/';                         
                      } 
                  ?>">
             <div class="inner-icon-container">
@@ -78,9 +78,9 @@ global $current_user;
         <a href="<?php
                      # Direct user to appropriate form depending on logged in status
                      if ( !is_user_logged_in() ) {
-                         echo '/forms/create-my-project-post-public/';
+                         echo $site_url .'/forms/create-my-project-post-public/';
                      } else {
-                         echo '/forms/create-project-post/';
+                         echo $site_url .'/forms/create-project-post/';
                      }
                  ?>"> 
             <div class="inner-icon-container">
@@ -92,12 +92,12 @@ global $current_user;
     </div>
     <div class="icon-container-row">
         <h1 class="loop-title">
-            <a href="/wp-register" target="_blank">
+            <a href="<?php echo $site_url; ?>/wp-register" target="_blank">
                 Get connected with your local movement
             </a>
         </h1>
-        <a href="/wp-register">
-            <img src="/wp-content/themes/gp-au-theme/template/images/berkeley-chart5.jpeg" 
+        <a href="<?php echo $site_url; ?>/wp-register">
+            <img src="<?php echo $site_url; ?>/wp-content/themes/gp-au-theme/template/images/berkeley-chart5.jpeg" 
                  alt="Welcome to greenpag.es" title="Welcome to greenpag.es"/>
         </a>
     </div>
@@ -126,13 +126,13 @@ global $current_user;
             # Display orange button depending on logged in status
             if ( !is_user_logged_in() ) {
                 ?>
-                <a href="/wp-register" target="_blank">
+                <a href="<?php echo $site_url; ?>/wp-register" target="_blank">
                     <span id="product-button">Register</span>
                 </a>
                 <?php
             } else {
                 ?>
-                <a href="/wp-admin/profile.php" target="_blank">
+                <a href="<?php echo $site_url; ?>/wp-admin/profile.php" target="_blank">
                     <span id="product-button">Edit Profile</span>
                 </a>
                 <?php
@@ -147,13 +147,13 @@ global $current_user;
             # Display link depending on logged in status
             if ( !is_user_logged_in() ) {
                 ?>
-                <a href="/wp-register" target="_blank">
+                <a href="<?php echo $site_url; ?>/wp-register" target="_blank">
                     Want to promote your business?
                 </a>
                 <?php
             } else {
                 ?>
-                <a href="/forms/sign-up-for-monthly-advertiser-subscription-39-month/" target="_blank">
+                <a href="<?php echo $site_url; ?>/forms/sign-up-for-monthly-advertiser-subscription-39-month/" target="_blank">
                     Want to promote your business?
                 </a>
                 <?php
@@ -163,21 +163,21 @@ global $current_user;
         <div class="icon-body-text">
             Join our $39 / month advertiser subscription plan. You&#8217;ll receive a page in 
             our green business directory + monthly product posts and / or competitions that we 
-            share with our community. <a href="/about/rate-card/">Rate Card</a>. <a href="/about/media-kit/">Media Kit.</a>
+            share with our community. <a href="<?php echo $site_url; ?>/about/rate-card/">Rate Card</a>. <a href="<?php echo $site_url; ?>/about/media-kit/">Media Kit.</a>
         </div>
         <div id="post-product-button-bar">
             <?php
             # Display orange button depending on logged in status
             if ( !is_user_logged_in() ) {
                 ?>
-                <a href="/wp-register" target="_blank">
+                <a href="<?php echo $site_url; ?>/wp-register" target="_blank">
                     <span id="product-button">Advertise</span>
                 </a>
                 <?php
             } else {
                 ?>
                 <!-- Need to add css to change color of this button
-                <a href="/forms/sign-up-for-monthly-advertiser-subscription-39-month/" target="_blank">
+                <a href="<?php #echo $site_url; ?>/forms/sign-up-for-monthly-advertiser-subscription-39-month/" target="_blank">
                     <span id="product-button">Advertise</span>
                 </a>
                 -->
