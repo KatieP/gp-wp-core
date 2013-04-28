@@ -6,27 +6,64 @@
  */
  
 global $current_user;
-$site_url = get_site_url(); ?>
+$site_url = get_site_url(); 
 ?>
 <div class="icon-container">
-    <h1 class="loop-title">
-        <?php
-        # Display main heading depending on logged in status
-        if ( !is_user_logged_in() ) {
-            ?>
-            <a href="<?php echo $site_url; ?>/wp-register" target="_blank">
-                Welcome! Lets get started
-            </a>
-            <?php
-        } else {
-            
-            echo '<a href="#">
-                      Welcome '. $current_user->display_name .'!
-                  </a>';
-        }
-        ?>
-    </h1>
     <div class="icon-container-row">
+        <h1 class="loop-title">
+            <a href="<?php echo $site_url; ?>/forms/member-registration-form/" target="_blank">
+                Get connected with your local movement
+            </a>
+        </h1>
+        <a href="<?php echo $site_url; ?>/forms/member-registration-form/">
+            <img src="<?php echo $site_url; ?>/wp-content/themes/gp-au-theme/template/images/berkeley-chart5.jpeg" 
+                 alt="Welcome to greenpag.es" title="Welcome to greenpag.es"/>
+        </a>
+    	<div id="post-product-button-bar">
+            <?php
+            # Display orange button depending on logged in status
+            if ( !is_user_logged_in() ) {
+                ?>
+                <a href="<?php echo $site_url; ?>/forms/member-registration-form/" target="_blank">
+                    <span id="product-button">Register</span>
+                </a>
+                <?php
+            } else {
+                ?>
+                <a href="<?php echo $site_url; ?>/forms/edit-profile-details/" target="_blank">
+                    <span id="product-button">Edit Profile</span>
+                </a>
+                <?php
+            }
+            ?>
+        </div>
+        <div class="clear"></div>
+        <div class="icon-body-text">
+        <?php
+            # Display copy depending on logged in status
+            if ( !is_user_logged_in() ) {
+                ?>
+                Sign up to become a member to receive notifications of the news, 
+                events and projects and awesome world-changing activities happening in 
+                your local area. For example if you are based in Los Angeles and you add the 
+                &#8216;solar&#8217; keyword tag to your member profile, you&#8217;ll be notified 
+                of all solar related activities in LA.
+                <?php
+            } else {
+                ?>
+                Update your profile, set your location and keyword tags of interest and connect 
+                with your green movement. 
+                <?php
+            }
+            ?>
+        </div>
+    </div>
+    <div class="icon-container-row">
+        <h1 class="loop-title">
+            <a href="#" target="_blank">
+                Create a post on greenpag.es
+            </a>
+        </h1>
         <a href="<?php
                      # Direct user to appropriate form depending on logged in status and user role
                      if ( !is_user_logged_in() ) {
@@ -92,62 +129,11 @@ $site_url = get_site_url(); ?>
     </div>
     <div class="icon-container-row">
         <h1 class="loop-title">
-            <a href="<?php echo $site_url; ?>/wp-register" target="_blank">
-                Get connected with your local movement
-            </a>
-        </h1>
-        <a href="<?php echo $site_url; ?>/wp-register">
-            <img src="<?php echo $site_url; ?>/wp-content/themes/gp-au-theme/template/images/berkeley-chart5.jpeg" 
-                 alt="Welcome to greenpag.es" title="Welcome to greenpag.es"/>
-        </a>
-    </div>
-    <div class="icon-container-row">
-        <div class="icon-body-text">
-        <?php
-            # Display copy depending on logged in status
-            if ( !is_user_logged_in() ) {
-                ?>
-                Sign up to become a member so you can receive notifications of all of the news, 
-                events and projects and awesome world-changing activities that are happening in 
-                your local area. For example if you are based in Los Angeles and you add the 
-                &#8216;solar&#8217; keyword tag to your member profile, you&#8217;ll be notified 
-                of all solar related activities in LA.
-                <?php
-            } else {
-                ?>
-                Update your profile, set your location and keyword tags of interest and connect 
-                with your green movement. 
-                <?php
-            }
-            ?>
-        </div>
-        <div id="post-product-button-bar">
-            <?php
-            # Display orange button depending on logged in status
-            if ( !is_user_logged_in() ) {
-                ?>
-                <a href="<?php echo $site_url; ?>/wp-register" target="_blank">
-                    <span id="product-button">Register</span>
-                </a>
-                <?php
-            } else {
-                ?>
-                <a href="<?php echo $site_url; ?>/wp-admin/profile.php" target="_blank">
-                    <span id="product-button">Edit Profile</span>
-                </a>
-                <?php
-            }
-            ?>
-        </div>
-        <div class="clear"></div>
-    </div>
-    <div class="icon-container-row">
-        <h1 class="loop-title">
             <?php
             # Display link depending on logged in status
             if ( !is_user_logged_in() ) {
                 ?>
-                <a href="<?php echo $site_url; ?>/wp-register" target="_blank">
+                <a href="<?php echo $site_url; ?>/forms/member-registration-form/" target="_blank">
                     Want to promote your business?
                 </a>
                 <?php
@@ -170,7 +156,7 @@ $site_url = get_site_url(); ?>
             # Display orange button depending on logged in status
             if ( !is_user_logged_in() ) {
                 ?>
-                <a href="<?php echo $site_url; ?>/wp-register" target="_blank">
+                <a href="<?php echo $site_url; ?>/forms/member-registration-form/" target="_blank">
                     <span id="product-button">Advertise</span>
                 </a>
                 <?php

@@ -13,6 +13,7 @@ add_action( 'admin_head', 'js_GPMeta' );
  */
 function js_GPMeta () {
     global $gp;
+
     $thisposttype = get_post_type();
     $ns_loc = $gp->location['country_iso2'] . '\\Edition';
     $edition_posttypes = $ns_loc::getPostTypes();
