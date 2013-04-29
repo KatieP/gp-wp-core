@@ -10,6 +10,10 @@ $site_url = get_site_url();
 ?>
 <div class="icon-container">
     <div class="icon-container-row">
+        <?php
+        # Display pink button depending on logged in status
+        if ( !is_user_logged_in() ) {
+        ?>
         <h1 class="loop-title">
             <a href="<?php echo $site_url; ?>/forms/member-registration-form/" target="_blank">
                 Get connected with your local movement
@@ -19,25 +23,21 @@ $site_url = get_site_url();
             <img src="<?php echo $site_url; ?>/wp-content/themes/gp-au-theme/template/images/berkeley-chart5.jpeg" 
                  alt="Welcome to greenpag.es" title="Welcome to greenpag.es"/>
         </a>
+        <?php 
+        }
+
+        # Display pink button depending on logged in status
+        if ( !is_user_logged_in() ) {
+        ?>
     	<div id="post-product-button-bar">
-            <?php
-            # Display orange button depending on logged in status
-            if ( !is_user_logged_in() ) {
-                ?>
-                <a href="<?php echo $site_url; ?>/forms/member-registration-form/" target="_blank">
-                    <span id="product-button">Register</span>
-                </a>
-                <?php
-            } else {
-                ?>
-                <a href="<?php echo $site_url; ?>/forms/edit-profile-details/" target="_blank">
-                    <span id="product-button">Edit Profile</span>
-                </a>
-                <?php
-            }
-            ?>
+            <a href="<?php echo $site_url; ?>/forms/member-registration-form/" target="_blank">
+                <span id="product-button">Register</span>
+            </a>
         </div>
-        <div class="clear"></div>
+        <div class="clear"></div>            
+        <?php
+        } 
+        ?>
         <div class="icon-body-text">
         <?php
             # Display copy depending on logged in status
@@ -49,12 +49,7 @@ $site_url = get_site_url();
                 &#8216;solar&#8217; keyword tag to your member profile, you&#8217;ll be notified 
                 of all solar related activities in LA.
                 <?php
-            } else {
-                ?>
-                Update your profile, set your location and keyword tags of interest and connect 
-                with your green movement. 
-                <?php
-            }
+            } 
             ?>
         </div>
     </div>
@@ -132,45 +127,29 @@ $site_url = get_site_url();
             <?php
             # Display link depending on logged in status
             if ( !is_user_logged_in() ) {
-                ?>
+            ?>
                 <a href="<?php echo $site_url; ?>/forms/member-registration-form/" target="_blank">
                     Want to promote your business?
                 </a>
-                <?php
-            } else {
-                ?>
-                <a href="<?php echo $site_url; ?>/forms/sign-up-for-monthly-advertiser-subscription-39-month/" target="_blank">
-                    Want to promote your business?
-                </a>
-                <?php
-            }
-            ?>        
+            <?php
+            } 
+            ?>      
         </h1>
         <div class="icon-body-text">
-            Join our $39 / month advertiser subscription plan. You&#8217;ll receive a page in 
-            our green business directory + monthly product posts and / or competitions that we 
-            share with our community. <a href="<?php echo $site_url; ?>/about/rate-card/">Rate Card</a>. <a href="<?php echo $site_url; ?>/about/media-kit/">Media Kit.</a>
+            Want to promote your business? <a href="<?php echo $site_url; ?>/about/rate-card/">Rate Card</a>. <a href="<?php echo $site_url; ?>/about/media-kit/">Media Kit.</a>
         </div>
-        <div id="post-product-button-bar">
-            <?php
-            # Display orange button depending on logged in status
-            if ( !is_user_logged_in() ) {
-                ?>
+        <?php
+        # Display orange button depending on logged in status
+        if ( !is_user_logged_in() ) {
+        ?>
+        	<div id="post-product-button-bar">
                 <a href="<?php echo $site_url; ?>/forms/member-registration-form/" target="_blank">
                     <span id="product-button">Advertise</span>
                 </a>
-                <?php
-            } else {
-                ?>
-                <!-- Need to add css to change color of this button
-                <a href="<?php #echo $site_url; ?>/forms/sign-up-for-monthly-advertiser-subscription-39-month/" target="_blank">
-                    <span id="product-button">Advertise</span>
-                </a>
-                -->
-                <?php
-            }
-            ?>
-        </div>
-        <div class="clear"></div>        
+            </div>
+        	<div class="clear"></div> 
+        <?php
+        }
+        ?>       
     </div>
 </div>
