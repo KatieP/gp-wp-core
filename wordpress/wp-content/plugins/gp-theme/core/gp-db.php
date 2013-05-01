@@ -100,6 +100,14 @@ function gp_core_create_gp_tables() {
       		org_reach VARCHAR(255) NOT NULL,
       		SITE_ID BIGINT(20) NOT NULL
   		)" . $charset_collate . ";";
+    
+    $sql[] = "ALTER TABLE " . $wpdb->base_prefix . "posts (
+    		  ADD COLUMN post_latitude DECIMAL(10, 8) NOT NULL 
+    		  );";
+    
+    $sql[] = "ALTER TABLE " . $wpdb->base_prefix . "posts (
+    		  ADD COLUMN post_longitude DECIMAL(11, 8) NOT NULL 
+    		  );";    
 
     require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
     dbDelta( $sql );
