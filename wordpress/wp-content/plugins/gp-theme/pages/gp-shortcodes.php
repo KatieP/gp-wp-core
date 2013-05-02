@@ -124,4 +124,9 @@ function gp_shortcode_profile_notification( $atts ) {
 }
 add_shortcode( 'gp-profile_notification', 'gp_shortcode_profile_notification' );
 
+function gp_shortcode_world_map( $atts ) {
+	require_once( GP_PLUGIN_DIR . '/pages/gp-world-map.php' );
+}
+add_shortcode( 'gp-world-map', 'gp_shortcode_world_map' );
+
 ?>
