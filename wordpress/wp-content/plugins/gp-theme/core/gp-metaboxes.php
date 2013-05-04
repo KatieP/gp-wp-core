@@ -3,10 +3,6 @@ add_action( 'add_meta_boxes', 'create_GPMeta' );
 add_action( 'save_post', 'save_GPMeta' );
 add_action( 'admin_head', 'js_GPMeta' );
 
-# Add Javascript for Meta Boxes to front end head for use with Gravity Forms
-#add_action('wp_head', 'js_GPMeta');
-#add_action('wp_head', 'gp_js_postGeoLoc_meta');
-
 /**
  * Builds inline Javascript or links to Javascript libraries for individual Meta Boxes inside the <head> tag.
  *
