@@ -92,9 +92,9 @@ $(document).ready(function() {
         var id = $(this).parent().attr('id');
         var action;
         
-        $(this).children('.star-mini').removeClass('hover');
+        $(this).children('.af-icon-chevron-up').removeClass('hover');
         
-		if ($(this).children('.star-mini').hasClass('favorited')) {
+		if ($(this).children('.af-icon-chevron-up').hasClass('favorited')) {
 			action = 'remove';
 		} else {
 			action = 'add';
@@ -109,20 +109,20 @@ $(document).ready(function() {
 			cache: false,
 			success: function(html) {
 				if (html != '0') {
-					parent.children('.star-mini').toggleClass('favorited');
+					parent.children('.af-icon-chevron-up').toggleClass('favorited');
 					
-					var newcount = parent.children('.star-mini-number').text();
+					var newcount = parent.children('.af-icon-chevron-up-number').text();
 					
-					if (parent.children('.star-mini').hasClass('favorited')) {
-						parent.children('.star-mini-number').text(parseInt(newcount) + 1);
-						parent.children('.star-mini-number-plus-one').hide();
-						parent.children('.star-mini-number').show();
+					if (parent.children('.af-icon-chevron-up').hasClass('favorited')) {
+						parent.children('.af-icon-chevron-up-number').text(parseInt(newcount) + 1);
+						parent.children('.af-icon-chevron-up-number-plus-one').hide();
+						parent.children('.af-icon-chevron-up-number').show();
 					}
-					if (!parent.children('.star-mini').hasClass('favorited')) {
+					if (!parent.children('.af-icon-chevron-up').hasClass('favorited')) {
 						if (parseInt(newcount) > 0) {
-							parent.children('.star-mini-number').text(parseInt(newcount) - 1);
-							parent.children('.star-mini-number-minus-one').hide();
-							parent.children('.star-mini-number').show();
+							parent.children('.af-icon-chevron-up-number').text(parseInt(newcount) - 1);
+							parent.children('.af-icon-chevron-up-number-minus-one').hide();
+							parent.children('.af-icon-chevron-up-number').show();
 				    	}
 					}
 				}
@@ -135,50 +135,50 @@ $(document).ready(function() {
     function eachStar() {
     	$(this).hover(
 			function(){
-				$(this).children('.star-mini-number').hide();
+				$(this).children('.af-icon-chevron-up-number').hide();
 				
 				if ($(this).children('.star-login').length) {
-					$(this).children('.star-mini').hide();
+					$(this).children('.af-icon-chevron-up').hide();
 					$(this).children('.star-login').show();
 					return;
 				}
 				
-				if (!$(this).children('.star-mini').hasClass('favorited')) {
-					$(this).children('.star-mini').addClass('hover');
-					if (parseInt($(this).children('.star-mini-number').text()) == 0) {
-						$(this).children('.star-mini-number-plus-one').fadeIn('slow');
+				if (!$(this).children('.af-icon-chevron-up').hasClass('favorited')) {
+					$(this).children('.af-icon-chevron-up').addClass('hover');
+					if (parseInt($(this).children('.af-icon-chevron-up-number').text()) == 0) {
+						$(this).children('.af-icon-chevron-up-number-plus-one').fadeIn('slow');
 					} else {
-						$(this).children('.star-mini-number-plus-one').show();
+						$(this).children('.af-icon-chevron-up-number-plus-one').show();
 					}
 				}
-				if ($(this).children('.star-mini').hasClass('favorited')) {
-					$(this).children('.star-mini-number-minus-one').show();
+				if ($(this).children('.af-icon-chevron-up').hasClass('favorited')) {
+					$(this).children('.af-icon-chevron-up-number-minus-one').show();
 				}
 			},
 			function(){
 				if ($(this).children('.star-login').length) {
 					$(this).children('.star-login').hide();
-					$(this).children('.star-mini').show();
-					if (parseInt($(this).children('.star-mini-number').text()) > 0) {
-						$(this).children('.star-mini-number').show();
+					$(this).children('.af-icon-chevron-up').show();
+					if (parseInt($(this).children('.af-icon-chevron-up-number').text()) > 0) {
+						$(this).children('.af-icon-chevron-up-number').show();
 					} else {
-						$(this).children('.star-mini-number').hide();
+						$(this).children('.af-icon-chevron-up-number').hide();
 					}
 					return;
 				}
 				
-				$(this).children('.star-mini-number-plus-one').hide();
-				$(this).children('.star-mini-number-minus-one').hide();
+				$(this).children('.af-icon-chevron-up-number-plus-one').hide();
+				$(this).children('.af-icon-chevron-up-number-minus-one').hide();
 				
-				if (!$(this).children('.star-mini').hasClass('favorited')) {
-					$(this).children('.star-mini').removeClass('hover');
+				if (!$(this).children('.af-icon-chevron-up').hasClass('favorited')) {
+					$(this).children('.af-icon-chevron-up').removeClass('hover');
 				}
 				
-				if (parseInt($(this).children('.star-mini-number').text()) > 0) {
-					$(this).children('.star-mini-number').show();
+				if (parseInt($(this).children('.af-icon-chevron-up-number').text()) > 0) {
+					$(this).children('.af-icon-chevron-up-number').show();
 				}
-				if (parseInt($(this).children('.star-mini-number').text()) == 0) {
-					$(this).children('.star-mini-number').hide();
+				if (parseInt($(this).children('.af-icon-chevron-up-number').text()) == 0) {
+					$(this).children('.af-icon-chevron-up-number').hide();
 				}
 			}
 		);
