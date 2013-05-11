@@ -19,22 +19,15 @@ $site_url = get_site_url();
                 Get connected with your local movement
             </a>
         </h1>
-        <a href="<?php echo $site_url; ?>/forms/member-registration-form/">
-            <img src="<?php echo $site_url; ?>/wp-content/themes/gp-au-theme/template/images/berkeley-chart5.jpeg" 
-                 alt="Welcome to greenpag.es" title="Welcome to greenpag.es"/>
-        </a>
-        <?php 
-        }
-
-        # Display pink button depending on logged in status
-        if ( !is_user_logged_in() ) {
-        ?>
-    	<div id="post-product-button-bar">
-            <a href="<?php echo $site_url; ?>/forms/member-registration-form/" target="_blank">
-                <span id="product-button">Register</span>
-            </a>
+        <div>
+        	<iframe src="http://player.vimeo.com/video/65615184?byline=0&amp;portrait=0" width="522" height="292" frameborder="0"></iframe>
         </div>
-        <div class="clear"></div>            
+        <div id="post-product-button-bar">
+            <a href="<?php echo $site_url; ?>/forms/member-registration-form/" target="_blank">
+                <span id="product-button">Join</span>
+            </a>
+        </div> 
+        <div class="clear"></div> 
         <?php
         } 
         ?>
@@ -121,6 +114,10 @@ $site_url = get_site_url();
                 <span class="icon-heading-desc">Find support for a project</span> 
             </div> 
         </a>
+        <a href="<?php echo $site_url; ?>/forms/member-registration-form/">
+            <img src="<?php echo $site_url; ?>/wp-content/themes/gp-au-theme/template/images/berkeley-chart5.jpeg" 
+                 alt="Welcome to greenpag.es" title="Welcome to greenpag.es"/>
+        </a>        
     </div>
     <div class="icon-container-row">
         <h1 class="loop-title">

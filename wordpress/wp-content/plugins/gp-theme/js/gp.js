@@ -137,9 +137,9 @@ $(document).ready(function() {
 			function(){
 				$(this).children('.af-icon-chevron-up-number').hide();
 				
-				if ($(this).children('.star-login').length) {
+				if ($(this).children('.upvote-login').length) {
 					$(this).children('.af-icon-chevron-up').hide();
-					$(this).children('.star-login').show();
+					$(this).children('.upvote-login').show();
 					return;
 				}
 				
@@ -156,8 +156,8 @@ $(document).ready(function() {
 				}
 			},
 			function(){
-				if ($(this).children('.star-login').length) {
-					$(this).children('.star-login').hide();
+				if ($(this).children('.upvote-login').length) {
+					$(this).children('.upvote-login').hide();
 					$(this).children('.af-icon-chevron-up').show();
 					if (parseInt($(this).children('.af-icon-chevron-up-number').text()) > 0) {
 						$(this).children('.af-icon-chevron-up-number').show();
