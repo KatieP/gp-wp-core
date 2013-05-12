@@ -505,14 +505,20 @@ function gp_create_postProductURL_meta ($post, $metabox) {
     $custom = get_post_custom($post->ID);
 
     $meta_product_url = isset($custom["gp_advertorial_product_url"][0]) ? $custom["gp_advertorial_product_url"][0] : "";
-
+    $meta_product_call = isset($custom["gp_advertorial_call_to_action"][0]) ? $custom["gp_advertorial_call_to_action"][0] : "";
+    
     $meta_nonce_name = 'gp_' . $metabox['args']['id'] . '-nonce';
     $meta_nonce_value = wp_create_nonce( $meta_nonce_name );
 
     echo '<input type="hidden" name="' . $meta_nonce_name . '" id="' . $meta_nonce_name . '" value="' . $meta_nonce_value . '" />';
     ?>
     <div class="gp-meta">
-    	<label>Enter the url your product can be purchased from: </label><input id="gp_advertorial_product_url" type="text" name="gp_advertorial_product_url" value="<?php if ( !empty($meta_product_url) ) { echo $meta_product_url; } else { echo 'http://'; } ?>">
+    	<label>Call to action:</label>
+    	<input id="gp_advertorial_call_to_action" 
+    	       type="text" 
+    	       name="gp_advertorial_call_to_action" 
+    	       value="<?php if ( !empty($meta_product_call) ) { echo $meta_product_call; } else { echo 'Buy It!'; } ?>"><br />
+    	<label>Url: </label><input id="gp_advertorial_product_url" type="text" name="gp_advertorial_product_url" value="<?php if ( !empty($meta_product_url) ) { echo $meta_product_url; } else { echo 'http://'; } ?>">
     </div>
     <?php 	  
 }
@@ -520,6 +526,10 @@ function gp_create_postProductURL_meta ($post, $metabox) {
 function gp_save_postProductURL_meta () {
 	global $post;
 	$thisposttype = get_post_type();
+	
+	if(isset($_POST[$thisposttype . '_call_to_action'])) {		# gp_advertorial meta - url for 'Buy It!' button
+		update_post_meta($post->ID, $thisposttype . '_call_to_action', $_POST[$thisposttype . '_call_to_action'] );
+	}
 	
 	if(isset($_POST[$thisposttype . '_product_url'])) {		# gp_advertorial meta - url for 'Buy It!' button
 		update_post_meta($post->ID, $thisposttype . '_product_url', $_POST[$thisposttype . '_product_url'] );
