@@ -389,14 +389,8 @@ function gp_create_postEventDate_meta ($post, $metabox) {
     $meta_sd = isset($custom["gp_events_startdate"][0]) ? $custom["gp_events_startdate"][0] : "";
     $meta_ed = isset($custom["gp_events_enddate"][0]) ? $custom["gp_events_enddate"][0] : "";
     
-    var_dump($meta_sd);
-    var_dump($meta_ed);
-    
     $meta_sd = (!is_numeric($meta_sd)) ? strtotime($meta_sd) : $meta_sd;
     $meta_ed = (!is_numeric($meta_ed)) ? strtotime($meta_ed) : $meta_ed;  
-    
-    var_dump($meta_sd);
-    var_dump($meta_ed);
     
     $meta_st = isset($custom["gp_events_starttime"][0]) ? $custom["gp_events_starttime"][0] : "";
     $meta_et = isset($custom["gp_events_endtime"][0]) ? $custom["gp_events_endtime"][0] : "";
