@@ -70,14 +70,7 @@ $site_url = get_site_url();
                 <span class="icon-heading-desc">Post NGO media releases</span>
             </div> 
         </a> 
-        <a href="<?php
-                     # Direct user to appropriate form depending on logged in status
-                     if ( !is_user_logged_in() ) {
-                         echo $site_url .'/forms/create-my-event-post-public/';
-                     } else {
-                         echo $site_url .'/forms/create-event-post/';
-                     }
-                 ?>"> 
+        <a href="<?php echo $site_url; ?>/forms/create-event-post/"> 
             <div class="inner-icon-container">
                 <span class="icon-party-balloon"></span>
                 <span class="icon-heading-text">Events</span>  
@@ -86,9 +79,7 @@ $site_url = get_site_url();
         </a> 
         <a href="<?php
                      # Direct user to appropriate form depending on logged in status and user role
-                     if ( !is_user_logged_in() ) {
-                         echo $site_url .'/forms/create-my-product-post-public/';
-                     } else if ( is_user_logged_in()  && $current_user->reg_advertiser == 1 ) {
+                     if ( is_user_logged_in()  && $current_user->reg_advertiser == 1 ) {
                          echo $site_url .'/forms/create-product-post-subscriber/';
                      } else {
                          echo $site_url .'/forms/create-product-post/';                         
@@ -100,14 +91,7 @@ $site_url = get_site_url();
                 <span class="icon-heading-desc">Promote an eco product</span> 
             </div> 
         </a> 
-        <a href="<?php
-                     # Direct user to appropriate form depending on logged in status
-                     if ( !is_user_logged_in() ) {
-                         echo $site_url .'/forms/create-my-project-post-public/';
-                     } else {
-                         echo $site_url .'/forms/create-project-post/';
-                     }
-                 ?>"> 
+        <a href="<?php echo $site_url; ?>/forms/create-project-post/"> 
             <div class="inner-icon-container">
                 <span class="icon-cog-semifull"></span>
                 <span class="icon-heading-text">Projects</span> 
@@ -120,18 +104,6 @@ $site_url = get_site_url();
         </a>        
     </div>
     <div class="icon-container-row">
-        <h1 class="loop-title">
-            <?php
-            # Display link depending on logged in status
-            if ( !is_user_logged_in() ) {
-            ?>
-                <a href="<?php echo $site_url; ?>/forms/member-registration-form/" target="_blank">
-                    Want to promote your business?
-                </a>
-            <?php
-            } 
-            ?>      
-        </h1>
         <div class="icon-body-text">
             Want to promote your business? <a href="<?php echo $site_url; ?>/about/rate-card/">Rate Card</a>. <a href="<?php echo $site_url; ?>/about/media-kit/">Media Kit.</a>
         </div>
