@@ -388,6 +388,10 @@ function gp_create_postEventDate_meta ($post, $metabox) {
 
     $meta_sd = isset($custom["gp_events_startdate"][0]) ? $custom["gp_events_startdate"][0] : "";
     $meta_ed = isset($custom["gp_events_enddate"][0]) ? $custom["gp_events_enddate"][0] : "";
+    
+    $meta_sd = strtotime($meta_sd);
+    $meta_ed = strtotime($meta_ed);
+    
     $meta_st = $meta_sd;
     $meta_et = $meta_ed;
 
