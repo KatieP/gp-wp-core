@@ -389,11 +389,17 @@ function gp_create_postEventDate_meta ($post, $metabox) {
     $meta_sd = isset($custom["gp_events_startdate"][0]) ? $custom["gp_events_startdate"][0] : "";
     $meta_ed = isset($custom["gp_events_enddate"][0]) ? $custom["gp_events_enddate"][0] : "";
     
-    $meta_sd = strtotime($meta_sd);
-    $meta_ed = strtotime($meta_ed);
+    var_dump($meta_sd);
+    var_dump($meta_ed);
     
-    $meta_st = $meta_sd;
-    $meta_et = $meta_ed;
+    $meta_sd = (!is_numeric($meta_sd)) ? strtotime($meta_sd) : $meta_sd;
+    $meta_ed = (!is_numeric($meta_ed)) ? strtotime($meta_ed) : $meta_ed;  
+    
+    var_dump($meta_sd);
+    var_dump($meta_ed);
+    
+    $meta_st = isset($custom["gp_events_starttime"][0]) ? $custom["gp_events_starttime"][0] : "";
+    $meta_et = isset($custom["gp_events_endtime"][0]) ? $custom["gp_events_endtime"][0] : "";
 
     $date_format = get_option('date_format');
     $time_format = get_option('time_format');
@@ -404,8 +410,6 @@ function gp_create_postEventDate_meta ($post, $metabox) {
 
     $clean_sd = date("D, M d, Y", $meta_sd);
     $clean_ed = date("D, M d, Y", $meta_ed);
-    $clean_st = date($time_format, $meta_st);
-    $clean_et = date($time_format, $meta_et);
 
     echo '<input type="hidden" name="' . $meta_nonce_name . '" id="' . $meta_nonce_name . '" value="' . $meta_nonce_value . '" />';
     ?>
@@ -414,11 +418,11 @@ function gp_create_postEventDate_meta ($post, $metabox) {
     		<li><label>Start Date</label><input name="gp_events_startdate"
     			type="text" class="tfdate" value="<?php echo $clean_sd; ?>" /></li>
     		<li><label>Start Time</label><input name="gp_events_starttime"
-    			type="text" value="<?php echo $clean_st; ?>" /></li>
+    			type="text" value="<?php echo $meta_st; ?>" /></li>
     		<li><label>End Date</label><input name="gp_events_enddate" type="text"
     			class="tfdate" value="<?php echo $clean_ed; ?>" /></li>
     		<li><label>End Time</label><input name="gp_events_endtime" type="text"
-    			value="<?php echo $clean_et; ?>" /></li>
+    			value="<?php echo $meta_et; ?>" /></li>
     	</ul>
     </div>
 <?php
@@ -429,14 +433,24 @@ function gp_save_postEventDate_meta() {
     $thisposttype = get_post_type();
 
     if(isset($_POST[$thisposttype . '_startdate'])) {
-        $updatestartd = strtotime ( $_POST[$thisposttype . '_startdate'] . $_POST[$thisposttype . '_starttime'] );
+        $updatestartd = strtotime ( $_POST[$thisposttype . '_startdate'] );
         update_post_meta($post->ID, $thisposttype . '_startdate', $updatestartd );
     }
 
     if(isset($_POST[$thisposttype . '_enddate'])) {
-        $updateendd = strtotime ( $_POST[$thisposttype . '_enddate'] . $_POST[$thisposttype . '_endtime']);
+        $updateendd = strtotime ( $_POST[$thisposttype . '_enddate'] );
         update_post_meta($post->ID, $thisposttype . '_enddate', $updateendd );
     }
+    
+    if(isset($_POST[$thisposttype . '_starttime'])) {
+        $updatestartt = $_POST[$thisposttype . '_starttime'];
+        update_post_meta($post->ID, $thisposttype . '_starttime', $updatestartt );
+    }
+
+    if(isset($_POST[$thisposttype . '_endtime'])) {
+        $updateendt = $_POST[$thisposttype . '_endtime'];
+        update_post_meta($post->ID, $thisposttype . '_endtime', $updateendt );
+    }    
 
     return $post;
 }
