@@ -30,9 +30,7 @@ define( 'WP_ADMIN_DIR', ABSPATH . 'wp-admin' );
     require_once( GP_PLUGIN_DIR . '/config/_geo.php' );
 
     global $gp;
-    #$geo_currentlocation = Geo::getCurrentLocation();
-    $ip_addr = $_SERVER['REMOTE_ADDR'];
-    $geo_currentlocation = getLocationByIP($ip_addr);
+    $geo_currentlocation = Geo::getCurrentLocation();
     $gp->location = $geo_currentlocation;
 
     define( 'SELECTED_COUNTRY', $geo_currentlocation['country_iso2'] );
