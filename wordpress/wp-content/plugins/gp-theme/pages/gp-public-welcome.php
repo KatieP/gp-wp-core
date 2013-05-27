@@ -24,7 +24,7 @@ $site_url = get_site_url();
         </div>
         <div id="post-product-button-bar">
             <a href="<?php echo $site_url; ?>/forms/member-registration-form/" target="_blank">
-                <span id="product-button">Join</span>
+                <span id="product-button">Join!</span>
             </a>
         </div> 
         <div class="clear"></div> 
@@ -36,22 +36,23 @@ $site_url = get_site_url();
             # Display copy depending on logged in status
             if ( !is_user_logged_in() ) {
                 ?>
-                Sign up to become a member to receive notifications of the news, 
-                events and projects and awesome world-changing activities happening in 
-                your local area. For example if you are based in Los Angeles and you add the 
-                &#8216;solar&#8217; keyword tag to your member profile, you&#8217;ll be notified 
-                of all solar related activities in LA.
+                Sign up to share your projects and get involved with awesome 
+                world-changing news, projects and events happening in 
+                your local area. For example if you are based in Los Angeles and 
+                are passionate about solar, you&#8217;ll be invited to join in
+                all the solar related activities in LA. 
                 <?php
             } 
             ?>
         </div>
     </div>
     <div class="icon-container-row">
-        <h1 class="loop-title">
-            <a href="#" target="_blank">
-                Create a post on greenpag.es
-            </a>
-        </h1>
+        <div class="icon-body-text">
+            Already a member? <a href="">Log in</a>.
+        </div>
+    </div>
+    <div class="icon-container-row">
+        <h1 id="big-heading">Create a post on greenpag.es</h1>
         <a href="<?php
                      # Direct user to appropriate form depending on logged in status and user role
                      if ( !is_user_logged_in() ) {
@@ -74,7 +75,7 @@ $site_url = get_site_url();
             <div class="inner-icon-container">
                 <span class="icon-party-balloon"></span>
                 <span class="icon-heading-text">Events</span>  
-                <span class="icon-heading-desc">Add to the calendar</span>
+                <span class="icon-heading-desc">Add to the <br />calendar</span>
             </div> 
         </a> 
         <a href="<?php
@@ -105,20 +106,7 @@ $site_url = get_site_url();
     </div>
     <div class="icon-container-row">
         <div class="icon-body-text">
-            Want to promote your business? <a href="<?php echo $site_url; ?>/about/rate-card/">Rate Card</a>. <a href="<?php echo $site_url; ?>/about/media-kit/">Media Kit.</a>
-        </div>
-        <?php
-        # Display orange button depending on logged in status
-        if ( !is_user_logged_in() ) {
-        ?>
-        	<div id="post-product-button-bar">
-                <a href="<?php echo $site_url; ?>/forms/member-registration-form/" target="_blank">
-                    <span id="product-button">Advertise</span>
-                </a>
-            </div>
-        	<div class="clear"></div> 
-        <?php
-        }
-        ?>       
+            Want to promote your business? <a href="<?php echo $site_url; ?>/about/rate-card/">Post an ad</a>.
+        </div>      
     </div>
 </div>
