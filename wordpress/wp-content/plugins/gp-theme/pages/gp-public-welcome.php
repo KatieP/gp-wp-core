@@ -10,10 +10,7 @@ $site_url = get_site_url();
 ?>
 <div class="icon-container">
     <div class="icon-container-row">
-        <?php
-        # Display pink button depending on logged in status
-        if ( !is_user_logged_in() ) {
-        ?>
+        <?php if ( !is_user_logged_in() ) { ?>
         <h1 class="loop-title">
             <a href="<?php echo $site_url; ?>/forms/member-registration-form/" target="_blank">
                 Get connected with your local movement
@@ -28,22 +25,12 @@ $site_url = get_site_url();
             </a>
         </div> 
         <div class="clear"></div> 
-        <?php
-        } 
-        ?>
         <div class="icon-body-text">
-        <?php
-            # Display copy depending on logged in status
-            if ( !is_user_logged_in() ) {
-                ?>
                 Sign up to share your projects and get involved with awesome 
                 world-changing news, projects and events happening in 
                 your local area. For example if you are based in Los Angeles and 
                 are passionate about solar, you&#8217;ll be invited to join in
                 all the solar related activities in LA. 
-                <?php
-            } 
-            ?>
         </div>
     </div>
     <div class="icon-container-row">
@@ -51,6 +38,7 @@ $site_url = get_site_url();
             Already a member? <a href="">Log in</a>.
         </div>
     </div>
+    <?php } ?>
     <div class="icon-container-row">
         <h1 id="big-heading">Create a post on greenpag.es</h1>
         <a href="<?php
