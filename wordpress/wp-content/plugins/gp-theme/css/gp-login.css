@@ -15,7 +15,7 @@ a {
 }
 
 a:hover {
-    color: #01aed8;
+    color: #6eb83f;
     text-decoration: none;
 }
 
@@ -51,7 +51,7 @@ input[type="text"], input[type="password"], textarea {
     padding: 10px;
     margin: 8px 8px 20px 0;
     background-color: #fff;
-    border: 1px solid #ccc;
+    border: 1px solid #6eb83f;
         -moz-border-radius: 2px;
         -webkit-border-radius: 2px;
     border-radius: 2px; 
@@ -65,7 +65,8 @@ input[type="button"], input[type="reset"], input[type="submit"] {
     display: block;
     height: 33px;
     padding: 0 10px 0 10px;
-    background-color: #bbb;
+    background-color: #6eb83f;
+    
     float: right;
     margin: 0 0 0 10px;
     border: 0;
@@ -77,6 +78,7 @@ input[type="button"], input[type="reset"], input[type="submit"] {
 
 input[type="submit"] {
     background-color: #61c201; 
+    border-color: #6eb83f;
 }
 
 label {
@@ -98,8 +100,8 @@ label {
 
 #loginform, #lostpasswordform {
     background-color: #f2f2f2;
-    border-width: 8px;
-    border-color: #d5e8c2;
+    border-width: 20px;
+    border-color: #6eb83f;
     border-radius: 2px;
 }
 
@@ -107,6 +109,9 @@ input#wp-submit.button-primary {
     font-size: 11px!important;
     background-image: none;
     text-shadow: none;
+    background-color: #6eb83f;
+    border-color: #6eb83f;
+    
 }
 
 p.submit {
