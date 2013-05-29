@@ -129,4 +129,9 @@ function gp_shortcode_world_map( $atts ) {
 }
 add_shortcode( 'gp-world-map', 'gp_shortcode_world_map' );
 
+function gp_shortcode_advertisers( $atts ) {
+	require_once( GP_PLUGIN_DIR . '/pages/gp-advertisers.php' );
+}
+add_shortcode( 'gp-advertisers', 'gp_shortcode_advertisers' );
+
 ?>
