@@ -134,4 +134,8 @@ function gp_shortcode_advertisers( $atts ) {
 }
 add_shortcode( 'gp-advertisers', 'gp_shortcode_advertisers' );
 
+function gp_shortcode_delete_post( $atts ) {
+	require_once( GP_PLUGIN_DIR . '/pages/gp-delete-post.php' );
+}
+add_shortcode( 'gp-delete-post', 'gp_shortcode_delete_post' );
 ?>
