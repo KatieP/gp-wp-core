@@ -1,26 +1,190 @@
 <?php
 //** All the information for advertisers to sign up **//
 
+#1. A logged in user choses an advertiser option
+#2. Explanatory content below disappears
+#3. Great! You are on the $x plan. Please enter your billing details. Show hosted chargify page in a iframe.
+#4. Create approval 'Great - that worked! Let's get started creating your first editorial post -> button to post form
+#5. Go to member post form
+#6. Member fills out form with editorial and submits - ensure advertiser can restrict by region
+#7. Confirmation page says 'great job on your first post! Before going live, a real human on the GP team will need to approve your post within 24 hours. It's to make sure all our advetisers are promoting genuinely sustainable products. After you've successfully submitted 3 posts, you'll be able post directly to live without waiting for us. You'll be able to check your analytics and billing from your profile page (link to profile page).
+#8. Activate 'billing' section on 'advertisers' tab on user profile.
+#9. Show plan, rate and amount billed on advertiser/billing tab.
 
+
+#$author_name = get_usermeta->'name';
+global $current_user;
+$name = $current_user->display_name;
+$user_email = $current_user->user_email;
+$user_ID = $current_user->ID;
+		
+$site_url = get_site_url();
+
+//JAVASCRIPT-------------------------------------------------------------------------------//
 ?>
+	<br /><br /><br />
+	
+    <script type="text/javascript">
 
-<!--
-<table>
-<h1>
-<h1>Choose an advertiser plan</h1>
-	<tr> 
-		<td><h1>$12 / week </h1></td>
-		<td><h1>$39 / week </h1></td>
-		<td><h1>$99 / week </h1></td>
-		<td><h1>$249 / week </h1></td>
-		<td><h1>$499 / week </h1></td>
-	</tr>
-</h1>
-</table>
--->
+    	function show_12_plan() {
+      		document.getElementById("ad-info").className = "hidden";
+    	    document.getElementById("ad-booking-info").className = "";
+        	document.getElementById("show_12_plan").className = "";
+        	document.getElementById("show_39_plan").className = "hidden";
+        	document.getElementById("show_99_plan").className = "hidden";
+        	document.getElementById("show_249_plan").className = "hidden";
+        	document.getElementById("show_499_plan").className = "hidden";
+    	}
+    	
+    	function show_39_plan() {
+        	document.getElementById("ad-info").className = "hidden";
+       		document.getElementById("ad-booking-info").className = "";
+       		document.getElementById("show_12_plan").className = "hidden";
+        	document.getElementById("show_39_plan").className = "";
+        	document.getElementById("show_99_plan").className = "hidden";
+        	document.getElementById("show_249_plan").className = "hidden";
+        	document.getElementById("show_499_plan").className = "hidden";
+    	}
+    	
+    	function show_99_plan() {
+        	document.getElementById("ad-info").className = "hidden";
+        	document.getElementById("ad-booking-info").className = "";
+        	document.getElementById("show_12_plan").className = "hidden";
+        	document.getElementById("show_39_plan").className = "hidden";
+        	document.getElementById("show_99_plan").className = "";
+        	document.getElementById("show_249_plan").className = "hidden";
+        	document.getElementById("show_499_plan").className = "hidden";
+    	}
+    	
+    	function show_249_plan() {
+    	    document.getElementById("ad-info").className = "hidden";
+    	    document.getElementById("ad-booking-info").className = "";
+        	document.getElementById("show_12_plan").className = "hidden";
+        	document.getElementById("show_39_plan").className = "hidden";
+        	document.getElementById("show_99_plan").className = "hidden";
+        	document.getElementById("show_249_plan").className = "";
+        	document.getElementById("show_499_plan").className = "hidden";	
+    	}
+    	
+    	function show_499_plan() {
+    	    document.getElementById("ad-info").className = "hidden";
+    	    document.getElementById("ad-booking-info").className = "";
+        	document.getElementById("show_12_plan").className = "hidden";
+        	document.getElementById("show_39_plan").className = "hidden";
+        	document.getElementById("show_99_plan").className = "hidden";
+        	document.getElementById("show_249_plan").className = "hidden";
+        	document.getElementById("show_499_plan").className = "";
+    	}
 
-<p><a href="http://www.thegreenpages.com.au/wp-content/uploads/2012/04/circle2-wide.jpg?39a4ff"><img class="alignleft size-full wp-image-15017" title="green pages advertising" src="http://www.thegreenpages.com.au/wp-content/uploads/2012/04/circle2-wide.jpg?39a4ff" alt="green pages advertising" width="600" height="350" /></a></p>
-	<div>
+
+    	function hide_ad_payment_form() {
+    		document.getElementById("ad-info").className = "";
+      		document.getElementById("ad-booking-info").className = "hidden";
+   		}
+	
+	</script>
+
+<!//TABLE OF AD OPTIONS-------------------------------------------------------------------------------//-->
+	
+	<h1><strong>Hi <?php echo $name; ?>! Choose an advertiser plan</strong></h1>
+	<div class="author_analytics">
+		<table>
+			<tr> 
+				<td><a href="#" id="3313295" onClick="show_12_plan();"><div class="advertiser_option_box">&nbsp;$12&nbsp;</div><span class="grey-text">weekly max spend</span></a></td>
+				<td><a href="#" id="27029" onClick="show_39_plan();"><div class="advertiser_option_box">&nbsp;$39&nbsp;</div><span class="grey-text">weekly max spend</span></a></td>
+				<td><a href="#" id="27028" onClick="show_99_plan();"><div class="advertiser_option_box">&nbsp;$99&nbsp;</div><span class="grey-text">weekly max spend</span></a></td>
+				<td><a href="#" id="3313296" onClick="show_249_plan();"><div class="advertiser_option_box">$249</div><span class="grey-text">weekly max spend</span></a></td>
+				<td><a href="#" id="3313297" onClick="show_499_plan();"><div class="advertiser_option_box">$499</div><span class="grey-text">weekly max spend</span></a></td>
+			</tr>
+	
+			<tr> 
+				<td>$1.90 / click </td>
+				<td>$1.90 / click </td>
+				<td>$1.90 / click </td>
+				<td>$1.80 / click </td>
+				<td>$1.70 / click </td>
+			</tr>
+		</table>
+	</div>
+    <div class="clear"></div>
+
+	<br /><br />
+
+<!//BILLING FORM-------------------------------------------------------------------------------//-->
+
+    <div id="ad-booking-info" class="hidden">
+    
+        <?php 
+		if ( !is_user_logged_in() ) {
+			$site_url = get_site_url();
+			echo 'You\'ll need to be logged in to setup you ad. <a href="'.$site_url.'/welcome">Create an account</a> or <a href="'.$site_url.'/wp-login">log in</a>.';
+		} else {
+			// Display fields billing details
+			// Todo: Add a paypal option
+			// Grab user email, name and id from $current_user so it can be added to billing form and sent to chargify		
+			?>
+			<div id="show_12_plan" class="hidden">
+        		<iframe src="https://green-pages.chargify.com/h/3313295/subscriptions/new" width="710" height="2100" scrolling="no"></iframe>
+			</div>			
+			<div id="show_39_plan" class="hidden">		
+				<iframe src="https://green-pages.chargify.com/h/27029/subscriptions/new" width="710" height="2100" scrolling="no"></iframe>
+			</div>
+			<div id="show_99_plan" class="hidden">		
+				<iframe src="https://green-pages.chargify.com/h/27028/subscriptions/new" width="710" height="2100" scrolling="no"></iframe>
+			</div>		
+			<div id="show_249_plan" class="hidden">
+				<iframe src="https://green-pages.chargify.com/h/3313296/subscriptions/new" width="710" height="2100" scrolling="no"></iframe>
+			</div>		
+			<div id="show_499_plan" class="hidden">		
+				<iframe src="https://green-pages.chargify.com/h/3313297/subscriptions/new" width="710" height="2100" scrolling="no"></iframe>
+			</div>
+				
+		<?php
+		}
+		?>
+
+    </div>
+	<?php
+
+	
+	
+	?>
+	
+  
+
+<!--//INITIAL PAGE INFORMATION-------------------------------------------------------------------------------//-->
+	
+	<div id="ad-info" >
+	
+	
+
+		<h1>How does greenpag.es advertising work?</h1>
+
+		<p>Greenpag.es uses an innovative kind of online advertising: you get to create your own product editorial! It's extremely effective. We've learned over the years 		that product editorials receive over 1000 percent greater click through rates that display ads, search ads on Google or Facebook ads. You create the 		editorial post - we send it out the greenpag.es members and you only pay for the clicks you receive in cost-per-click model. No click, no 			payment! You can upgrade, downgrade or pause your advertiser plan at any time.</p>
+
+		<p>1. You chose a plan - you will never be billed more that the plan you choose.</p>
+
+		<p>2. Create an editorial post about your product or service</p>
+
+		<p>3. Chose your type of billing:</p> 
+		
+		<p> Cumulative budget: - This means if you are on a maximum weekly spend of $12 / week, but your editorial receives no 			clicks for 4 weeks, you're unused remaining budget will carried over from the week before and amount to 4 week x $12 / week will be $48 for the next week. We recommend this 			option because it provides you more flexibility if you create a popular post one week and want to take some weeks off.</p> 
+
+			<p>Non cumulative budget: - you will never be billed more that $12 / week, even if previous weeks did not receive clicks.</p>
+
+			<p>4. You product editorial will be shown to the greenpag.es members until you reach your weekly maximum expenditure. Once your budget has been reached, your product editorials will be paused from view. They will resume again when the next week's billing cycle commences.</p>
+
+			<p>5. The more frequently you post, the more people will view your product editorial. Learn more about how to create an awesome 			posts that will get you customers. If you want more coverage, 			keep the posts fresh and coming!</p>
+
+			<p>7. All product editorials are posted to the maps and searchable in the products section.</p>
+
+
+
+
+
+			<p><a href="http://www.thegreenpages.com.au/wp-content/uploads/2012/04/circle2-wide.jpg?39a4ff">
+			<img class="alignleft size-full wp-image-15017" title="green pages advertising" src="http://www.thegreenpages.com.au/wp-content/uploads/2012/04/circle2-wide.jpg?39a4ff" alt="green pages advertising" width="600" height="350" /></a></p>
+		<div>
 
 	<h1><strong><a name="directory">Booking ads on Green Pages is super easy and affordable! <a href="http://www.thegreenpages.com.au/about/media-kit/">Learn about who the readers are</a></a></strong></h1>
 	<h1><strong><a name="directory">1. Monthly Editorials Subscription $39 / month</a></strong></h1>
@@ -100,22 +264,32 @@
 <br /><br /><br /><br /><br /><br />
 
 <div class="clear"></div>
-<br /><br /><br /><br /><br /><br />
-<h1><strong>Ten reasons why Greenpag.es is a better deal that the other online advertising options</strong></h1>
-<p><strong>1. Google Adwords</strong> you are going to bid higher and higher to increase your click through rate. Only a small amount of clicks each week will be available to you. Some Google Ads are as high as $20 per click. <em>The GP difference: On Green Pages, the most you&#8217;ll pay is $3.90 per click and many advertisers get as low as $1 / click for products that are popular with the members. </em> </p>
-<p><strong>2. Facebook</strong> requires a minimum spend of $10 / day which amounts to about $300 / month which is quite steep for most small businesses. They require about a $2 &#8211; $3 per click spend. <em>The GP difference: On Green Pages, your minimum spend is $39 per month of about $1 per day (1 tenth of Facebook!). Clicks on Green Pages work out on average, cheaper than on Facebook.</em> </p>
-<p><strong>3. Sydney Morning Herald</strong> charge $70 CPM for display ads, which have an ever increasingly low click through rate <em>The GP difference: On Green Pages, we charge a $30 CPM (not $70!) and we have a committed readership of environmental professionals who will see your ad, many of whom are not frequently reading mainstream news press.</em> </p>
-<p><strong>4. Yellow Pages</strong> is becoming a redundant waste of paper as more and more people seek products and services online. </p>
-<p><strong>5. Yelp</strong> charge per impression which is un-transparent and work out to a $150 &#8211; $200 CPM. This is around 10 times the industry average CPM rate. They don&#8217;t even show you conversion rates from impressions to clicks! They also require a 6 month commitment. <a href="http://www.raymondfong.net/misc/a-candid-yelp-advertising-review-is-yelp-ripping-people-off/"  onclick="javascript:_gaq.push(['_trackPageview','/yoast-ga/14971/2/outbound-article/']);">http://www.raymondfong.net/misc/a-candid-yelp-advertising-review-is-yelp-ripping-people-off/</a> <em>The GP difference: On Green Pages, we provide click guarantees and show your clicks and impressions transparently on your member profile. There is no time commitment and you can cancel any time. We work hard to make sure are advertising rates are less that the industry standard.</em></p>
-<p><strong>6. Green Pages</strong> offers the maximum cost per click you&#8217;ll receive is $3.90 but we aim to keep it around $2.00 per click. </p>
-<p><strong>7. Green Pages</strong> uses trackable links which mean our links to your site will help your SEO. <em>The GP difference: Most other sites prevent trackable outbound links. On Green Pages, we do allow links to be trackable by Google, that means your link on Green Pages will help your site&#8217;s SEO, meaning it will help you get higher up on Google&#8217;s search results. </em> </p>
-<p><strong>8. We offer</strong> personalised service and will work with each client individually to ensure you get a good result for your subscription. Your $39 / month means the world to us. If you ever feel you are not getting a result, let us know and we&#8217;ll attend to it immediately to supplement your advertising. <em>The GP difference: You will always have a &#8216;real human&#8217; to call or email any time about any issue at all. We are prepared to add any supplementary promotion you need if an ad is not working well.</em></p>
-<p><strong>9. Your money</strong> supports our unique content model of distributing material direct from NGO&#8217;s to a wider audience. Many NGOs rely on Green Pages is their greatest means of letting people know about the important problems they are solving. <em>The GP difference: Your money is going to support Green Pages, an independent technology company that provides the world&#8217;s only aggregate of all NGO news. We bring together the news, campaigns and projects that are saving the planet and put them in touch with thousands of people every day. The more advertisers we have, the better equipped we are to improve and built this service. </em> </p>
-<p><strong>10. Greenpag.es</strong> has a loyal following of over 20,000 members and has between 400 &#8211; 1,000 visitors reading it every day. Green Pages is well known in the environmental community as a place to find environmental products and services across 400 industry sectors. <em>The GP difference: Your advertising hits the spot. The Green Pages readership is the core of the professional environmental community. There is no other membership and mailing available that has such direct access to green professionals.</em></p>
+	<br /><br /><br /><br /><br /><br />
+		<h1><strong>Ten reasons why Greenpag.es is a better deal that the other online advertising options</strong></h1>
+			
+			<p><strong>1. Google Adwords</strong> you are going to bid higher and higher to increase your click through rate. Only a small amount of clicks each 	week will be available to you. Some Google Ads are as high as $20 per click. <em>The GP difference: On Green Pages, the most you&#8217;ll pay is $3.90 per click and many advertisers get as low as $1 / click for products that are popular with the members. </em> 			</p>
+			
+			<p><strong>2. Facebook</strong> requires a minimum spend of $10 / day which amounts to about $300 / month which is quite steep for most small 			businesses. They require about a $2 &#8211; $3 per click spend. <em>The GP difference: On Green Pages, your minimum spend is $39 per month of about $1 per day (1 tenth of Facebook!). Clicks on Green Pages work out on average, cheaper than on Facebook.</em> </p>
+			
+			<p><strong>3. Sydney Morning Herald</strong> charge $70 CPM for display ads, which have an ever increasingly low click through rate <em>The GP difference: On Green Pages, we charge a $30 CPM (not $70!) and we have a committed readership of environmental professionals who will see your ad, many of whom are not frequently reading mainstream news press.</em> </p>
+
+			<p><strong>4. Yellow Pages</strong> is becoming a redundant waste of paper as more and more people seek products and services online. </p>
+
+			<p><strong>5. Yelp</strong> charge per impression which is un-transparent and work out to a $150 &#8211; $200 CPM. This is around 10 times the industry average CPM rate. They don&#8217;t even show you conversion rates from impressions to clicks! They also require a 6 month commitment. <a href="http://www.raymondfong.net/misc/a-candid-yelp-advertising-review-is-yelp-ripping-people-off/"  onclick="javascript:_gaq.push(['_trackPageview','/yoast-ga/14971/2/outbound-article/']);">http://www.raymondfong.net/misc/a-candid-yelp-advertising-review-is-yelp-ripping-people-off/</a> <em>The GP difference: On Green Pages, we provide click guarantees and show your clicks and impressions transparently on your member profile. There is no time commitment and you can cancel any time. We work hard to make sure are advertising rates are less that the industry standard.</em></p>
+
+		<p><strong>6. Green Pages</strong> offers the maximum cost per click you&#8217;ll receive is $3.90 but we aim to keep it around $2.00 per click. </p>
+
+		<p><strong>7. Green Pages</strong> uses trackable links which mean our links to your site will help your SEO. <em>The GP difference: Most other sites prevent trackable outbound links. On Green Pages, we do allow links to be trackable by Google, that means your link on Green Pages will help your site&#8217;s SEO, meaning it will help you get higher up on Google&#8217;s search results. </em> </p>
+
+		<p><strong>8. We offer</strong> personalised service and will work with each client individually to ensure you get a good result for your subscription. Your $39 / month means the world to us. If you ever feel you are not getting a result, let us know and we&#8217;ll attend to it immediately to supplement your advertising. <em>The GP difference: You will always have a &#8216;real human&#8217; to call or email any time about any issue at all. We are prepared to add any supplementary promotion you need if an ad is not working well.</em></p>
+
+		<p><strong>9. Your money</strong> supports our unique content model of distributing material direct from NGO&#8217;s to a wider audience. Many NGOs rely on Green Pages is their greatest means of letting people know about the important problems they are solving. <em>The GP difference: Your money is going to support Green Pages, an independent technology company that provides the world&#8217;s only aggregate of all NGO news. We bring together the news, campaigns and projects that are saving the planet and put them in touch with thousands of people every day. The more advertisers we have, the better equipped we are to improve and built this service. </em> </p>
+
+		<p><strong>10. Greenpag.es</strong> has a loyal following of over 20,000 members and between 1,000 and 5,000 visitors reading it every day. Green Pages is well known in the environmental community as a place to find environmental products and services across 400 industry sectors. <em>The GP difference: Your advertising hits the spot. The Green Pages readership is the core of the professional environmental community. There is no other membership and mailing available that has such direct access to green professionals.</em></p>
+
+	</div>
+
+	<br /><br /><br />
+
 </div>
-<br /><br /><br />
 
-<?php
-
-
-?>
