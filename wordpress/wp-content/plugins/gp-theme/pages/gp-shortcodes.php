@@ -138,4 +138,14 @@ function gp_shortcode_delete_post( $atts ) {
 	require_once( GP_PLUGIN_DIR . '/pages/gp-delete-post.php' );
 }
 add_shortcode( 'gp-delete-post', 'gp_shortcode_delete_post' );
+
+function gp_shortcode_about( $atts ) {
+	require_once( GP_PLUGIN_DIR . '/pages/gp-public-about.php' );
+}
+add_shortcode( 'gp-about', 'gp_shortcode_about' );
+
+function gp_shortcode_redirect_to_profile_page( $atts ) {
+	require_once( GP_PLUGIN_DIR . '/pages/gp-redirect-to-profile-page.php' );
+}
+add_shortcode( 'gp-redirect-to-profile-page', 'gp_shortcode_redirect_to_profile_page' );
 ?>
