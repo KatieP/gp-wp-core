@@ -83,6 +83,8 @@ $site_url = get_site_url();
 
 	<!--//TABLE OF AD OPTIONS--//-->
 	
+	<br /><br /><br />
+	
 	<h1><strong>Hi <?php echo $name; ?>! Choose an advertiser plan</strong></h1>
 	<div class="author_analytics">
 		<table>
@@ -147,44 +149,41 @@ $site_url = get_site_url();
 	
 		<h1>How does greenpag.es advertising work?</h1>
 
-		<p>Greenpag.es uses an innovative kind of online advertising: you get to create your own product editorial! 
-		It's extremely effective. We've learned over the years that product editorials receive over 1000 percent 
-		greater click through rates that display ads, search ads on Google or Facebook ads. You create the 		
-		editorial post - we send it out the greenpag.es members and you only pay for the clicks you receive in 
+		<p>Greenpag.es offers an extremely effective kind of online advertising: you get to create your own editorial! 
+		We've learned over the years that product editorials receive over 1000 percent 
+		greater click through rates than common online ads such as banner ads, search ads on Google or Facebook ads. You create the 		
+		editorial post - we send it out to the greenpag.es members and you only pay for the clicks you receive in 
 		cost-per-click model. No click, no payment! You can upgrade, downgrade or pause your advertiser plan at 
 		any time.</p>
 
-		<p>1. You chose a plan - you will never be billed more that the plan you choose.</p>
-
-		<p>2. Create an editorial post about your product or service</p>
-
-		<p>3. Chose your type of billing:</p> 
-		
-		<p> Cumulative budget: - This means if you are on a maximum weekly spend of $12 / week, but your editorial receives no 			
-		clicks for 4 weeks, you're unused remaining budget will carried over from the week before and amount to 4 week x $12 / week 
-		will be $48 for the next week. We recommend this option because it provides you more flexibility if you create a popular 
-		post one week and want to take some weeks off.</p> 
-
-		<p>Non cumulative budget: - you will never be billed more that $12 / week, even if previous weeks did not receive clicks.</p>
-
-		<p>4. You product editorial will be shown to the greenpag.es members until you reach your weekly maximum expenditure. 
-		Once your budget has been reached, your product editorials will be paused from view. They will resume again when the 
-		next week's billing cycle commences.</p>
-
-		<p>5. The more frequently you post, the more people will view your product editorial. Learn more about how to create an awesome 			
-		posts that will get you customers. If you want more coverage, keep the posts fresh and coming!</p>
-
-		<p>7. All product editorials are posted to the maps and searchable in the products section.</p>
-
-        <p><a href="http://www.thegreenpages.com.au/wp-content/uploads/2012/04/circle2-wide.jpg?39a4ff">
+		<p><a href="http://www.thegreenpages.com.au/wp-content/uploads/2012/04/circle2-wide.jpg?39a4ff">
 			<img class="alignleft size-full wp-image-15017" title="green pages advertising" 
 			     src="http://www.thegreenpages.com.au/wp-content/uploads/2012/04/circle2-wide.jpg?39a4ff" 
 			     alt="green pages advertising" width="600" height="350" /></a>
 		</p>
+
+
+		<p>1. You chose a plan - you will never be billed more that the plan you choose.</p>
+
+		<p>2. Create an editorial post about your product or service</p>
+		
+		<p>3. You product editorial will be shown to the greenpag.es members and appear on the homepage feed until you reach your weekly maximum expenditure. 
+		Once your budget has been reached, your product editorials will be paused from view. They will resume again when the 
+		next week's billing cycle commences.</p>
+
+		<p>4. The more frequently you post, the more people will view your product editorial. If you want more coverage, keep the posts fresh and coming!</p>
+
+		<p>5. All product editorials are posted with an icon on the maps and searchable in the products section.</p>
+
+        
 		
 		<div>
 
-			<h1><strong><a name="directory">Booking ads on Green Pages is super easy and affordable! <a href="http://www.thegreenpages.com.au/about/media-kit/">Learn about who the readers are</a></a></strong></h1>
+			<br /><br />
+			<h1><strong><a href="<?php echo $site_url;?>/about/media-kit/">Who reads greenpag.es?</a></a></strong></h1>
+			<br /><br />
+			
+			
 			<h1><strong><a name="directory">1. Monthly Editorials Subscription $39 / month</a></strong></h1>
 			<p>Be discovered by thousands of enthusiastic sustainability professionals and green consumers. 
 			This subscription allows you to create a sponsored editorial on greenpag.es every month! 
@@ -208,7 +207,8 @@ $site_url = get_site_url();
 			<div id="my-advertise">
 				<div id="listing">
 				    <span>
-				        <a href="http://www.thegreenpages.com.au/advertise-with-us/list-your-business/">
+				        <a href="https://green-pages.chargify.com/h/3313295/subscriptions/new">
+				        
 					        <input type="button" value="Subscription $39/m" />
 					    </a>
 					</span>
@@ -221,7 +221,7 @@ $site_url = get_site_url();
 			<h1><strong><a name="product">2. Product Post $89 / post</a></strong></h1>
 			<p>Perfect for one-off product promotions and press releases. 
 				You can post your own editorial in our ’Products’ page. Your post will be promoted to our 20,000 members, to our Facebook page, Twitter and will remain on the GP homepage for approximately one day. 
-				<a href="http://www.thegreenpages.com.au/eco-friendly-products/" target="_blank">See an example here.</a></p>
+				<a href="<?php echo $site_url;?>/eco-friendly-products/" target="_blank">See an example here.</a></p>
 				<div style="float: right; margin-top: 20px;">
 					<iframe src="http://player.vimeo.com/video/41352429" width="350" height="218" frameborder="0" 
 					        webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
@@ -239,7 +239,7 @@ $site_url = get_site_url();
 				<div id="my-advertise">
 					<div id="advertorial">
 					    <span>
-					        <a href="http://www.thegreenpages.com.au/forms/create-product-post/">
+					        <a href="<?php echo $site_url;?>/forms/create-product-post/">
 						        <input type="button" value="Post a Product $89" />
 						    </a>
 						</span>
@@ -271,7 +271,7 @@ $site_url = get_site_url();
 				<div id="my-advertise">
 					<div id="listing">
 						<span>
-							<a href="http://www.thegreenpages.com.au/advertise-with-us/">
+							<a href="https://green-pages.chargify.com/h/796281/subscriptions/new">
 								<input type="button" value="Exclusive Email $3500" />
 							</a>
 						</span>
@@ -287,15 +287,15 @@ $site_url = get_site_url();
 			
 				<p><strong>1. Google Adwords</strong> you are going to bid higher and higher to increase your click through rate. Only a small amount of clicks each 	week will be available to you. Some Google Ads are as high as $20 per click. <em>The GP difference: On Green Pages, the most you&#8217;ll pay is $3.90 per click and many advertisers get as low as $1 / click for products that are popular with the members. </em> 			</p>
 			
-				<p><strong>2. Facebook</strong> requires a minimum spend of $10 / day which amounts to about $300 / month which is quite steep for most small 			businesses. They require about a $2 &#8211; $3 per click spend. <em>The GP difference: On Green Pages, your minimum spend is $39 per month of about $1 per day (1 tenth of Facebook!). Clicks on Green Pages work out on average, cheaper than on Facebook.</em> </p>
+				<p><strong>2. Facebook</strong> requires a minimum spend of $10 / day which amounts to about $300 / month which is quite steep for most small 			businesses. They require about a $2 &#8211; $3 per click spend. <em>The GP difference: On Green Pages, your minimum spend is $12 per week (1 tenth of Facebook!). Clicks on Green Pages work out on average, at lower cost than on Facebook.</em> </p>
 			
-				<p><strong>3. Sydney Morning Herald</strong> charge $70 CPM for display ads, which have an ever increasingly low click through rate <em>The GP difference: On Green Pages, we charge a $30 CPM (not $70!) and we have a committed readership of environmental professionals who will see your ad, many of whom are not frequently reading mainstream news press.</em> </p>
+				<p><strong>3. Newspaper sites such as Sydney Morning Herald</strong> charge $70 CPM for display ads, which have an ever increasingly low click through rate. Click through rates are on average 0.05% <em>The GP difference: Greenpag.es only offers editorial advertisements which have 10% - 20% click through rate. .</em> </p>
 
-				<p><strong>4. Yellow Pages</strong> is becoming a redundant waste of paper as more and more people seek products and services online. </p>
+				<p><strong>4. Yellow Pages</strong> offers only flat rate and print advertising. </p>
 
 				<p><strong>5. Yelp</strong> charge per impression which is un-transparent and work out to a $150 &#8211; $200 CPM. This is around 10 times the industry average CPM rate. They don&#8217;t even show you conversion rates from impressions to clicks! They also require a 6 month commitment. <a href="http://www.raymondfong.net/misc/a-candid-yelp-advertising-review-is-yelp-ripping-people-off/"  onclick="javascript:_gaq.push(['_trackPageview','/yoast-ga/14971/2/outbound-article/']);">http://www.raymondfong.net/misc/a-candid-yelp-advertising-review-is-yelp-ripping-people-off/</a> <em>The GP difference: On Green Pages, we provide click guarantees and show your clicks and impressions transparently on your member profile. There is no time commitment and you can cancel any time. We work hard to make sure are advertising rates are less that the industry standard.</em></p>
 
-				<p><strong>6. Green Pages</strong> offers the maximum cost per click you&#8217;ll receive is $3.90 but we aim to keep it around $2.00 per click. </p>
+				<p><strong>6. Green Pages</strong> offers an affordable flat rate per click at $1.70 - $1.90 </p>
 
 				<p><strong>7. Green Pages</strong> uses trackable links which mean our links to your site will help your SEO. <em>The GP difference: Most other sites prevent trackable outbound links. On Green Pages, we do allow links to be trackable by Google, that means your link on Green Pages will help your site&#8217;s SEO, meaning it will help you get higher up on Google&#8217;s search results. </em> </p>
 
@@ -303,7 +303,7 @@ $site_url = get_site_url();
 
 				<p><strong>9. Your money</strong> supports our unique content model of distributing material direct from NGO&#8217;s to a wider audience. Many NGOs rely on Green Pages is their greatest means of letting people know about the important problems they are solving. <em>The GP difference: Your money is going to support Green Pages, an independent technology company that provides the world&#8217;s only aggregate of all NGO news. We bring together the news, campaigns and projects that are saving the planet and put them in touch with thousands of people every day. The more advertisers we have, the better equipped we are to improve and built this service. </em> </p>
 
-				<p><strong>10. Greenpag.es</strong> has a loyal following of over 20,000 members and between 1,000 and 5,000 visitors reading it every day. Green Pages is well known in the environmental community as a place to find environmental products and services across 400 industry sectors. <em>The GP difference: Your advertising hits the spot. The Green Pages readership is the core of the professional environmental community. There is no other membership and mailing available that has such direct access to green professionals.</em></p>
+				<p><strong>10. Greenpag.es</strong> has a loyal following of over 20,000 members and between 1,000 and 5,000 visitors reading every day. Green Pages is well known in the environmental community as a place to find environmental products and services across 400 industry sectors. <em>The GP difference: Your advertising hits the spot. The Green Pages readership is the core of the professional environmental community. There is no other membership and mailing available that has such direct access to green, environment and sustainability professionals.</em></p>
 
 			</div>
 

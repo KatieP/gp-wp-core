@@ -94,7 +94,7 @@ $site_url = get_site_url();
     </div>
     <div class="icon-container-row">
         <div class="icon-body-text">
-            Want to promote your business? <a href="<?php echo $site_url; ?>/about/rate-card/">Post an ad</a>.
+            Want to promote your business? <a href="<?php echo $site_url; ?>/advertisers/">Post an ad</a>.
         </div>      
     </div>
 </div>
