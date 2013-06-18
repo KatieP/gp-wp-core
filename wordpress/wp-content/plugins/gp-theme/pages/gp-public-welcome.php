@@ -35,7 +35,7 @@ $site_url = get_site_url();
     </div>
     <div class="icon-container-row">
         <div class="icon-body-text">
-            Already a member? <a href="">Log in</a>.
+            Already a member? <a href="<?php echo $site_url;?>/wp-login">Log in</a>
         </div>
     </div>
     <?php } ?>
