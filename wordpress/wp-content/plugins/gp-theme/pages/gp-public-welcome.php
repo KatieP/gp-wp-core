@@ -20,7 +20,7 @@ $site_url = get_site_url();
         	<iframe src="http://player.vimeo.com/video/65615184?byline=0&amp;portrait=0" width="522" height="292" frameborder="0"></iframe>
         </div>
         <div id="post-product-button-bar">
-            <a href="<?php echo $site_url; ?>/forms/member-registration-form/" target="_blank">
+            <a href="<?php echo $site_url; ?>/forms/member-registration-form/">
                 <span id="product-button">Join!</span>
             </a>
         </div> 
