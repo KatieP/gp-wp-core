@@ -289,7 +289,7 @@ $site_url = get_site_url();
 			
 				<p><strong>2. Facebook</strong> requires a minimum spend of $10 / day which amounts to about $300 / month which is quite steep for most small 			businesses. They require about a $2 &#8211; $3 per click spend. <em>The GP difference: On Green Pages, your minimum spend is $12 per week (1 tenth of Facebook!). Clicks on Green Pages work out on average, at lower cost than on Facebook.</em> </p>
 			
-				<p><strong>3. Newspaper sites such as Sydney Morning Herald</strong> charge $70 CPM for display ads, which have an ever increasingly low click through rate. Click through rates are on average 0.05% <em>The GP difference: Greenpag.es only offers editorial advertisements which have 10% - 20% click through rate. .</em> </p>
+				<p><strong>3. Newspaper sites such as Sydney Morning Herald</strong> charge $70 CPM for display ads, which have an ever increasingly low click through rate. Click through rates are on average 0.05% <em>The GP difference: Greenpag.es only offers editorial advertisements which have 10% - 20% click through rate.</em> </p>
 
 				<p><strong>4. Yellow Pages</strong> offers only flat rate and print advertising. </p>
 
