@@ -1,20 +1,22 @@
 <?php 
-$site_url = get_site_url(); 
+$site_url = get_site_url();
+$template_url = get_bloginfo('template_url');
 ?>
 
-<img src="<?php echo $site_url; ?>/wp-content/themes/gp-au-theme/template/images/who-is-changing-the-world-greenpages.jpg" 
-     alt="Who is changing the world in your city?" title="Who is changing the world in your city?" />
+	<img src="<?php echo $template_url; ?>/template/images/about/who-is-changing-the-world-greenpages.jpg" 
+    	 alt="Who is changing the world in your city?" title="Who is changing the world in your city?" />
 
     <div class="images-left">
         <p>We help environmental issues snowball by helping people connect with their local environmental and 
         social change movements. Greenpag.es is a community platform that you can use to be invited to join 
         projects, read news and come to events that are happening in your local area. If you're starting something 
         up or need some support, you can post your project or event on greenpag.es to shout out to other members.</p>
+        
+        <h2 class="big-heading">"Never think that a small group can't change the world.<br />In fact, it is the only thing that ever has."</h2>
         <div>
             <img class="alignleft size-large wp-image-44980" title="about-us-communty" alt="" 
-                 src="http://www.greenpag.es/wp-content/uploads/2011/02/about-us-communty-470x312.jpg" />
+                 src="<?php echo $template_url; ?>/template/images/about/about-us-communty.jpg" />
         </div>
-        <p><em>"Never think that a small group can't change the world. In fact, it is the only thing that ever has".</em></p>
         <p>All around the world, people are creating millions of projects, campaigns and events that are devoted to 
         fixing the world. There are also millions of people who genuinely want to help. So we built a platform here at 
         <a href="http://www.greenpag.es" target="_blank">greenpag.es</a> to help people promote or to join environmental 
@@ -22,40 +24,40 @@ $site_url = get_site_url();
         'What a great idea - we should do that'. The magic is sparked and a movement is born. Each successful movement 
         snowballs until it reaches a critical tipping point; <em>'The moment of critical mass, the threshold, the boiling 
         point'</em> when real change occurs. Greenpag.es helps millions of environmental issues reach critical mass by 
-        inviting people to get involved who live in a similar region and have similar interests, to set that magic snowball 
-        of social change in motion.</p>
+        inviting local people to get involved, to set that magic snowball of social change in motion.</p>
+        <div class="clear"></div>
 
-        <h2>Green Pages lets the primary sources (experts only!) tell the story</h2>
+        <h2 class="big-heading">Green Pages lets the primary sources<br />(experts only!) tell the story</h2>
         <div>
            <img class="alignleft size-large wp-image-44981" title="jane goodall-light" alt="" 
-                src="http://www.greenpag.es/wp-content/uploads/2011/02/jane-goodall-light-470x322.jpg" />
+                src="<?php echo $template_url; ?>/template/images/about/jane-goodall-light.jpg" />
         </div>
         <p>We noticed some time ago that not-for-profit groups produce very interesting, accurate and thorough media 
         releases. It was the 'real news' before it reached any journalist or individual. We also noticed that in many cases, 
-        mainstream green media coverage wasn't too crash hot.</p>
-        <p>There's an exciting movement happening on the internet right now. It's a model of 'expert-generated' content.
+        mainstream green media coverage wasn't too crash hot. There's an exciting movement happening on the internet right now. It's a model of 'expert-generated' content.
         A brilliant example of this new emerging model is TED.com which provides a venue, HD cameras and a designated 
         style from which experts tell their own stories direct to the audience. TED doesn't hire journalists to do the 
         job. Greenpag.es has created a similar online environment for legitimate primary sources (the experts) to 
-        contribute their news updates, reports and campaign media releases to the 'news' section of greenpag.es, creating 
+        contribute their news updates, reports and campaign media releases to our 'news' section, creating 
         an extremely high quality flow of information that comes direct from the world's environmental experts.</p>
-
+        <div class="clear"></div>
+        
+        <h2 class="big-heading">Green Pages is an environmental<br />professional's best friend</h2>
         <div>
-            <h2>Green Pages is an environmental professional's best friend</h2>
-            <div>
-                <img class="alignleft size-large wp-image-44993" title="indian-teacher-green" alt="" 
-                     src="http://www.greenpag.es/wp-content/uploads/2011/02/indian-teacher-green-470x315.jpg" />
-            </div> 
-            <p>Sustainability is the world's most exciting profession. Who else gets to save the world for a living? 
-            Most environmental professionals such as corporate sustainability managers, environmental engineers, campaigners 
-            and social change entrepreneurs check greenpag.es everyday to keep on the pulse of the environmental movement.
-            Green Pages caters for the heart of the environmental profession.</p>
-        </div>
-          
-        <h2>Green Pages promotes green purchasing as a powerful tool for change</h2>
+            <img class="alignleft size-large wp-image-44993" title="indian-teacher-green" alt="" 
+                 src="<?php echo $template_url; ?>/template/images/about/indian-lady.png" />
+        </div> 
+        <p>Sustainability is the world's most exciting profession. Who else gets to save the world for a living? 
+        Most environmental professionals such as corporate sustainability managers, environmental engineers, campaigners 
+        and social change entrepreneurs check greenpag.es everyday to keep on the pulse of the environmental movement.
+        Green Pages caters for the heart of the environmental profession by provide a source of information for the 
+        latest campaigns, conferences and current affairs around sustainability.</p>
+        <div class="clear"></div>
+        
+        <h2 class="big-heading">Green Pages promotes green purchasing <br />as a powerful tool for change</h2>  
         <div>
             <img class="alignleft size-large wp-image-45000" title="seedlings" alt="" 
-                 src="http://www.greenpag.es/wp-content/uploads/2011/02/seedlings-470x312.jpg" />
+                 src="<?php echo $template_url; ?>/template/images/about/seedlings.jpg" />
         </div>
         <p>Green Pages is funded by advertising (from green products only) - but wait! It's not so bad. We believe that 
         individual people can stop environmental atrocities by changing their purchasing patterns. The more people choose 
@@ -63,17 +65,23 @@ $site_url = get_site_url();
         The businesses that promote their sustainable products on greenpag.es are the kind of products that will help us 
         save the world. As consumers, we have enormous power to help many green practices to grow from a niche to an everyday 
         norm. Because big business lobbies government, each purchase can also be viewed as a political act.</p>
-
-        <h1>Values</h1>
+        <div class="clear"></div>
+        
+        <h2 class="big-heading">Our Values</h2>
         <p>Our values at the core of what we do:</p>
         <p>Appreciating and compassion for nature</p>
         <p>The joy of community cooperation</p>
         <p>Building culture of generosity and world-improvement</p>
         <p>Joy of learning about the science of nature</p>
         <p>Pursuing the higher calling that comes with giving back to the world</p>
+        <div class="clear"></div>
 
-        <h1>The Founders</h1>
+ 		<h2 class="big-heading">The Founders</h2>
         <h3>Katie Patrick <em>Founder &amp; CEO</em></h3>
+        <div>
+            <img class="space-underneath" title="katie patrick" alt="katie patrick"  
+                 src="http://www.greenpag.es/wp-content/uploads/2011/02/Katie_Outdoors_05.470.jpg" />
+        </div>
         <p>Katie is one of Australia's most prominent entrepreneurs and environmental spokes women. She holds a bachelor 
         of Environmental and Civil Engineering from Royal Melbourne Institute of Technology and began her career as an 
         environmental project manager for commercial and residential construction projects at APP and a sustainable design 
@@ -83,24 +91,22 @@ $site_url = get_site_url();
         having completed hikes in Tasmania, the Himalayas, New Zealand and Canada. Katie recently completed a 3 year tenure 
         as a Director of eco labelling organisation, Good Environmental Choice. 
         <a href="http://www.katiepatrick.com" target="_blank">www.katiepatrick.com</a></p>
-        
+        <div class="clear"></div>
+
+        <h3>Jesse Browne <em>Founder &amp; CTO</em></h3>
         <div>
-            <img class="alignleft size-full wp-image-1496" title="katie patrick" alt="katie patrick" 
-            src="http://www.greenpag.es/wp-content/uploads/2011/02/Katie_Outdoors_05.470.jpg" />
-        </div>
-        <h3>Jesse Browne <em>Founder &amp; Chief Technology Officer</em></h3>
+            <img class="alignleft size-large wp-image-45022" title="jb-light4" alt="" 
+                 src="http://www.greenpag.es/wp-content/uploads/2011/02/jb-light4-470x331.jpg" />
+        </div>        
         <p>Jesse holds a bachelor of Computer Science from the Royal Melbourne Institute of Technology and is an experienced 
         and qualified wilderness guide, mountain bike guide, canyon guide and rope rescue instructor. He is a passionate 
         outdoors enthusiast and believes strongly in the preservation of wilderness through national parks and that taking 
         people into wilderness can inspire their inner environmental activist. He has worked as a journalist for a range of 
         magazines starting with PC User at the age of twelve. Jesse has also campaigned for the creation and preservation of 
         several national parks throughout Australia.</p>
-        <div>
-            <img class="alignleft size-large wp-image-45022" title="jb-light4" alt="" 
-                 src="http://www.greenpag.es/wp-content/uploads/2011/02/jb-light4-470x331.jpg" />
-        </div>
-
-        <h2>Press Coverage</h2>
+        <div class="clear"></div>
+        
+        <h2 class="big-heading">Press Coverage</h2>
         <p><a href="http://www.brr.com.au/event/66197/katie-patrick-founder-of-green-pages" target="_blank">
             Orion's Innovative Women, Board Room Radio 3rd June 2010
         </a></p>
@@ -160,7 +166,8 @@ $site_url = get_site_url();
         </a></p>
         <p>See more at <a href="http://www.katiepatrick.com/press.html" target="_blank">www.katiepatrick.com/press</a></p>
 
-        <h3><a>Where and how did the company start?</a></h3>
+        
+        <h2 class="big-heading">How did the company start?</h2>
         <p>Back in 2005 was a time before there were funky green magazines, eco blogs, triple bottom line corporate conferences,
         'sustainability managers' and progressive design agencies. The concept of 'green' was still synonymous with falafels and 
         messy hair.</p>
@@ -183,7 +190,7 @@ $site_url = get_site_url();
         created a new San Francisco based internet startup from which they released the new global community platform for environmental
         change at greenpag.es.</p>
         
-        <h3>Company Milestones</h3>
+        <h2 class="big-heading">Company Milestones</h2>
         <ul>
 	        <li>August 2005 - Katie developed the first green product database and gained first clients working out of share house in Redfern, Sydney.</li>
 	        <li>February 2006 - Set up office in Melbourne's Green Building at 60 Leicester Street Carlton and hired its first staff member.</li>

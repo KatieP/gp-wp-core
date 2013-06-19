@@ -40,7 +40,7 @@ $site_url = get_site_url();
     </div>
     <?php } ?>
     <div class="icon-container-row">
-        <h1 id="big-heading">Create a post on greenpag.es</h1>
+        <h1 class="big-heading">Create a post on greenpag.es</h1>
         <a href="<?php
                      # Direct user to appropriate form depending on logged in status and user role
                      if ( !is_user_logged_in() ) {
