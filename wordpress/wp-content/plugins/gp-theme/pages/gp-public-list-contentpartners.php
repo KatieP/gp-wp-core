@@ -9,10 +9,7 @@ if (!is_page()) {
 	return false;
 }
 
-
-
 // Match the first loop with the user's country
-
 
 // Get country code and content-partner details
 $query = "SELECT wp_users.ID 
@@ -45,7 +42,7 @@ if ($contributors) {
         	               <div class="clear"></div>';
         }
            
-        $cp_string .= '<a href="' . get_author_posts_url($thisuser->ID) . '" title="Posts by "' . esc_attr($thisuser->display_name) . '">' . 
+        $cp_string .= '<a href="' . get_author_posts_url($thisuser->ID) . '" title="Posts by ' . esc_attr($thisuser->display_name) . '">' . 
                            get_avatar( $thisuser->ID, '50', '', $thisuser->display_name ) . '<span>' . $thisuser->display_name . '</span>
                        </a>';
                        
