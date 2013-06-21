@@ -237,7 +237,7 @@ function gp_js_postGeoLoc_meta() {
     }
     
     echo '
-    <script src="https://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places" type="text/javascript"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places" type="text/javascript" async ></script>
     <script type="text/javascript">
     function doMap(geoLat, geoLng, source) {
         var initZoom = ' . $meta_initzoom . ';
