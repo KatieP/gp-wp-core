@@ -215,7 +215,7 @@ function gp_js_postGeoLoc_meta() {
     $meta_source = false;
     $meta_initzoom = 9;
 
-    $meta_postlat = ( !isset($custom["gp_google_geo_latitude"][0]) || empty($custom["gp_google_geo_latitude"][0]) ) ? false : $custom["gp_google_geo_latitude"][0];
+    $meta_postlat = ( !isset($custom["gp_google_geo_latitude"][0])  || empty($custom["gp_google_geo_latitude"][0]) )  ? false : $custom["gp_google_geo_latitude"][0];
     $meta_postlng = ( !isset($custom["gp_google_geo_longitude"][0]) || empty($custom["gp_google_geo_longitude"][0]) ) ? false : $custom["gp_google_geo_longitude"][0];
     $meta_source = ( $meta_postlat && $meta_postlng ) ? 'db' : false;
 
@@ -237,7 +237,7 @@ function gp_js_postGeoLoc_meta() {
     }
     
     echo '
-    <script src="https://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places" type="text/javascript"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places" type="text/javascript" async></script>
     <script type="text/javascript">
     function doMap(geoLat, geoLng, source) {
         var initZoom = ' . $meta_initzoom . ';
