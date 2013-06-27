@@ -148,4 +148,11 @@ function gp_shortcode_redirect_to_profile_page( $atts ) {
 	require_once( GP_PLUGIN_DIR . '/pages/gp-redirect-to-profile-page.php' );
 }
 add_shortcode( 'gp-redirect-to-profile-page', 'gp_shortcode_redirect_to_profile_page' );
+
+function gp_shortcode_chargify_handler( $atts ) {
+	require_once( GP_PLUGIN_DIR . '/pages/gp-chargify-handler.php' );
+}
+add_shortcode( 'gp-chargify-handler', 'gp_shortcode_chargify_handler' );
+
+
 ?>
