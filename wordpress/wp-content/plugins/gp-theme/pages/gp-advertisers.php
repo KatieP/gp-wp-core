@@ -124,19 +124,19 @@ $site_url = get_site_url();
 			$user_details = '?email='. $user_email .'&reference='. $user_ID;		
 			?>
 			<div id="show_12_plan" class="hidden">
-        		<iframe src="https://green-pages.chargify.com/h/3313295/subscriptions/new<?php echo $user_details; ?>" width="710" height="2100" scrolling="no"></iframe>
+        		<iframe src="https://green-pages.chargify.com/h/3313295/subscriptions/new<?php echo $user_details; ?>" class="chargify-frame" scrolling="no"></iframe>
 			</div>			
 			<div id="show_39_plan" class="hidden">		
-				<iframe src="https://green-pages.chargify.com/h/27029/subscriptions/new<?php echo $user_details; ?>" width="710" height="2100" scrolling="no"></iframe>
+				<iframe src="https://green-pages.chargify.com/h/27029/subscriptions/new<?php echo $user_details; ?>" class="chargify-frame" scrolling="no"></iframe>
 			</div>
 			<div id="show_99_plan" class="hidden">		
-				<iframe src="https://green-pages.chargify.com/h/27028/subscriptions/new<?php echo $user_details; ?>" width="710" height="2100" scrolling="no"></iframe>
+				<iframe src="https://green-pages.chargify.com/h/27028/subscriptions/new<?php echo $user_details; ?>" class="chargify-frame" scrolling="no"></iframe>
 			</div>		
 			<div id="show_249_plan" class="hidden">
-				<iframe src="https://green-pages.chargify.com/h/3313296/subscriptions/new<?php echo $user_details; ?>" width="710" height="2100" scrolling="no"></iframe>
+				<iframe src="https://green-pages.chargify.com/h/3313296/subscriptions/new<?php echo $user_details; ?>" class="chargify-frame" scrolling="no"></iframe>
 			</div>		
 			<div id="show_499_plan" class="hidden">		
-				<iframe src="https://green-pages.chargify.com/h/3313297/subscriptions/new<?php echo $user_details; ?>" width="710" height="2100" scrolling="no"></iframe>
+				<iframe src="https://green-pages.chargify.com/h/3313297/subscriptions/new<?php echo $user_details; ?>" class="chargify-frame" scrolling="no"></iframe>
 			</div>	
 		    <?php
 		}
