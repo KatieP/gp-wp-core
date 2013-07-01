@@ -30,7 +30,7 @@ if (!empty($product_handle_value)) { update_user_meta($user_id, $product_id_key,
 
 // signup_revenue signup_revenue={signup_revenue}&
 $signup_revenue_key   = 'signup_revenue';
-$signup_revenue_value = ( !empty($_GET[$signup_revenue_key]) ) ? $_GET[$signup_revenue_key]] : '';
+$signup_revenue_value = ( !empty($_GET[$signup_revenue_key]) ) ? $_GET[$signup_revenue_key] : '';
 if (!empty($signup_revenue_value)) { update_user_meta($user_id, $signup_revenue_key, $signup_revenue_value ); }
 
 // signup_payment_id signup_payment_id={signup_payment_id}
