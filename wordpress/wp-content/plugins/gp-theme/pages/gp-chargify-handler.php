@@ -58,7 +58,6 @@ if ( is_user_logged_in() ) {
     $budget_status_value     = 'active';
     update_user_meta($user_id, $budget_status_key, $budget_status_value);
     
-    
     ?>
     
     <h1 name="heading">Excellent! Now you'll need to create your first post!</h1>
@@ -66,6 +65,6 @@ if ( is_user_logged_in() ) {
     
     <p>Your first two posts will be approved by a GP team member within 24 hours of posting. After that, you can create new product posts as often as you like! They will show on the site until your budget has been used.</p>
 
-<?php 
+    <?php 
 }
 ?>

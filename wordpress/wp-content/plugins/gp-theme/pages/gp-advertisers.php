@@ -24,6 +24,7 @@ $site_url = get_site_url();
     <script type="text/javascript">
 
     	function show_12_plan() {
+    		document.getElementById("ad-table").className = "hidden";
       		document.getElementById("ad-info").className = "hidden";
     	    document.getElementById("ad-booking-info").className = "";
         	document.getElementById("show_12_plan").className = "";
@@ -34,6 +35,7 @@ $site_url = get_site_url();
     	}
     	
     	function show_39_plan() {
+    		document.getElementById("ad-table").className = "hidden";
         	document.getElementById("ad-info").className = "hidden";
        		document.getElementById("ad-booking-info").className = "";
        		document.getElementById("show_12_plan").className = "hidden";
@@ -44,6 +46,7 @@ $site_url = get_site_url();
     	}
     	
     	function show_99_plan() {
+    		document.getElementById("ad-table").className = "hidden";
         	document.getElementById("ad-info").className = "hidden";
         	document.getElementById("ad-booking-info").className = "";
         	document.getElementById("show_12_plan").className = "hidden";
@@ -54,16 +57,18 @@ $site_url = get_site_url();
     	}
     	
     	function show_249_plan() {
+    		document.getElementById("ad-table").className = "hidden";
     	    document.getElementById("ad-info").className = "hidden";
     	    document.getElementById("ad-booking-info").className = "";
         	document.getElementById("show_12_plan").className = "hidden";
         	document.getElementById("show_39_plan").className = "hidden";
         	document.getElementById("show_99_plan").className = "hidden";
         	document.getElementById("show_249_plan").className = "";
-        	document.getElementById("show_499_plan").className = "hidden";	
+        	document.getElementById("show_499_plan").className = "hidden";
     	}
     	
     	function show_499_plan() {
+    		document.getElementById("ad-table").className = "hidden";
     	    document.getElementById("ad-info").className = "hidden";
     	    document.getElementById("ad-booking-info").className = "";
         	document.getElementById("show_12_plan").className = "hidden";
@@ -75,6 +80,7 @@ $site_url = get_site_url();
 
 
     	function hide_ad_payment_form() {
+      		document.getElementById("ad-table").className = "author_analytics";
     		document.getElementById("ad-info").className = "";
       		document.getElementById("ad-booking-info").className = "hidden";
    		}
@@ -86,7 +92,7 @@ $site_url = get_site_url();
 	<br /><br /><br />
 	
 	<h1><strong>Hi <?php echo $name; ?>! Choose an advertiser plan</strong></h1>
-	<div class="author_analytics">
+	<div class="author_analytics" id="ad-table">
 		<table>
 			<tr> 
 				<td><a href="#" id="3313295" onClick="show_12_plan();"><div class="advertiser_option_box">&nbsp;$12&nbsp;</div><span class="grey-text">weekly max spend</span></a></td>
@@ -112,7 +118,8 @@ $site_url = get_site_url();
 <!--//BILLING FORMS--//-->
 
     <div id="ad-booking-info" class="hidden">
-    
+    	<input type="button" value="<-- Back" onclick="hide_ad_payment_form(); return false;" />
+    	<div class="clear"></div>
         <?php 
 		if ( !is_user_logged_in() ) {
 			$site_url = get_site_url();
