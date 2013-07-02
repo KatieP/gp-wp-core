@@ -4,16 +4,7 @@
 //2. Explains to client how advertising works
 //3. Inlcudes gravity form for advertiser to create their first post
 
-if ( is_user_logged_in() ) {
-
-    ?>
-    <script type="text/javascript" async>
-    	window.onload= function() {
-        	document.getElementById("header").style.display = "none";
-        	document.getElementById("footer").style.display = "none";
-    	};
-    </script>
-    <?php         		
+if ( is_user_logged_in() ) {        		
     
     global $current_user;
     $user_id = $current_user->ID;

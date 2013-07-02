@@ -118,8 +118,6 @@ $site_url = get_site_url();
 <!--//BILLING FORMS--//-->
 
     <div id="ad-booking-info" class="hidden">
-    	<input type="button" value="<-- Back" onclick="hide_ad_payment_form(); return false;" />
-    	<div class="clear"></div>
         <?php 
 		if ( !is_user_logged_in() ) {
 			$site_url = get_site_url();
@@ -131,24 +129,76 @@ $site_url = get_site_url();
 			$user_details = '?email='. $user_email .'&reference='. $user_ID;		
 			?>
 			<div id="show_12_plan" class="hidden">
-        		<iframe src="https://green-pages.chargify.com/h/3313295/subscriptions/new<?php echo $user_details; ?>" class="chargify-frame" scrolling="no"></iframe>
+				<div id="my-advertise">
+				    <div id="advertorial">
+				    	<span>
+				    	    <a href="https://green-pages.chargify.com/h/3313295/subscriptions/new<?php echo $user_details; ?>">
+				    	        <input type="button" value="Sign up max $12/week">
+				    	    </a>
+				    	</span>
+						<div class="clear"></div>	
+				    </div>
+				</div>
 			</div>			
 			<div id="show_39_plan" class="hidden">		
-				<iframe src="https://green-pages.chargify.com/h/27029/subscriptions/new<?php echo $user_details; ?>" class="chargify-frame" scrolling="no"></iframe>
+				<div id="my-advertise">
+				    <div id="email">
+				    	<span>
+				    	    <a href="https://green-pages.chargify.com/h/3313295/subscriptions/new<?php echo $user_details; ?>">
+				    	        <input type="button" value="Sign up max $39/week">
+				    	    </a>
+				    	</span>
+						<div class="clear"></div>	
+				    </div>
+				</div>
 			</div>
-			<div id="show_99_plan" class="hidden">		
-				<iframe src="https://green-pages.chargify.com/h/27028/subscriptions/new<?php echo $user_details; ?>" class="chargify-frame" scrolling="no"></iframe>
+			<div id="show_99_plan" class="hidden">	
+				<div id="my-advertise">
+				    <div id="competition">
+				    	<span>
+				    	    <a href="https://green-pages.chargify.com/h/27028/subscriptions/new<?php echo $user_details; ?>">
+				    	        <input type="button" value="Sign up max $99/week">
+				    	    </a>
+				    	</span>
+						<div class="clear"></div>	
+				    </div>
+				</div>	
 			</div>		
 			<div id="show_249_plan" class="hidden">
-				<iframe src="https://green-pages.chargify.com/h/3313296/subscriptions/new<?php echo $user_details; ?>" class="chargify-frame" scrolling="no"></iframe>
+				<div id="my-advertise">
+				    <div id="listing">
+				    	<span>
+				    	    <a href="https://green-pages.chargify.com/h/3313296/subscriptions/new<?php echo $user_details; ?>">
+				    	        <input type="button" value="Sign up max $249/week">
+				    	    </a>
+				    	</span>
+						<div class="clear"></div>	
+				    </div>
+				</div>
 			</div>		
-			<div id="show_499_plan" class="hidden">		
-				<iframe src="https://green-pages.chargify.com/h/3313297/subscriptions/new<?php echo $user_details; ?>" class="chargify-frame" scrolling="no"></iframe>
+			<div id="show_499_plan" class="hidden">	
+				<div id="my-advertise">
+				    <div id="volunteer">
+				    	<span>
+				    	    <a href="https://green-pages.chargify.com/h/3313297/subscriptions/new<?php echo $user_details; ?>">
+				    	        <input type="button" value="Sign up max $449/week">
+				    	    </a>
+				    	</span>
+						<div class="clear"></div>	
+				    </div>
+				</div>
 			</div>	
 		    <?php
 		}
 		?>
-
+		<div id="my-advertise">
+		    <div id="grey">
+		   	    <span>
+    				<input type="button" value="<-- Back" onclick="hide_ad_payment_form(); return false;" />
+    			</span>
+    		</div>
+    	</div>	
+    	<div class="clear"></div>
     </div>
 	<!--//INITIAL PAGE INFORMATION--//-->
 	
