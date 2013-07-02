@@ -144,7 +144,7 @@ $site_url = get_site_url();
 				<div id="my-advertise">
 				    <div id="email">
 				    	<span>
-				    	    <a href="https://green-pages.chargify.com/h/3313295/subscriptions/new<?php echo $user_details; ?>">
+				    	    <a href="https://green-pages.chargify.com/h/27029/subscriptions/new<?php echo $user_details; ?>">
 				    	        <input type="button" value="Sign up max $39/week">
 				    	    </a>
 				    	</span>
