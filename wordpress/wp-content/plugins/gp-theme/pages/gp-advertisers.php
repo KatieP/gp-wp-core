@@ -95,11 +95,11 @@ $site_url = get_site_url();
 	<div class="author_analytics" id="ad-table">
 		<table>
 			<tr> 
-				<td><a href="#" id="3313295" onClick="show_12_plan();"><div class="advertiser_option_box">&nbsp;$12&nbsp;</div><span class="grey-text">weekly max spend</span></a></td>
-				<td><a href="#" id="27029" onClick="show_39_plan();"><div class="advertiser_option_box">&nbsp;$39&nbsp;</div><span class="grey-text">weekly max spend</span></a></td>
-				<td><a href="#" id="27028" onClick="show_99_plan();"><div class="advertiser_option_box">&nbsp;$99&nbsp;</div><span class="grey-text">weekly max spend</span></a></td>
-				<td><a href="#" id="3313296" onClick="show_249_plan();"><div class="advertiser_option_box">$249</div><span class="grey-text">weekly max spend</span></a></td>
-				<td><a href="#" id="3313297" onClick="show_499_plan();"><div class="advertiser_option_box">$499</div><span class="grey-text">weekly max spend</span></a></td>
+				<td><a href="javascript:void(0);" id="3313295" onClick="show_12_plan();"><div  class="advertiser_option_box">&nbsp;$12&nbsp;</div><span class="grey-text">weekly max spend</span></a></td>
+				<td><a href="javascript:void(0);" id="27029"   onClick="show_39_plan();"><div  class="advertiser_option_box">&nbsp;$39&nbsp;</div><span class="grey-text">weekly max spend</span></a></td>
+				<td><a href="javascript:void(0);" id="27028"   onClick="show_99_plan();"><div  class="advertiser_option_box">&nbsp;$99&nbsp;</div><span class="grey-text">weekly max spend</span></a></td>
+				<td><a href="javascript:void(0);" id="3313296" onClick="show_249_plan();"><div class="advertiser_option_box">$249</div><span class="grey-text">weekly max spend</span></a></td>
+				<td><a href="javascript:void(0);" id="3313297" onClick="show_499_plan();"><div class="advertiser_option_box">$499</div><span class="grey-text">weekly max spend</span></a></td>
 			</tr>
 	
 			<tr> 
