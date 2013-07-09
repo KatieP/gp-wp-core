@@ -44,6 +44,11 @@ if ( is_user_logged_in() ) {
     $adv_signup_time_value   = time();
     if (!empty($adv_signup_time_value)) { update_user_meta($user_id, $adv_signup_time_key, $signup_payment_id_value ); }
     
+    // Set regular advertiser status to active
+    $reg_advertiser_key       = 'reg_advertiser';
+    $reg_advertiser_value     = '1';
+    update_user_meta($user_id, $reg_advertiser_key, $reg_advertiser_value);
+    
     // Set ad serving status to active
     $budget_status_key       = 'budget_status';
     $budget_status_value     = 'active';
