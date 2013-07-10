@@ -22,4 +22,9 @@ if ($_POST['upgrade']) {
     echo 'Upgrading to '. $_POST['upgrade'];
 }
 
+if ($_POST['downgrade']) {
+    echo 'Downgrading to '. $_POST['downgrade'];
+}
+
+
 ?>
