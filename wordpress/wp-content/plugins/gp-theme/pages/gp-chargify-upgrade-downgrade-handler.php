@@ -12,19 +12,21 @@
  *           jb@greenpag.es
  *           
  **/
-
-global $current_user;
-$user_id = $current_user->ID;
-
-echo '<p>Hello World</p>.';
-
-if ($_POST['upgrade']) {
-    echo 'Upgrading to '. $_POST['upgrade'];
+if ( is_user_logged_in() ) {
+    global $current_user;
+    $user_id =   $current_user->ID;
+    $site_url =  get_site_url();
+    
+    echo '<p>Hello World.</p>';
+    
+    if ($_POST['upgrade']) {
+        echo 'Upgrading to plan with product_id '. $_POST['upgrade'];
+    }
+    
+    if ($_POST['downgrade']) {
+        echo 'Upgrading to plan with product_id '. $_POST['downgrade'];
+    }
+} else {
+    ?><p>Not sure how you got here without being logged in, head back to the <a href="<?php echo $site_url; ?>">home page</a>, there's nothing to see here.</p><?php
 }
-
-if ($_POST['downgrade']) {
-    echo 'Downgrading to '. $_POST['downgrade'];
-}
-
-
 ?>
