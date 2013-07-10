@@ -154,5 +154,8 @@ function gp_shortcode_chargify_handler( $atts ) {
 }
 add_shortcode( 'gp-chargify-handler', 'gp_shortcode_chargify_handler' );
 
-
+function gp_shortcode_chargify_upgrade_downgrade_handler( $atts ) {
+	require_once( GP_PLUGIN_DIR . '/pages/gp-chargify-upgrade-downgrade-handler.php' );
+}
+add_shortcode( 'gp-chargify-upgrade-downgrade-handler', 'gp_shortcode_chargify_upgrade_downgrade_handler' );
 ?>
