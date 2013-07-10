@@ -18,5 +18,8 @@ $user_id = $current_user->ID;
 
 echo '<p>Hello World</p>.';
 
+if ($_POST['upgrade']) {
+    echo 'Upgrading to '. $_POST['upgrade'];
+}
 
 ?>
