@@ -70,13 +70,12 @@ if ( is_user_logged_in() ) {
 
             update_user_meta( $user_id, $product_id_key, $product_id_value );
             
-            $product_handle_key   = 'product_handle';
+            $product_handle_key   =    'product_handle';
             update_user_meta( $user_id, $product_handle_key, $result->subscription->product->handle );
             
             $adv_signup_time_key     = 'adv_signup_time';
-            $adv_signup_time_value   = $result->subscription->current_period_started_at;
-            #update_user_meta($user_id, $adv_signup_time_key, $signup_payment_id_value );
-            var_dump($adv_signup_time_value);
+            $adv_signup_time_value   = strtotime($result->subscription->current_period_started_at);
+            update_user_meta($user_id, $adv_signup_time_key, $signup_payment_id_value );
             
             $budget_status_key       = 'budget_status';
             $budget_status_value     = 'active';
