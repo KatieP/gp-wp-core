@@ -70,6 +70,10 @@ if ( is_user_logged_in() ) {
 
             update_user_meta( $user_id, $product_id_key, $product_id_value );
             
+            $product_name_key   = 'product_name';
+            $product_name_value = $result->subscription->product->name;
+            update_user_meta($user_id, $product_name_key, $product_name_value );              
+            
             $product_handle_key      = 'product_handle';
             update_user_meta( $user_id, $product_handle_key, $result->subscription->product->handle );
             
@@ -81,7 +85,7 @@ if ( is_user_logged_in() ) {
             $budget_status_value     = 'active';
             update_user_meta($user_id, $budget_status_key, $budget_status_value);
 
-            ?><p>Your plan has been successfully adjusted to <?php echo $result->subscription->product->name; ?>, update is now complete.</p>
+            ?><p>Your plan has been successfully adjusted to <?php echo $product_name_value ?>, update is now complete.</p>
             <p>Thanks for using Green Pages!</p><?php 
         } else {
             ?><p>Uh oh, something whent wrong processing your adjustment!</p>
