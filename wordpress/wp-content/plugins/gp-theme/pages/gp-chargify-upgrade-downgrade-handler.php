@@ -12,21 +12,63 @@
  *           jb@greenpag.es
  *           
  **/
+
 if ( is_user_logged_in() ) {
+
     global $current_user;
     $user_id =   $current_user->ID;
     $site_url =  get_site_url();
-    
-    echo '<p>Hello World.</p>';
-    
-    if ($_POST['upgrade']) {
-        echo 'Upgrading to plan with product_id '. $_POST['upgrade'];
+
+    if ( ($_POST['upgrade']) || ($_POST['downgrade']) ) {
+
+        if ($_POST['upgrade']) {
+            echo 'Upgrading to plan with product_id '. $_POST['upgrade'];
+            $new_plan_product_id = $_POST['upgrade'];
+        }
+        
+        if ($_POST['downgrade']) {
+            echo 'Upgrading to plan with product_id '. $_POST['downgrade'];
+            $new_plan_product_id = $_POST['downgrade'];
+        }
+
+        $subscription_id =    $current_user->subscription_id;
+        $json =               '
+                              {
+                                  "migration":{
+                                      "product_id": '. $new_plan_product_id .'
+                                  }
+                              }
+                              ';
+        
+        $chargify_key =       '3FAaEvUO_ksasbblajon';
+        $chargify_auth =      $chargify_key .':x';
+        $chargify_auth_url =  'https://'. $chargify_auth .'green-pages.chargify.com/subscriptions/';
+
+    	$chargify_url = 'https://green-pages.chargify.com/subscriptions/' . $subscription_id .'/migrations.json';        
+
+        $ch = curl_init($chargify_auth_url);
+
+        $array = array();
+        array_push($array, 'Content-Type: application/json;', 'Accept: application/json;', 'charset=utf-8;');
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $array);
+        curl_setopt($ch, CURLOPT_URL, $chargify_url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FRESH_CONNECT, true);
+        curl_setopt($ch, CURLOPT_VERBOSE, true);
+        curl_setopt($ch, CURLOPT_USERPWD, $chargify_auth);
+
+        $result = curl_exec($ch);
+        echo $result;           
+
     }
-    
-    if ($_POST['downgrade']) {
-        echo 'Upgrading to plan with product_id '. $_POST['downgrade'];
-    }
+
 } else {
-    ?><p>Not sure how you got here without being logged in, head back to the <a href="<?php echo $site_url; ?>">home page</a>, there's nothing to see here.</p><?php
+    
+    ?><p>Not sure how you got here without being logged in, head back to the <a href="<?php echo $site_url; ?>">home page</a>, 
+    there's nothing to see here.</p><?php
+    
 }
 ?>
