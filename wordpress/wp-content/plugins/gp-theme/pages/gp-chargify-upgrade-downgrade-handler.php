@@ -21,14 +21,16 @@ if ( is_user_logged_in() ) {
 
     if ( ($_POST['upgrade']) || ($_POST['downgrade']) ) {
 
+        $product_id_key   = 'product_id';
+        
         if ($_POST['upgrade']) {
             echo 'Upgrading to plan with product_id '. $_POST['upgrade'];
-            $new_plan_product_id = $_POST['upgrade'];
+            $product_id_value = $_POST['upgrade'];
         }
         
         if ($_POST['downgrade']) {
             echo 'Upgrading to plan with product_id '. $_POST['downgrade'];
-            $new_plan_product_id = $_POST['downgrade'];
+            $product_id_value = $_POST['downgrade'];
         }
 
         $subscription_id =    $current_user->subscription_id;
@@ -61,8 +63,19 @@ if ( is_user_logged_in() ) {
         curl_setopt($ch, CURLOPT_USERPWD, $chargify_auth);
 
         $result = curl_exec($ch);
-        echo $result;           
 
+        echo '<br />';
+        var_dump($result);           
+        echo '<br />';
+        
+        $result_as_array = json_decode($result, true);
+
+        echo '<br />';
+        var_dump($result_as_array);           
+        echo '<br />';        
+        
+        update_user_meta( $user_id, $product_id_key, $product_id_value );        
+        
     }
 
 } else {
