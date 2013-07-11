@@ -27,13 +27,10 @@ if ( is_user_logged_in() ) {
         
         if ($_POST['upgrade']) {
             $product_id_value =  $_POST['upgrade'];
-            $success_message =   'Your plan has been successfully upgraded, update is now complete.';
         }
 
         if ($_POST['downgrade']) {
-            echo 'Downgrading to plan with product_id '. $_POST['downgrade'];
             $product_id_value =  $_POST['downgrade'];
-            $success_message =   'Your plan has been successfully downgraded, update is now complete.';
         }
 
         $subscription_id =    $current_user->subscription_id;
@@ -71,7 +68,7 @@ if ( is_user_logged_in() ) {
 
         if ($result->subscription->product->id) {
             update_user_meta( $user_id, $product_id_key, $product_id_value );
-            ?><p><?php echo $success_message; ?></p><?php 
+            ?><p>Your plan has been successfully adjusted, update is now complete.</p><?php 
         }
 
     }
