@@ -37,7 +37,7 @@ if ( is_user_logged_in() ) {
         $json =               '
                               {
                                   "migration":{
-                                      "product_id": '. $new_plan_product_id .'
+                                      "product_id": '. $product_id_value .'
                                   }
                               }
                               ';
