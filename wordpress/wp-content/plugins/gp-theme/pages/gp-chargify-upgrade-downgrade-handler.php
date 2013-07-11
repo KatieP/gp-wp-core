@@ -71,7 +71,7 @@ if ( is_user_logged_in() ) {
 
         if ($result->subscription->product->id) {
             update_user_meta( $user_id, $product_id_key, $product_id_value );
-            echo $success_message;
+            ?><p><?php echo $success_message; ?></p><?php 
         }
 
     }
