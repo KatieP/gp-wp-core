@@ -70,8 +70,8 @@ if ( is_user_logged_in() ) {
 
             update_user_meta( $user_id, $product_id_key, $product_id_value );
             
-            $product_name_key   = 'product_name';
-            $product_name_value = $result->subscription->product->name;
+            $product_name_key        = 'product_name';
+            $product_name_value      = $result->subscription->product->name;
             update_user_meta($user_id, $product_name_key, $product_name_value );              
             
             $product_handle_key      = 'product_handle';

@@ -1,8 +1,16 @@
 <?php
-//Payment confirmation and first post creation form
-//1. Inserts chargify object from signup into wp_usermeta
-//2. Explains to client how advertising works
-//3. Inlcudes gravity form for advertiser to create their first post
+/**
+ * Payment confirmation and first post creation form
+ * 
+ *  1. Inserts chargify data from signup into wp_usermeta
+ *  2. Explains to client how advertising works
+ *  3. Inlcudes gravity form for advertiser to create their first post
+ *  
+ *  Authors: Katie Patrick & Jesse Browne
+ *  		 kp@greenpag.es
+ *           jb@greenpag.es
+ *           
+ **/
 
 if ( is_user_logged_in() ) {        		
     
@@ -28,6 +36,11 @@ if ( is_user_logged_in() ) {
     $product_id_key   = 'product_id';
     $product_id_value = ( !empty($_GET[$product_id_key]) ) ? $_GET[$product_id_key] : '';
     if (!empty($product_handle_value)) { update_user_meta($user_id, $product_id_key, $product_id_value ); }
+    
+    // product_name product_name={product_name}&
+    $product_name_key   = 'product_name';
+    $product_name_value = ( !empty($_GET[$product_name_key]) ) ? $_GET[$product_name_value] : '';
+    if (!empty($product_name_value)) { update_user_meta($user_id, $product_name_key, $product_name_value ); }     
     
     // signup_revenue signup_revenue={signup_revenue}&
     $signup_revenue_key   = 'signup_revenue';
@@ -58,11 +71,17 @@ if ( is_user_logged_in() ) {
     
     <h1 name="heading">Excellent! Now you'll need to create your first post!</h1>
     <p>Your post will be shown around the site in the region that you set and remain in the products section of greepag.es. 
-    You will be billed for the clicks from this post to your website at a maximum spend of $product_handle_value</p>
+    You will be billed for the clicks from this post to your website at a maximum spend of <?php echo $product_handle_value; ?></p>
     
     <p>Your first two posts will be approved by a GP team member within 24 hours of posting. After that, you can create 
     new product posts as often as you like! They will show on the site until your budget has been used.</p>
 
     <?php 
+} else {
+    
+    ?><p>Not sure how you got here without being logged in. Head on back to the <a href="<?php echo $site_url; ?>">home page</a>, 
+    there's nothing to see here.</p><?php
+
 }
 ?>
+
