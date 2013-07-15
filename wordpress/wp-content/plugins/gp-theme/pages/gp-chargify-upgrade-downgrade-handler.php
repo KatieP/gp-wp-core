@@ -56,9 +56,11 @@ if ( is_user_logged_in() ) {
             $chargify_url = 'https://green-pages.chargify.com/subscriptions/' . $subscription_id .'/migrations.json';
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
             curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+            $budget_status_value = 'active';
         } else {
             $chargify_url = 'https://green-pages.chargify.com/subscriptions/' . $subscription_id .'.json';
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+            $budget_status_value = 'cancelled';
         }
         
         curl_setopt($ch, CURLOPT_HTTPHEADER, $array);
@@ -86,10 +88,16 @@ if ( is_user_logged_in() ) {
             update_user_meta($user_id, $adv_signup_time_key, $adv_signup_time_value );
             
             $budget_status_key       = 'budget_status';
-            $budget_status_value     = 'active';
             update_user_meta($user_id, $budget_status_key, $budget_status_value);
 
-            ?><p>Your plan has been successfully adjusted to <?php echo $product_name; ?>, update is now complete.</p>
+            if ($budget_status_value != 'cancelled') {
+                $success_message = 'Your subscription has been successfully adjusted to '. $product_name.', update is now complete.';
+            } else {
+                $success_message = 'Your '. $product_name.' has been successfully cancelled, update is now complete. You can reactivate from
+                                    your profile page at any time.';
+            }
+            
+            ?><p><?php echo $success_message; ?></p>
             <p>Thanks for using Green Pages!</p><?php 
         } else {
             ?><p>Uh oh, something whent wrong processing your adjustment!</p>
