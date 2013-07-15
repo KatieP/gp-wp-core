@@ -37,11 +37,6 @@ if ( is_user_logged_in() ) {
     $product_id_value = ( !empty($_GET[$product_id_key]) ) ? $_GET[$product_id_key] : '';
     if (!empty($product_id_value)) { update_user_meta($user_id, $product_id_key, $product_id_value ); }
     
-    // product_name product_name={product_name}&
-    $product_name_key   = 'product_name';
-    $product_name_value = ( !empty($_GET[$product_name_key]) ) ? $_GET[$product_name_value] : '';
-    if (!empty($product_name_value)) { update_user_meta($user_id, $product_name_key, $product_name_value ); }     
-    
     // signup_revenue signup_revenue={signup_revenue}&
     $signup_revenue_key   = 'signup_revenue';
     $signup_revenue_value = ( !empty($_GET[$signup_revenue_key]) ) ? $_GET[$signup_revenue_key] : '';
