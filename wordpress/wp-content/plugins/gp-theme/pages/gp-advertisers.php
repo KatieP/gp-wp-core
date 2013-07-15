@@ -11,13 +11,11 @@
 #8. Activate 'billing' section on 'advertisers' tab on user profile.
 #9. Show plan, rate and amount billed on advertiser/billing tab.
 
-
-#$author_name = get_usermeta->'name';
 global $current_user;
-$name = $current_user->display_name;
-$user_email = $current_user->user_email;
-$user_ID = $current_user->ID;
-		
+$name =              $current_user->display_name;
+$user_email =        $current_user->user_email;
+$user_ID =           $current_user->ID;
+$user_billing_url =  ($current_user->reg_advertiser == '1') ? get_author_posts_url($current_user->ID) . '#tab:billing' : '';
 $site_url = get_site_url();
 
 ?>
@@ -78,7 +76,6 @@ $site_url = get_site_url();
         	document.getElementById("show_499_plan").className = "";
     	}
 
-
     	function hide_ad_payment_form() {
       		document.getElementById("ad-table").className = "author_analytics";
     		document.getElementById("ad-info").className = "";
@@ -126,13 +123,20 @@ $site_url = get_site_url();
 			// Display fields billing details
 			// Todo: Add a paypal option
 			// Grab user email and id from $current_user so it can be added to billing form and sent to chargify
-			$user_details = '?email='. $user_email .'&reference='. $user_ID;		
+			
+			$user_details =    '?email='. $user_email .'&reference='. $user_ID;
+			$billing_url_12 =  ( !empty($user_billing_url) ) ? $user_billing_url : 'https://green-pages.chargify.com/h/3313295/subscriptions/new'. $user_details;
+			$billing_url_39 =  ( !empty($user_billing_url) ) ? $user_billing_url : 'https://green-pages.chargify.com/h/27029/subscriptions/new'. $user_details;
+			$billing_url_99 =  ( !empty($user_billing_url) ) ? $user_billing_url : 'https://green-pages.chargify.com/h/27028/subscriptions/new'. $user_details;
+			$billing_url_249 = ( !empty($user_billing_url) ) ? $user_billing_url : 'https://green-pages.chargify.com/h/3313296/subscriptions/new'. $user_details;
+			$billing_url_449 = ( !empty($user_billing_url) ) ? $user_billing_url : 'https://green-pages.chargify.com/h/3313297/subscriptions/new'. $user_details;
+			
 			?>
 			<div id="show_12_plan" class="hidden">
 				<div id="my-advertise">
 				    <div id="advertorial">
 				    	<span>
-				    	    <a href="https://green-pages.chargify.com/h/3313295/subscriptions/new<?php echo $user_details; ?>">
+				    	    <a href="<?php echo $billing_url_12; ?>">
 				    	        <input type="button" value="Sign up max $12/week">
 				    	    </a>
 				    	</span>
@@ -144,7 +148,7 @@ $site_url = get_site_url();
 				<div id="my-advertise">
 				    <div id="email">
 				    	<span>
-				    	    <a href="https://green-pages.chargify.com/h/27029/subscriptions/new<?php echo $user_details; ?>">
+				    	    <a href="<?php echo $billing_url_39; ?>">
 				    	        <input type="button" value="Sign up max $39/week">
 				    	    </a>
 				    	</span>
@@ -156,7 +160,7 @@ $site_url = get_site_url();
 				<div id="my-advertise">
 				    <div id="competition">
 				    	<span>
-				    	    <a href="https://green-pages.chargify.com/h/27028/subscriptions/new<?php echo $user_details; ?>">
+				    	    <a href="<?php echo $billing_url_99; ?>">
 				    	        <input type="button" value="Sign up max $99/week">
 				    	    </a>
 				    	</span>
@@ -168,7 +172,7 @@ $site_url = get_site_url();
 				<div id="my-advertise">
 				    <div id="listing">
 				    	<span>
-				    	    <a href="https://green-pages.chargify.com/h/3313296/subscriptions/new<?php echo $user_details; ?>">
+				    	    <a href="<?php echo $billing_url_249; ?>">
 				    	        <input type="button" value="Sign up max $249/week">
 				    	    </a>
 				    	</span>
@@ -180,7 +184,7 @@ $site_url = get_site_url();
 				<div id="my-advertise">
 				    <div id="volunteer">
 				    	<span>
-				    	    <a href="https://green-pages.chargify.com/h/3313297/subscriptions/new<?php echo $user_details; ?>">
+				    	    <a href="<?php echo $billing_url_449; ?>">
 				    	        <input type="button" value="Sign up max $449/week">
 				    	    </a>
 				    	</span>
