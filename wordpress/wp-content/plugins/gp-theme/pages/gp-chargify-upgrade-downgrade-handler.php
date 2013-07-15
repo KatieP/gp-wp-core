@@ -45,18 +45,24 @@ if ( is_user_logged_in() ) {
         $chargify_key =       '3FAaEvUO_ksasbblajon';
         $chargify_auth =      $chargify_key .':x';
         $chargify_auth_url =  'https://'. $chargify_auth .'green-pages.chargify.com/subscriptions/';
-
-        $chargify_url = 'https://green-pages.chargify.com/subscriptions/' . $subscription_id .'/migrations.json';
-
+        
         $ch = curl_init($chargify_auth_url);
 
         $array = array();
         array_push($array, 'Content-Type: application/json;', 'Accept: application/json;', 'charset=utf-8;');
-
+        
+        /* Update or cancel depending on users choice */
+        if ( $product_id_value != 'cancel' ) {
+            $chargify_url = 'https://green-pages.chargify.com/subscriptions/' . $subscription_id .'/migrations.json';
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+        } else {
+            $chargify_url = 'https://green-pages.chargify.com/subscriptions/' . $subscription_id .'.json';
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+        }
+        
         curl_setopt($ch, CURLOPT_HTTPHEADER, $array);
         curl_setopt($ch, CURLOPT_URL, $chargify_url);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_FRESH_CONNECT, true);
         curl_setopt($ch, CURLOPT_VERBOSE, true);
