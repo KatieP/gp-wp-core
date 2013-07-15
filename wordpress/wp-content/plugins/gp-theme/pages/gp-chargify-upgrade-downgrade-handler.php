@@ -75,8 +75,6 @@ if ( is_user_logged_in() ) {
         $result = json_decode($json_result);
 
         if ($result->subscription->product->id) {
-
-            update_user_meta( $user_id, $product_id_key, $product_id_value );
             
             $product_name            = $result->subscription->product->name;           
             
@@ -91,6 +89,7 @@ if ( is_user_logged_in() ) {
             update_user_meta($user_id, $budget_status_key, $budget_status_value);
 
             if ($budget_status_value != 'cancelled') {
+                update_user_meta( $user_id, $product_id_key, $product_id_value );
                 $success_message = 'Your subscription has been successfully adjusted to '. $product_name.', update is now complete.';
             } else {
                 $success_message = 'Your '. $product_name.' has been successfully cancelled, update is now complete. You can reactivate from
