@@ -27,14 +27,17 @@ if ( is_user_logged_in() ) {
         
         if ($_POST['upgrade']) {
             $product_id_value =  $_POST['upgrade'];
+            $action =            ( $product_id_value != 'cancel' ) ? 'upgrade-downgrade' : 'cancel' ;
         }
 
         if ($_POST['downgrade']) {
             $product_id_value =  $_POST['downgrade'];
+            $action =            ( $product_id_value != 'cancel' ) ? 'upgrade-downgrade' : 'cancel' ;
         }
 
         if ($_POST['reactivate']) {
             $product_id_value =  $_POST['reactivate'];
+            $action =            'reactivate';
         }
         
         $subscription_id =    $current_user->subscription_id;
@@ -56,7 +59,7 @@ if ( is_user_logged_in() ) {
         array_push($array, 'Content-Type: application/json;', 'Accept: application/json;', 'charset=utf-8;');
         
         /* Update, cancel or reactivate depending on users choice and status */
-        switch ($product_id_value) {
+        switch ($action) {
             case 'cancel':
                 $chargify_url = 'https://green-pages.chargify.com/subscriptions/' . $subscription_id .'.json';
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
@@ -67,7 +70,7 @@ if ( is_user_logged_in() ) {
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
                 $budget_status_value = 'active';
                 break;                
-            default:
+            case 'upgrade-downgrade':
                 $chargify_url = 'https://green-pages.chargify.com/subscriptions/' . $subscription_id .'/migrations.json';
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
