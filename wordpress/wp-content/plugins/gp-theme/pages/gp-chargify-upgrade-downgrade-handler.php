@@ -64,11 +64,13 @@ if ( is_user_logged_in() ) {
                 $chargify_url = 'https://green-pages.chargify.com/subscriptions/' . $subscription_id .'.json';
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
                 $budget_status_value = 'cancelled';
+                // TODO set all gp_advertorial posts to 'pending'
                 break;
             case 'reactivate':
                 $chargify_url = 'https://green-pages.chargify.com/subscriptions/' . $subscription_id .'/reactivate.json';
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
                 $budget_status_value = 'active';
+                // TODO set all gp_advertorial posts to 'publish'
                 break;                
             case 'upgrade-downgrade':
                 $chargify_url = 'https://green-pages.chargify.com/subscriptions/' . $subscription_id .'/migrations.json';
