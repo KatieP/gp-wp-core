@@ -15,7 +15,7 @@
 
 if ( is_user_logged_in() ) {
 
-    global $current_user;
+    global $current_user, $wpdb, $post;
     $user_id =   $current_user->ID;
     $site_url =  get_site_url();
 
@@ -63,14 +63,26 @@ if ( is_user_logged_in() ) {
             case 'cancel':
                 $chargify_url = 'https://green-pages.chargify.com/subscriptions/' . $subscription_id .'.json';
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+                // Set budget status to cancelled and all gp_advertorial posts to 'pending'
                 $budget_status_value = 'cancelled';
-                // TODO set all gp_advertorial posts to 'pending'
+                $post_status_sql =     'UPDATE wp_posts 
+                                        SET post_status = replace(post_status, "publish", "pending") 
+                                        WHERE post_status = "publish" 
+                                            AND post_type = "gp_advertorial" 
+                                            AND wp_posts.post_author = "' . $user_id . '";';
+                mysql_query($post_status_sql); 
                 break;
             case 'reactivate':
                 $chargify_url = 'https://green-pages.chargify.com/subscriptions/' . $subscription_id .'/reactivate.json';
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+                // Set budget status to active and all gp_advertorial posts to 'publish'
                 $budget_status_value = 'active';
-                // TODO set all gp_advertorial posts to 'publish'
+                $post_status_sql =     'UPDATE wp_posts 
+                                        SET post_status = replace(post_status, "pending", "publish") 
+                                        WHERE post_status = "pending" 
+                                            AND post_type = "gp_advertorial" 
+                                            AND wp_posts.post_author = "' . $user_id . '";';
+                mysql_query($post_status_sql); 
                 break;                
             case 'upgrade-downgrade':
                 $chargify_url = 'https://green-pages.chargify.com/subscriptions/' . $subscription_id .'/migrations.json';
