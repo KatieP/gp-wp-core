@@ -208,12 +208,11 @@ $site_url = get_site_url();
 	
 	<div id="ad-info" >
 	
-		<h1>How does greenpag.es advertising work?</h1>
 
-		<p>Greenpag.es offers an extremely effective kind of online advertising: you get to create your own editorial! 
-		We've learned over the years that product editorials receive over 1000 percent 
-		greater click through rates than common online ads such as banner ads, search ads on Google or Facebook ads. You create the 		
-		editorial post - we send it out to the greenpag.es members and you only pay for the clicks you receive in 
+		<p>Greenpages offers an extremely effective kind of online advertising: You get to create your own editorial!</p>
+		<p>We've learned over the years that product editorials receive over 1000 percent 
+		higher click-through-rates than common online ads such as website banner ads,  Google adwords or Facebook ads. You create the 		
+		editorial post - then we send it out to the Greenpages members. You only pay for the clicks you receive in 
 		cost-per-click model. No click, no payment! You can upgrade, downgrade or pause your advertiser plan at 
 		any time.</p>
 
@@ -241,47 +240,17 @@ $site_url = get_site_url();
 		<div>
 
 			<br /><br />
-			<h1><strong><a href="<?php echo $site_url;?>/about/media-kit/">Who reads greenpag.es?</a></a></strong></h1>
+			<h1><strong><a href="<?php echo $site_url;?>/about/media-kit/">Learn more about who reads greenpag.es?</a></a></strong></h1>
 			<br /><br />
 			
 			
-			<h1><strong><a name="directory">1. Monthly Editorials Subscription $39 / month</a></strong></h1>
+			<h1><strong><a name="directory">Monthly Product Editorial Subscription $12/week - $499/week </a></strong></h1>
 			<p>Be discovered by thousands of enthusiastic sustainability professionals and green consumers. 
-			This subscription allows you to create a sponsored editorial on greenpag.es every month! 
-			You should receive about 10 - 40 clicks from each editorial you post. 
+			This subscription allows you to create a sponsored editorials in our ’Products’ page as often as you desire! 
+			You should receive between 10 and 40 clicks from each editorial you post. 
 			You'll be able to check your clicks from your user profile.</p>
-	
-			<p>The subscription plan also includes a listing in The Green Pages Directory which lists over 10,000 environment and sustainability businesses. <a href="http://directory.thegreenpages.com.au/index.asp?page_id=105&amp;id=4608&amp;company_id=2050"   target="_blank">See an example page for Biome</a>. </p>
-			<div style="float: right; margin-top: 20px;">
-			    <iframe src="http://player.vimeo.com/video/41346738" frameborder="0" width="350" height="218"></iframe>
-			</div>
-	
-    		<p>The Directory Page includes:</p>
-			<ul>
-				<li>Website Link</li>
-				<li>All business contact details</li>
-				<li>150 words</li>
-				<li>Five images</li>
-				<li>Google Maps</li>
-				<li>Inquiry Form</li>
-			</ul>
-			<div id="my-advertise">
-				<div id="listing">
-				    <span>
-				        <a href="https://green-pages.chargify.com/h/3313295/subscriptions/new">
-				        
-					        <input type="button" value="Subscription $39/m" />
-					    </a>
-					</span>
-				</div>
-			</div>
-			<div class="clear"></div>
-		
-			<br /><br /><br />
-		
-			<h1><strong><a name="product">2. Product Post $89 / post</a></strong></h1>
-			<p>Perfect for one-off product promotions and press releases. 
-				You can post your own editorial in our ’Products’ page. Your post will be promoted to our 20,000 members, to our Facebook page, Twitter and will remain on the GP homepage for approximately one day. 
+			
+			<p>Perfect for one-off product promotions and press releases. Your post will be promoted to our 20,000 members, to our Facebook page, Twitter and will remain on the GP homepage for approximately one day. 
 				<a href="<?php echo $site_url;?>/eco-friendly-products/" target="_blank">See an example here.</a></p>
 				<div style="float: right; margin-top: 20px;">
 					<iframe src="http://player.vimeo.com/video/41352429" width="350" height="218" frameborder="0" 
@@ -310,7 +279,7 @@ $site_url = get_site_url();
 	
 				<br /><br /><br />
 	
-				<h1><strong><a name="email">3. Exclusive Email $3,500</a></strong></h1>
+				<h1><strong><a name="email">Exclusive Email $3,500</a></strong></h1>
 				<p> The most powerful means of gaining instant recognition by 20,000 of Australia’s environmental decision makers. 
 				We will send out a Green Pages endorsed email recommending your product or service as ‘Product of the Month’. 
 				This is a html email that can be tailored to your business with your own images, links and personal story. 
@@ -346,7 +315,7 @@ $site_url = get_site_url();
 				
 				<h1><strong>Ten reasons why Greenpag.es is a better deal that the other online advertising options</strong></h1>
 			
-				<p><strong>1. Google Adwords</strong> you are going to bid higher and higher to increase your click through rate. Only a small amount of clicks each 	week will be available to you. Some Google Ads are as high as $20 per click. <em>The GP difference: On Green Pages, the most you&#8217;ll pay is $3.90 per click and many advertisers get as low as $1 / click for products that are popular with the members. </em> 			</p>
+				<p><strong>1. Google Adwords</strong> you are going to bid higher and higher to increase your click through rate. Only a small amount of clicks each 	week will be available to you. Some Google Ads are as high as $20 per click. <em>The GP difference: We offer a very affordable flat rate of $1.70 - $1.90 per click. </em> 			</p>
 			
 				<p><strong>2. Facebook</strong> requires a minimum spend of $10 / day which amounts to about $300 / month which is quite steep for most small 			businesses. They require about a $2 &#8211; $3 per click spend. <em>The GP difference: On Green Pages, your minimum spend is $12 per week (1 tenth of Facebook!). Clicks on Green Pages work out on average, at lower cost than on Facebook.</em> </p>
 			

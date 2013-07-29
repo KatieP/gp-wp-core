@@ -71,7 +71,7 @@ $site_url = get_site_url();
                      if ( is_user_logged_in()  && $current_user->reg_advertiser == 1 ) {
                          echo $site_url .'/forms/create-product-post-subscriber/';
                      } else {
-                         echo $site_url .'/forms/create-product-post/';                         
+                         echo $site_url .'/advertisers/';                         
                      } 
                  ?>">
             <div class="inner-icon-container">
