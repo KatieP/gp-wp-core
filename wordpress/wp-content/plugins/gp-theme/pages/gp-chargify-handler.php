@@ -62,10 +62,12 @@ if ( is_user_logged_in() ) {
     $budget_status_value     = 'active';
     update_user_meta($user_id, $budget_status_key, $budget_status_value);
     
+    $product_name = get_product_name($product_id_value);
+    
     ?>
     <h1 name="heading">Excellent. Now you'll need to create your first post!</h1>
     <p>Your post will be shown around the site in the region that you set and remain in the products section of greepag.es. 
-    You will be billed for the clicks from this post at a maximum spend of <?php echo $product_handle_value; ?></p>
+    You will be billed for the clicks from this post at a maximum spend of <?php echo $product_name; ?></p>
     <p>Your first two posts will be approved by a GP team member within 24 hours of posting. After that, you can create 
     new product posts as often as you like and they'll be visible without the need for approval! 
     They will show on the site until your budget has been used for the week.</p>
