@@ -17,6 +17,7 @@ if ( is_user_logged_in() ) {
 
     global $current_user, $wpdb, $post;
     $user_id =   $current_user->ID;
+    $user_nicename =   $current_user->nicename;
     $site_url =  get_site_url();
 
     if ( ($_POST['upgrade']) || ($_POST['downgrade']) || ($_POST['reactivate']) ) {
@@ -126,9 +127,16 @@ if ( is_user_logged_in() ) {
             }
             
             ?><p><?php echo $success_message; ?></p>
-            <p>Thanks for using Green Pages!</p><?php 
+            <p>Thanks for using Green Pages!</p>
+            
+            <?php
+            echo '<p>Go back to your <href=" '.$site_url.'/profile/'.$user_nicename.' ">profile page</a></p>';
+            
+         
+         
+          
         } else {
-            ?><p>Uh oh, something whent wrong processing your adjustment!</p>
+            ?><p>Uh oh, something whet wrong processing your adjustment!</p>
             <p>Hit the back button on your browser to return to your profile page and try again.</p><?php 
         }    
 
@@ -136,8 +144,7 @@ if ( is_user_logged_in() ) {
 
 } else {
 
-    ?><p>Not sure how you got here without being logged in, head back to the <a href="<?php echo $site_url; ?>">home page</a>, 
-    there's nothing to see here.</p><?php
+    ?><p>Not sure how you got here without being logged in, head back to the <a href="<?php echo $site_url; ?>">home page</a></p><?php
 
 }
 ?>
