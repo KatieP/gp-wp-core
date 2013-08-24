@@ -8,9 +8,11 @@ if ( !is_user_logged_in() || ( is_user_logged_in() && $user_id != $profile_autho
 
 global $wpdb;
 
-$wpdb->hide_errors(); nocache_headers();
+$wpdb->hide_errors(); 
+nocache_headers();
  
-global $userdata; get_currentuserinfo();
+global $userdata; 
+get_currentuserinfo();
  
 if(!empty($_POST['action'])){
  
@@ -42,7 +44,6 @@ if(!empty($_POST['action'])){
 get_currentuserinfo();
 
 ?>
-
 <form name="profile" action="" method="post" enctype="multipart/form-data">
   <?php wp_nonce_field('update-profile_' . $user_ID) ?>
   <input type="hidden" name="from" value="profile" />
@@ -52,7 +53,7 @@ get_currentuserinfo();
   <input type="hidden" name="user_id" id="user_id" value="<?php echo $user_id; ?>" />
   <table width="100%" cellspacing="0" cellpadding="0" border="0">
   <?php if ( isset($_GET['updated']) ):
-$d_url = $_GET['d'];?>
+            $d_url = $_GET['d'];?>
     <tr>
       <td align="center" colspan="2"><span style="color: #FF0000; font-size: 11px;">Your email notifications have been changed successfully</span></td>
     </tr>
@@ -60,8 +61,7 @@ $d_url = $_GET['d'];?>
     <tr>
       <td align="center" colspan="2"><span style="color: #FF0000; font-size: 11px;"><?php echo $errmsg;?></span></td>
     </tr>
-    <?php endif;?>
-           
+    <?php endif;?>  
      <tr>
     	<td>
     	    <input type="radio" name="daily_email" id="daily_email" 
@@ -69,7 +69,6 @@ $d_url = $_GET['d'];?>
             <strong>Daily: 'The Green Laser'</strong> Get notified immediately of news, events and projects happening near you</td>
     <br />     
     </tr> 
-    
     <tr>
     	<td>
     		<input type="radio" name="weekly_email" id="weekly_email" value="<?php echo esc_attr( get_the_author_meta( 'weekly_email', $userdata->ID ) ); ?>"  />
@@ -77,14 +76,12 @@ $d_url = $_GET['d'];?>
         </td>
     </tr>
     <br />
-    
     <tr>
        <td>
      		<input type="radio" name="monthly_email" id="monthly_email" value="<?php echo esc_attr( get_the_author_meta( 'monthly_email', $userdata->ID ) ); ?>"  />
         	<strong>Monthly: 'The Green Phaser'</strong> The best of the Green Pages Community of the month
       	</td>
     </tr>
-        
     <tr>
       <td align="center" colspan="2"><input type="submit" value="Update" /></td>
     </tr>
