@@ -22,6 +22,8 @@ define( 'WP_ADMIN_DIR', ABSPATH . 'wp-admin' );
 //spl_autoload_register(function($class) {
     require_once( GP_PLUGIN_DIR . '/core/gp-functions.php' );
     require_once( GP_PLUGIN_DIR . '/core/gp-billing-functions.php' );
+    require_once( GP_PLUGIN_DIR . '/core/gp-gform-functions.php' );
+    require_once( GP_PLUGIN_DIR . '/core/gp-on-publish-functions.php' );
     require_once( GP_PLUGIN_DIR . '/core/gp-db.php' );
     require_once( GP_PLUGIN_DIR . '/core/gp-wp-admin.php' );
     require_once( GP_PLUGIN_DIR . '/core/gp-geonames.php' );
