@@ -238,8 +238,9 @@ function set_event_dates_lat_and_long($entry, $form) {
         
         }    
 
-        if ($post->post_type == 'gp_news') {
-
+        if ( ( $post->post_type == 'gp_news' ) || ( $post->post_type == 'gp_events' ) || 
+             ( $post->post_type == 'gp_advertorial' ) || ( $post->post_type == 'gp_projects' ) ) {
+        
             $location_meta_key = 	   'gp_google_geo_location';
             $lat_meta_key = 		   'gp_google_geo_latitude';
             $long_meta_key = 		   'gp_google_geo_longitude';
@@ -249,51 +250,79 @@ function set_event_dates_lat_and_long($entry, $form) {
             $admin_lvl_three_key = 	   'gp_google_geo_administrative_area_level_3';
             $locality_key = 		   'gp_google_geo_locality';
             $locality_slug_key = 	   'gp_google_geo_locality_slug';
+    
+            switch ($post->post_type) {
+                case 'gp_news':
+                    $edit_news_uri =           '/forms/update-news/?gform_post_id='. $post->ID;            
+                    $location_entry = 	       ( strpos( $_SERVER['REQUEST_URI'], $edit_news_uri ) === 0 ) ? '9'  : '8' ;
+                    $lat_entry = 		       ( strpos( $_SERVER['REQUEST_URI'], $edit_news_uri ) === 0 ) ? '10' : '9' ;
+                    $long_entry = 		       ( strpos( $_SERVER['REQUEST_URI'], $edit_news_uri ) === 0 ) ? '11' : '10';
+                    $country_entry = 	       ( strpos( $_SERVER['REQUEST_URI'], $edit_news_uri ) === 0 ) ? '12' : '11';
+                    $admin_lvl_one_entry = 	   ( strpos( $_SERVER['REQUEST_URI'], $edit_news_uri ) === 0 ) ? '13' : '12';
+                    $admin_lvl_two_entry = 	   ( strpos( $_SERVER['REQUEST_URI'], $edit_news_uri ) === 0 ) ? '14' : '13';
+                    $admin_lvl_three_entry =   ( strpos( $_SERVER['REQUEST_URI'], $edit_news_uri ) === 0 ) ? '15' : '14';
+                    $locality_entry = 		   ( strpos( $_SERVER['REQUEST_URI'], $edit_news_uri ) === 0 ) ? '16' : '15';
+                    $locality_slug_entry = 	   ( strpos( $_SERVER['REQUEST_URI'], $edit_news_uri ) === 0 ) ? '17' : '16';                
+                    break;
+                case 'gp_events':
+                    $location_entry = 	       '11';
+                    $lat_entry = 		       '12';
+                    $long_entry = 		       '13';
+                    $country_entry = 	       '14';
+                    $admin_lvl_one_entry = 	   '15';
+                    $admin_lvl_two_entry = 	   '16';
+                    $admin_lvl_three_entry =   '17';
+                    $locality_entry = 		   '18';
+                    $locality_slug_entry = 	   '19';
+                    break;
+                case 'gp_advertorial':
+                    $product_post_uri =        '/forms/create-product-post-subscriber/';            
+                    $location_entry = 	       ( strpos( $_SERVER['REQUEST_URI'], $product_post_uri ) === 0 ) ? '10' : '8' ;
+                    $lat_entry = 		       ( strpos( $_SERVER['REQUEST_URI'], $product_post_uri ) === 0 ) ? '11' : '9' ;
+                    $long_entry = 		       ( strpos( $_SERVER['REQUEST_URI'], $product_post_uri ) === 0 ) ? '12' : '10';
+                    $country_entry = 	       ( strpos( $_SERVER['REQUEST_URI'], $product_post_uri ) === 0 ) ? '13' : '11';
+                    $admin_lvl_one_entry = 	   ( strpos( $_SERVER['REQUEST_URI'], $product_post_uri ) === 0 ) ? '14' : '12';
+                    $admin_lvl_two_entry = 	   ( strpos( $_SERVER['REQUEST_URI'], $product_post_uri ) === 0 ) ? '15' : '13';
+                    $admin_lvl_three_entry =   ( strpos( $_SERVER['REQUEST_URI'], $product_post_uri ) === 0 ) ? '16' : '14';
+                    $locality_entry = 		   ( strpos( $_SERVER['REQUEST_URI'], $product_post_uri ) === 0 ) ? '17' : '15';
+                    $locality_slug_entry = 	   ( strpos( $_SERVER['REQUEST_URI'], $product_post_uri ) === 0 ) ? '18' : '16';                
+                    break;
+                case 'gp_projects':
+                    $location_entry = 	       '8' ;
+                    $lat_entry = 		       '9' ;
+                    $long_entry = 		       '10';
+                    $country_entry = 	       '11';
+                    $admin_lvl_one_entry = 	   '12';
+                    $admin_lvl_two_entry = 	   '13';
+                    $admin_lvl_three_entry =   '14';
+                    $locality_entry = 		   '15';
+                    $locality_slug_entry = 	   '16';
+                    break;                
+            }
             
-            $edit_news_uri =           '/forms/update-news/?gform_post_id='. $post->ID;
-            
-            $location_entry = 	       ( strpos($_SERVER['REQUEST_URI'], $edit_news_uri ) === 0 ) ? '9'  : '8' ;
-            $lat_entry = 		       ( strpos($_SERVER['REQUEST_URI'], $edit_news_uri ) === 0 ) ? '10' : '9' ;
-            $long_entry = 		       ( strpos($_SERVER['REQUEST_URI'], $edit_news_uri ) === 0 ) ? '11' : '10';
-            $country_entry = 	       ( strpos($_SERVER['REQUEST_URI'], $edit_news_uri ) === 0 ) ? '12' : '11';
-            $admin_lvl_one_entry = 	   ( strpos($_SERVER['REQUEST_URI'], $edit_news_uri ) === 0 ) ? '13' : '12';
-            $admin_lvl_two_entry = 	   ( strpos($_SERVER['REQUEST_URI'], $edit_news_uri ) === 0 ) ? '14' : '13';
-            $admin_lvl_three_entry =   ( strpos($_SERVER['REQUEST_URI'], $edit_news_uri ) === 0 ) ? '15' : '14';
-            $locality_entry = 		   ( strpos($_SERVER['REQUEST_URI'], $edit_news_uri ) === 0 ) ? '16' : '15';
-            $locality_slug_entry = 	   ( strpos($_SERVER['REQUEST_URI'], $edit_news_uri ) === 0 ) ? '17' : '16';              
-            
-            $original_location =       $entry[$location_entry];
-            $original_lat =            $entry[$lat_entry];
-            $original_long =           $entry[$long_entry];
-            $original_country =        $entry[$country_entry];
-            $original_admin_1 =        $entry[$admin_lvl_one_entry];
-            $original_admin_2 =        $entry[$admin_lvl_two_entry];
-            $original_admin_3 =        $entry[$admin_lvl_three_entry];
-            $original_locality =       $entry[$locality_entry];
-            $original_locality_slug =  $entry[$locality_slug_entry];
-        
-            update_post_meta($post_id, $location_meta_key, $original_location); 
-            update_post_meta($post_id, $lat_meta_key, $original_lat);
-            update_post_meta($post_id, $long_meta_key, $original_long);
-            update_post_meta($post_id, $country_meta_key, $original_country); 
-            update_post_meta($post_id, $admin_lvl_one_key, $original_admin_1); 
-            update_post_meta($post_id, $admin_lvl_two_key, $original_admin_2); 
-            update_post_meta($post_id, $admin_lvl_three_key, $original_admin_3); 
-            update_post_meta($post_id, $locality_key, $original_locality);
-            update_post_meta($post_id, $locality_slug_key, $original_locality_slug);            
-        }
-            
-        $post_lat  =       (float) get_post_meta($post_id, $lat_meta_key, true);
-        $post_long =       (float) get_post_meta($post_id, $long_meta_key, true);
-            
-    	// update the post, with lat and long as decimal
-		$table =           'wp_posts';
-		$data =            array( 'post_latitude' => $post_lat, 'post_longitude' => $post_long );
-		$where =           array( 'ID' => $post_id );
-		$format =          array( '%s', '%s' );
-   
-        $wpdb->update($table, $data, $where, $format);     
+            update_post_meta($post_id, $location_meta_key,   $entry[$location_entry]); 
+            update_post_meta($post_id, $lat_meta_key,        $entry[$lat_entry]);
+            update_post_meta($post_id, $long_meta_key,       $entry[$long_entry]);
+            update_post_meta($post_id, $country_meta_key,    $entry[$country_entry]); 
+            update_post_meta($post_id, $admin_lvl_one_key,   $entry[$admin_lvl_one_entry]); 
+            update_post_meta($post_id, $admin_lvl_two_key,   $entry[$admin_lvl_two_entry]); 
+            update_post_meta($post_id, $admin_lvl_three_key, $entry[$admin_lvl_three_entry]); 
+            update_post_meta($post_id, $locality_key,        $entry[$locality_entry]);
+            update_post_meta($post_id, $locality_slug_key,   $entry[$locality_slug_entry]);
+                
+            $post_lat  =       (float) get_post_meta($post_id, $lat_meta_key, true);
+            $post_long =       (float) get_post_meta($post_id, $long_meta_key, true);
+                
+        	// update the post, with lat and long as decimal
+    		$table =           'wp_posts';
+    		$data =            array( 'post_latitude' => $post_lat, 'post_longitude' => $post_long );
+    		$where =           array( 'ID' => $post_id );
+    		$format =          array( '%s', '%s' );
+       
+            $wpdb->update($table, $data, $where, $format);     
 
+        }
+        
         add_action("gform_after_submission", "set_event_dates_lat_and_long", 10, 2);    
 	}
 }
