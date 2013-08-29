@@ -6,8 +6,8 @@ class Geo {
 	public static function init() {
 	    global $wpdb;
 	    
-	    $clientip = false;                // Production
-	    #$clientip = '58.109.255.255';     // AU example
+	    #$clientip = false;                // Production
+	    $clientip = '58.109.255.255';     // AU example
 	    #$clientip = '62.49.255.255';      // UK example
 	    #$clientip = '16.255.255.255';     // US example
 	    #$clientip = '24.71.255.255';      // CA example
