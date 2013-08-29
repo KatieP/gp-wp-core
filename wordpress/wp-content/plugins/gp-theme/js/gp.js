@@ -363,66 +363,64 @@ $(document).ready(function() {
 	});
 });
 
-	function show_location_field() {
-		document.getElementById("header_location_field").className = "";
-		document.getElementById("header_user_location").className = "hidden";
-	}
+function show_location_field() {
+	document.getElementById("header_location_field").className = "";
+	document.getElementById("header_user_location").className = "hidden";
+}
 
-	function hide_location_field() {
-		document.getElementById("header_location_field").className = "hidden";
-		document.getElementById("header_user_location").className = "";
-	}
+function hide_location_field() {
+	document.getElementById("header_location_field").className = "hidden";
+	document.getElementById("header_user_location").className = "";
+}
 
-	function show_login_to_upvote(x) {
-        var nodes = x.childNodes, i = 0, j = 0;
+function show_login_to_upvote(x) {
+    var nodes = x.childNodes, i = 0, j = 0;
 
-        for (i = 0; i < nodes.length; i++) {
-        	switch ( nodes[i].className ) {
-        	    case 'favourite-profile':
-        	    	child_nodes = nodes[i].childNodes;
-        	    	for (j = 0; j < child_nodes.length; j++) {
-                    	switch ( child_nodes[j].className ) {
-                    	    case 'upvote-login':
-                    	    	child_nodes[j].style.display = 'inline';
-                        	    break;
-                    	    case 'af-icon-chevron-up':
-                    	    	child_nodes[j].style.display = 'none';
-                        	    break;
-                    	    case 'af-icon-chevron-up-number':
-                    	    	child_nodes[j].style.display = 'none';
-                        	    break;
-                    	}
-                    }        	    	
-            	    break;
-        	}
-        }    
-	}
+    for (i = 0; i < nodes.length; i++) {
+       	switch ( nodes[i].className ) {
+       	    case 'favourite-profile':
+       	    	child_nodes = nodes[i].childNodes;
+       	    	for (j = 0; j < child_nodes.length; j++) {
+                   	switch ( child_nodes[j].className ) {
+                   	    case 'upvote-login':
+                   	    	child_nodes[j].style.display = 'inline';
+                       	    break;
+                   	    case 'af-icon-chevron-up':
+                   	    	child_nodes[j].style.display = 'none';
+                       	    break;
+                   	    case 'af-icon-chevron-up-number':
+                   	    	child_nodes[j].style.display = 'none';
+                       	    break;
+                   	}
+                }        	    	
+           	    break;
+       	}
+    }    
+}
 
-	function hide_login_to_upvote(x) {
-        var nodes = x.childNodes, i = 0, j = 0;
+function hide_login_to_upvote(x) {
+    var nodes = x.childNodes, i = 0, j = 0;
 
-        for (i = 0; i < nodes.length; i++) {
-        	switch ( nodes[i].className ) {
-        	    case 'favourite-profile':
-        	    	child_nodes = nodes[i].childNodes;
-
-        	    	for (j = 0; j < child_nodes.length; j++) {
-                    	switch ( child_nodes[j].className ) {
-                    	    case 'upvote-login':
-                    	    	child_nodes[j].style.display = 'none';
-                        	    break;
-                    	    case 'af-icon-chevron-up':
-                    	    	child_nodes[j].style.display = 'inline';
-                        	    break;
-                    	    case 'af-icon-chevron-up-number':
-                        	    if (child_nodes[j].innerHTML != '0') {
-                				    child_nodes[j].style.display = 'inline';
-                        	    }
-                        	    break;
-                    	}
-                    }    
-        	    	
-            	    break;
-        	}
-        }         
-	} 
+    for (i = 0; i < nodes.length; i++) {
+       	switch ( nodes[i].className ) {
+       	    case 'favourite-profile':
+       	    	child_nodes = nodes[i].childNodes;
+       	    	for (j = 0; j < child_nodes.length; j++) {
+                   	switch ( child_nodes[j].className ) {
+                   	    case 'upvote-login':
+                   	    	child_nodes[j].style.display = 'none';
+                       	    break;
+                   	    case 'af-icon-chevron-up':
+                   	    	child_nodes[j].style.display = 'inline';
+                       	    break;
+                   	    case 'af-icon-chevron-up-number':
+                       	    if (child_nodes[j].innerHTML != '0') {
+               				    child_nodes[j].style.display = 'inline';
+                       	    }
+                       	    break;
+                   	}
+                }            	    	
+           	    break;
+       	}
+    }         
+} 
