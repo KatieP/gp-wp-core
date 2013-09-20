@@ -381,7 +381,7 @@ function theme_profile_analytics($profile_pid) {
 	
 	if ( ( ( is_user_logged_in() ) && ( $current_user->ID == $profile_author->ID ) ) || get_user_role( array('administrator') ) ) {} else {return;}
 
-	require 'ga/analytics.class.php';
+	require '../../../themes/gp-au-theme/ga/analytics.class.php';
 	
 	$total = "SELECT COUNT(*) as count 
 			FROM $wpdb->posts " . 
