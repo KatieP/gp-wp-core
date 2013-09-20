@@ -10,6 +10,95 @@
  *
  */
 
+ /* SHOW MEMBERS POSTS */
+function theme_profile_posts($profile_pid, $post_page, $post_tab, $post_type) {
+	// note: Favourites are viewable by everyone!
+	
+	$profile_author = get_user_by('slug', $profile_pid);
+	
+	global $wpdb, $post, $current_user, $gp;
+	$geo_currentlocation = $gp->location;
+	$ns_loc = $gp->location['country_iso2'] . '\\Edition';
+	$edition_posttypes = $ns_loc::getPostTypes();
+	
+	if ( strtolower($post_type) == "directory" ) {
+		theme_profile_directory($profile_pid);
+		return;	
+	}
+	
+	$post_type_filter = "";
+	$post_type_key = getPostTypeID_by_Slug($post_type);
+	if ( $post_type_key ) {
+		$post_type_filter = "" . $wpdb->prefix . "posts.post_type = '{$post_type_key}'";
+	} else {
+		foreach ($edition_posttypes as $value) {
+		    if ( $value['enabled'] === true ) {
+			    $post_type_filter .= $wpdb->prefix . "posts.post_type = '{$value['id']}' or ";
+		    }
+		}
+		$post_type_filter = substr($post_type_filter, 0, -4);
+	}
+		
+	$total = "SELECT DISTINCT COUNT(*) as count 
+			  FROM $wpdb->posts 
+			  WHERE 
+		        post_status = 'publish' and 
+				(" . $post_type_filter . ")	and " . 
+				$wpdb->prefix . "posts.post_author = '" . $profile_author->ID . "'";			
+					
+	$totalposts = $wpdb->get_results($total, OBJECT);
+	$ppp = 10;
+	$wp_query->found_posts = $totalposts[0]->count;
+	$wp_query->max_num_pages = ceil($wp_query->found_posts / $ppp);	
+	$on_page = $post_page;
+
+	if($on_page == 0){ $on_page = 1; }		
+	$offset = ($on_page-1) * $ppp;
+		
+	$querystr = "SELECT DISTINCT " . $wpdb->prefix . "posts.* 
+				 FROM $wpdb->posts
+				 WHERE 
+		            post_status = 'publish' and 
+					(" . $post_type_filter . ")	and " . 
+					$wpdb->prefix . "posts.post_author = '" . $profile_author->ID . "' 
+				ORDER BY " . $wpdb->prefix . "posts.post_date DESC 
+				LIMIT " . $ppp . " 
+				OFFSET " . $offset .";";				
+
+	$pageposts = $wpdb->get_results($querystr, OBJECT);
+		
+	if ( $post_type_key ) {
+		foreach ($edition_posttypes as $newposttype) {
+			if ( $newposttype['enabled'] === true ) {
+				if ($newposttype['id'] == $post_type_key) {$post_type_name = " " . $newposttype['name'];}
+			}
+		}
+	}
+		
+	if ( ( is_user_logged_in() ) && ( $current_user->ID == $profile_author->ID ) || get_user_role( array('administrator') ) ) {
+		echo "<div class=\"total-posts\"><span>{$wp_query->found_posts}</span>{$post_type_name} Posts";
+		gp_select_createpost();
+		echo "</div>";
+	} else {
+		echo "<div class=\"total-posts\"><span>{$wp_query->found_posts}</span>{$post_type_name} Posts</div>";
+	}
+		
+	if ($pageposts) {
+		$post_author_url = get_author_posts_url($profile_author->ID);
+			
+		foreach ($pageposts as $post) {
+			
+			setup_postdata($post);
+			theme_index_feed_item();
+				
+		}
+			
+		if ( $wp_query->max_num_pages > 1 ) {
+			theme_tagnumpagination( $on_page, $wp_query->max_num_pages, $post_tab, $post_type );
+		}
+	}	
+}
+ 
 /* SHOW MEMBERS FAVOURITE POSTS */
 function theme_profile_favourites($profile_pid, $post_page, $post_tab, $post_type) {
 
@@ -767,6 +856,28 @@ function theme_profile_analytics($profile_pid) {
     	?>		
 	</div>
 <?php 
+}
+
+/* SHOW MEMBERS FOLLOWING MEMBERSHIP */
+function theme_profile_following($profile_pid) {
+	// note: Favourites are viewable by everyone!
+	
+	echo "
+	<div class=\"total-posts\">
+		<span>0</span> Following
+	</div>
+	";
+}
+
+/* SHOW MEMBERS TOPIC MEMBERSHIP */
+function theme_profile_topics($profile_pid) {
+	// note: Favourites are viewable by everyone!
+	
+	echo "
+	<div class=\"total-posts\">
+		<span>0</span> Topics
+	</div>
+	";	
 }
 
 ?>
