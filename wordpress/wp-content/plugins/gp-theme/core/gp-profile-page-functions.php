@@ -375,13 +375,14 @@ function theme_profile_directory($profile_pid) {
 function theme_profile_analytics($profile_pid) {
 	global $wpdb, $post, $current_user;
 
-	$profile_author = get_user_by('slug', $profile_pid);
-	$profile_author_id = $profile_author->ID;
-    $site_url = get_site_url();
+	$profile_author =     get_user_by('slug', $profile_pid);
+	$profile_author_id =  $profile_author->ID;
+    $site_url =           get_site_url();
+    $template_url =       get_bloginfo('template_url');
 	
 	if ( ( ( is_user_logged_in() ) && ( $current_user->ID == $profile_author->ID ) ) || get_user_role( array('administrator') ) ) {} else {return;}
 
-	require '../../../themes/gp-au-theme/ga/analytics.class.php';
+	require $template_url .'/ga/analytics.class.php';
 	
 	$total = "SELECT COUNT(*) as count 
 			FROM $wpdb->posts " . 
