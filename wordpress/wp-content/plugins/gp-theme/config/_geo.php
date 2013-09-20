@@ -6,8 +6,8 @@ class Geo {
 	public static function init() {
 	    global $wpdb;
 	    
-	    $clientip = false;                // Production
-	    #$clientip = '58.109.255.255';     // AU example
+	    #$clientip = false;                // Production
+	    $clientip = '58.109.255.255';     // AU example
 	    #$clientip = '62.49.255.255';      // UK example
 	    #$clientip = '16.255.255.255';     // US example
 	    #$clientip = '24.71.255.255';      // CA example
@@ -16,7 +16,7 @@ class Geo {
 	    #$clientip = '60.243.255.255';     // IN example
 	    #$clientip = '62.161.255.255';     // FR example
 	    
-	    $current_location = getLocationByIP( $clientip );
+	    $current_location = getLocationByIP($clientip);
 	    
 	    $site_editions = Site::getEditions();
 	    

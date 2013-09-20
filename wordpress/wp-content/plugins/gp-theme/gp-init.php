@@ -4,7 +4,7 @@ Plugin Name: Green Pages: Theme Plugin
 Plugin URI: http://www.thegreenpages.com.au/
 Description: Extra settings, forms, etc for the Green Pages theme.
 Version: 0.1
-Author: Eddy Respondek
+Authors: Eddy Respondek, Katie Patrick, Jesse Browne
 Author URI:
 License:
 */
@@ -19,36 +19,32 @@ define( 'GP_PLUGIN_DIR', WP_PLUGIN_DIR . '/gp-theme' );
 define( 'GP_PLUGIN_URL', plugins_url( '/gp-theme' ) );
 define( 'WP_ADMIN_DIR', ABSPATH . 'wp-admin' );
 
-//spl_autoload_register(function($class) {
-    require_once( GP_PLUGIN_DIR . '/core/gp-functions.php' );
-    require_once( GP_PLUGIN_DIR . '/core/gp-billing-functions.php' );
-    require_once( GP_PLUGIN_DIR . '/core/gp-gform-functions.php' );
-    require_once( GP_PLUGIN_DIR . '/core/gp-on-publish-functions.php' );
-    require_once( GP_PLUGIN_DIR . '/core/gp-db.php' );
-    require_once( GP_PLUGIN_DIR . '/core/gp-wp-admin.php' );
-    require_once( GP_PLUGIN_DIR . '/core/gp-geonames.php' );
-    require_once( GP_PLUGIN_DIR . '/core/gp-maxmind.php' );
-    require_once( GP_PLUGIN_DIR . '/core/gp-debian-isocodes.php' );
-    require_once( GP_PLUGIN_DIR . '/config/_site.php' );
-    require_once( GP_PLUGIN_DIR . '/config/_geo.php' );
+require_once( GP_PLUGIN_DIR . '/core/gp-functions.php' );
+require_once( GP_PLUGIN_DIR . '/core/gp-billing-functions.php' );
+require_once( GP_PLUGIN_DIR . '/core/gp-gform-functions.php' );
+require_once( GP_PLUGIN_DIR . '/core/gp-on-publish-functions.php' );
+require_once( GP_PLUGIN_DIR . '/core/gp-profile-page-functions.php' );
+require_once( GP_PLUGIN_DIR . '/core/gp-db.php' );
+require_once( GP_PLUGIN_DIR . '/core/gp-wp-admin.php' );
+require_once( GP_PLUGIN_DIR . '/core/gp-geonames.php' );
+require_once( GP_PLUGIN_DIR . '/core/gp-maxmind.php' );
+require_once( GP_PLUGIN_DIR . '/core/gp-debian-isocodes.php' );
+require_once( GP_PLUGIN_DIR . '/config/_site.php' );
+require_once( GP_PLUGIN_DIR . '/config/_geo.php' );
 
-    global $gp;
-    $geo_currentlocation = Geo::getCurrentLocation();
-    $gp->location = $geo_currentlocation;
+global $gp;
+$geo_currentlocation = Geo::getCurrentLocation();
+$gp->location = $geo_currentlocation;
 
-    define( 'SELECTED_COUNTRY', $geo_currentlocation['country_iso2'] );
+define( 'SELECTED_COUNTRY', $geo_currentlocation['country_iso2'] );
     
-    require_once( GP_PLUGIN_DIR . '/editions/' . SELECTED_COUNTRY . '.php' );
-//});
-
-//spl_autoload_register(function($class) {
-    require_once( GP_PLUGIN_DIR . '/core/gp-geo.php' );
-    require_once( GP_PLUGIN_DIR . '/core/gp-email-notification.php' );
-    require_once( GP_PLUGIN_DIR . '/core/gp-campaignmonitor.php' );
-    require_once( GP_PLUGIN_DIR . '/core/gp-metaboxes.php' );
-    require_once( GP_PLUGIN_DIR . '/pages/gp-shortcodes.php' );
-    require_once( GP_PLUGIN_DIR . '/core/gp-legacy.php' );
-//});
+require_once( GP_PLUGIN_DIR . '/editions/' . SELECTED_COUNTRY . '.php' );
+require_once( GP_PLUGIN_DIR . '/core/gp-geo.php' );
+require_once( GP_PLUGIN_DIR . '/core/gp-email-notification.php' );
+require_once( GP_PLUGIN_DIR . '/core/gp-campaignmonitor.php' );
+require_once( GP_PLUGIN_DIR . '/core/gp-metaboxes.php' );
+require_once( GP_PLUGIN_DIR . '/pages/gp-shortcodes.php' );
+require_once( GP_PLUGIN_DIR . '/core/gp-legacy.php' );
 
 add_action('init', 'gp_set_core_globals');
 add_action('admin_init', 'gp_run_updates');
@@ -66,8 +62,7 @@ add_action('init', 'gp_session_handler');
 
 remove_action('wp_head', 'wp_generator');
 
-function default_login_redirect( $redirect, $request_redirect )
-{
+function default_login_redirect( $redirect, $request_redirect ) {
     if ( $request_redirect === '' )
         $redirect = home_url();
     return $redirect;
