@@ -728,6 +728,7 @@ function get_display_posts($sortable_posts, $offset = null, $ppp = null) {
     $post_authors =          array();
     $max_posts_per_author =  4;
     $max_posts =             ( $offset != null && $ppp != null ) ? 300 : 20 ;
+    $previous_post_author =  '';
     $i =                     0;
 
     foreach ( $sortable_posts as $post ) {
