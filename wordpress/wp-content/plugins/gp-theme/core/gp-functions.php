@@ -733,7 +733,7 @@ function get_display_posts($sortable_posts, $offset = null, $ppp = null) {
     foreach ( $sortable_posts as $post ) {
 
         if ($i == $max_posts) { break; }
-        setup_postdata($post);
+        // setup_postdata($post);
 
         if ( $previous_post_author != $post->post_author ) {		         
 		    if ( array_key_exists($post->post_author, $post_authors) ) {
